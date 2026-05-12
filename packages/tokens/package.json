@@ -1,0 +1,10 @@
+{
+  "name": "@ctos/tokens",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".":          "./tokens.js",
+    "./css":      "./tokens.css",
+    "./json":     "./design-tokens.json"
+  }
+}

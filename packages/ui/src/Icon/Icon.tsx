@@ -1,0 +1,82 @@
+import type { SVGProps } from 'react'
+
+export type IconName =
+  | 'check' | 'close' | 'chevron-down' | 'chevron-up' | 'chevron-left' | 'chevron-right'
+  | 'arrow-right' | 'arrow-left' | 'search' | 'user' | 'shield' | 'star'
+  | 'bell' | 'info' | 'warning' | 'error' | 'eye' | 'eye-off'
+  | 'download' | 'upload' | 'edit' | 'trash' | 'copy' | 'link'
+  | 'home' | 'menu' | 'more-horizontal' | 'plus' | 'minus' | 'refresh'
+  | 'credit-card' | 'lock' | 'unlock' | 'chart' | 'document' | 'mail'
+
+export const iconNames: IconName[] = [
+  'check','close','chevron-down','chevron-up','chevron-left','chevron-right',
+  'arrow-right','arrow-left','search','user','shield','star',
+  'bell','info','warning','error','eye','eye-off',
+  'download','upload','edit','trash','copy','link',
+  'home','menu','more-horizontal','plus','minus','refresh',
+  'credit-card','lock','unlock','chart','document','mail',
+]
+
+const paths: Record<IconName, string> = {
+  'check':           'M20 6L9 17l-5-5',
+  'close':           'M18 6L6 18M6 6l12 12',
+  'chevron-down':    'M6 9l6 6 6-6',
+  'chevron-up':      'M18 15l-6-6-6 6',
+  'chevron-left':    'M15 18l-6-6 6-6',
+  'chevron-right':   'M9 18l6-6-6-6',
+  'arrow-right':     'M5 12h14M12 5l7 7-7 7',
+  'arrow-left':      'M19 12H5M12 19l-7-7 7-7',
+  'search':          'M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z',
+  'user':            'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+  'shield':          'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  'star':            'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  'bell':            'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0',
+  'info':            'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 8h.01M12 12v4',
+  'warning':         'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01',
+  'error':           'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM15 9l-6 6M9 9l6 6',
+  'eye':             'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+  'eye-off':         'M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22',
+  'download':        'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3',
+  'upload':          'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12',
+  'edit':            'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z',
+  'trash':           'M3 6h18M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2',
+  'copy':            'M20 9h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zM5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1',
+  'link':            'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71',
+  'home':            'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10',
+  'menu':            'M3 12h18M3 6h18M3 18h18',
+  'more-horizontal': 'M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM19 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM5 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2z',
+  'plus':            'M12 5v14M5 12h14',
+  'minus':           'M5 12h14',
+  'refresh':         'M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15',
+  'credit-card':     'M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM1 10h22',
+  'lock':            'M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM7 11V7a5 5 0 0 1 10 0v4',
+  'unlock':          'M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM7 11V7a5 5 0 0 1 9.9-1',
+  'chart':           'M18 20V10M12 20V4M6 20v-6',
+  'document':        'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8',
+  'mail':            'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6',
+}
+
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  name:    IconName
+  size?:   number
+  color?:  string
+}
+
+export function Icon({ name, size = 20, color = 'currentColor', ...rest }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-label={name}
+      {...rest}
+    >
+      <path d={paths[name]} />
+    </svg>
+  )
+}

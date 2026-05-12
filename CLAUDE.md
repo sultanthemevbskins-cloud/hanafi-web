@@ -69,17 +69,55 @@ If a token doesn't exist for what you need → add it to `design-tokens.json` fi
 │  → Re-run npm run sync                                          │
 │  → Re-check Storybook                                           │
 │  → Re-update Figma Design System page (Step 3)                 │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 6 — push to GitHub  ⚠️ NOT automatic — must be done manually
+       │  • git add <changed files>
+       │  • git commit -m "feat/fix/chore: description"
+       │  • If new feature → create branch + PR:
+       │      git checkout -b feat/<name>
+       │      git push -u origin feat/<name>
+       │      open PR against main
+       │  • If small fix → push directly to main:
+       │      git push origin main
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  GitHub — sultanthemevbskins-cloud/hanafi-designsystem          │
+│  • PR review → merge into main                                  │
+│  • Direct push to main also triggers deploy                     │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 7 — Vercel auto-deploys  ✅ AUTOMATIC on every push to main
+       │  • No manual action needed after merge / push to main
+       │  • Build: npm run build-storybook
+       │  • Live URL: https://hanafi-designsystem.vercel.app
+       │  • Preview URL auto-created for every open PR branch
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Storybook — hanafi-designsystem.vercel.app  (live, public)     │
+│  • Designers and devs always see the latest merged design system │
+│  • PR preview URL lets you review before merging                │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ### Quick reference — what to run after each change
 
-| What changed | Commands to run |
-|---|---|
-| Token value in `design-tokens.json` | `npm run sync` in hanafi-claude-shop → check Storybook → update Figma DS page |
-| New component added to ctos-web | Add story to `stories/*.stories.jsx` → update Figma DS page |
-| Component visual update | Update story → update Figma DS page |
-| Font / colour standardisation | Update `design-tokens.json` → sync → update stories → update Figma DS page |
+| What changed | Commands to run | Push needed? | Vercel auto-deploys? |
+|---|---|---|---|
+| Token value in `design-tokens.json` | `npm run sync` → check Storybook → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
+| New component added to ctos-web | Add story to `stories/*.stories.jsx` → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
+| Component visual update | Update story → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
+| Font / colour standardisation | Update `design-tokens.json` → sync → update stories → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
+| Figma DS page only (no code change) | Use `mcp__figma__use_figma` — no commit needed | ❌ No | ❌ No (Figma only) |
+
+### Push & deploy rules
+
+| Action | Manual? | Notes |
+|---|---|---|
+| `git commit` + `git push` | ✅ Manual | Claude does this when asked, or you run it yourself |
+| Vercel build + deploy | ✅ Automatic | Triggers the moment any commit lands on `main` |
+| PR preview deploy | ✅ Automatic | Vercel creates a unique preview URL for every PR branch |
+| Merge PR → main | ✅ Manual | You (or Claude) must merge — Vercel then auto-deploys |
 
 ---
 
@@ -125,11 +163,12 @@ In Tailwind, map to the closest configured colour class or use the CSS variable 
 
 ## Typography Rules
 
-**One font family only: Poppins.** Do not use Manrope, Plus Jakarta Sans, Inter, or any other font.
+**Two font families only: Poppins (primary) and Parkinsans (card descriptions).**
 
-| Family    | Tailwind class   | Use for              |
-|-----------|------------------|----------------------|
-| `Poppins` | `font-poppins`   | Everything           |
+| Family       | Tailwind class      | Use for                                              |
+|--------------|---------------------|------------------------------------------------------|
+| `Poppins`    | `font-poppins`      | All headings, labels, UI text, CTAs, nav — default   |
+| `Parkinsans` | `font-parkinsans`   | Card body descriptions in MarketSegments section only|
 
 Type scale — always use these sizes and weights, never arbitrary values:
 

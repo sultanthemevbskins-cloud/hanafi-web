@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
+  "buildCommand": "npm run sync && npm run build-storybook",
+  "outputDirectory": "storybook-static",
+  "framework": null,
   "installCommand": "npm install"
 }

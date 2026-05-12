@@ -1,0 +1,140 @@
+{
+  "_meta": {
+    "project": "CTOS Web",
+    "figma": "MpHkBNWSBKa2wUanFty8uX",
+    "version": "1.0.0",
+    "description": "Single source of truth for all CTOS Web design tokens. Edit here — run `npm run sync` in hanafi-claude-shop to push to Storybook."
+  },
+
+  "colors": {
+    "brand": {
+      "blueLagoon":  { "value": "#007B85", "role": "Primary / button fill" },
+      "darkTeal":    { "value": "#055157", "role": "Button hover / dark bg" },
+      "cerulean":    { "value": "#0BB1BE", "role": "Accent / gradient / focus ring" },
+      "firefly":     { "value": "#102A2E", "role": "Deep dark text / header bg" }
+    },
+    "accent": {
+      "buttercup":   { "value": "#F15D22", "role": "Orange CTA / hover text" },
+      "saffron":     { "value": "#F2B530", "role": "Amber / gradient end" }
+    },
+    "text": {
+      "dark":        { "value": "#111827", "role": "Headings" },
+      "body":        { "value": "#374151", "role": "Body copy" },
+      "muted":       { "value": "#6B7280", "role": "Secondary / helper text" },
+      "subtle":      { "value": "#9CA3AF", "role": "Placeholder / caption" },
+      "white":       { "value": "#FFFFFF", "role": "On dark/teal backgrounds" }
+    },
+    "surface": {
+      "white":       { "value": "#FFFFFF", "role": "Default surface" },
+      "bgLight":     { "value": "#F9FAFB", "role": "Page / card background" },
+      "bgMid":       { "value": "#F3F4F6", "role": "Pressed / active state" },
+      "bgTealTint":  { "value": "rgba(0,123,133,0.08)", "role": "Teal tinted surface" },
+      "darkGrad1":   { "value": "#1F1F1F", "role": "Header button gradient top" },
+      "darkGrad2":   { "value": "#0E0E0E", "role": "Header button gradient bottom" }
+    },
+    "border": {
+      "light":       { "value": "#E5E7EB", "role": "Dividers / card borders" },
+      "mid":         { "value": "#D1D5DB", "role": "Input borders" },
+      "dark":        { "value": "#2A2A2A", "role": "Header button border" },
+      "teal":        { "value": "#007B85", "role": "Focus ring / active border" },
+      "error":       { "value": "#EF4444", "role": "Error state border" }
+    },
+    "semantic": {
+      "success":     { "value": "#10B981", "role": "Success state" },
+      "warning":     { "value": "#F59E0B", "role": "Warning state" },
+      "error":       { "value": "#EF4444", "role": "Error state" },
+      "info":        { "value": "#3B82F6", "role": "Info state" }
+    }
+  },
+
+  "typography": {
+    "families": {
+      "primary":   { "value": "'Poppins', sans-serif",     "use": "All headings, labels, UI text, CTAs — default font across the product" },
+      "secondary": { "value": "'Parkinsans', sans-serif",  "use": "Card body descriptions in market segment cards only (Trusted Intelligence section)" }
+    },
+    "scale": {
+      "heroDisplay":  { "family": "Poppins", "size": 40, "weight": 700, "lineHeight": 120 },
+      "heroSub":      { "family": "Poppins", "size": 16, "weight": 400, "lineHeight": 160 },
+      "sectionTitle": { "family": "Poppins", "size": 28, "weight": 700, "lineHeight": 130 },
+      "cardTitle":    { "family": "Poppins", "size": 18, "weight": 600, "lineHeight": 130 },
+      "cardSubtitle": { "family": "Poppins", "size": 15, "weight": 500, "lineHeight": 140 },
+      "body":         { "family": "Poppins", "size": 14, "weight": 400, "lineHeight": 170 },
+      "bodyEmphasis": { "family": "Poppins", "size": 14, "weight": 600, "lineHeight": 170 },
+      "small":        { "family": "Poppins", "size": 12, "weight": 400, "lineHeight": 160 },
+      "label":        { "family": "Poppins", "size": 11, "weight": 600, "lineHeight": 140, "letterSpacing": 0.8 },
+      "caption":      { "family": "Poppins", "size": 10, "weight": 400, "lineHeight": 150 }
+    }
+  },
+
+  "spacing": {
+    "1":  { "value": 4,  "use": "Icon gap, tight inline padding" },
+    "2":  { "value": 8,  "use": "Button icon gap, small padding" },
+    "3":  { "value": 12, "use": "Badge padding, small input padding" },
+    "4":  { "value": 16, "use": "Default padding, input y-padding" },
+    "5":  { "value": 20, "use": "Button x-padding, card gap" },
+    "6":  { "value": 24, "use": "Section inner padding" },
+    "8":  { "value": 32, "use": "Card padding, grid gap" },
+    "10": { "value": 40, "use": "Section vertical gap" },
+    "12": { "value": 48, "use": "Large section gap, hero padding" },
+    "16": { "value": 64, "use": "Page section gap" },
+    "20": { "value": 80, "use": "Hero section gap, large page breaks" }
+  },
+
+  "radius": {
+    "sm":   { "value": 6,   "use": "Tags, badges, small chips" },
+    "md":   { "value": 8,   "use": "Toggle pills, inputs" },
+    "card": { "value": 10,  "use": "Hero buttons, input boxes" },
+    "lg":   { "value": 12,  "use": "Cards, panels, modals" },
+    "xl":   { "value": 16,  "use": "Large cards, feature blocks" },
+    "2xl":  { "value": 20,  "use": "Sheets, bottom panels" },
+    "pill": { "value": 999, "use": "CTA buttons, header buttons" }
+  },
+
+  "shadows": {
+    "xs":     { "value": "0 1px 2px rgba(0,0,0,0.06)",                           "use": "Subtle card border lift" },
+    "sm":     { "value": "0 1px 4px rgba(0,0,0,0.08)",                           "use": "Input field, small card" },
+    "md":     { "value": "0 4px 12px rgba(0,0,0,0.10)",                          "use": "Card default" },
+    "lg":     { "value": "0 8px 24px rgba(0,0,0,0.12)",                          "use": "Modal, panel, dropdown" },
+    "xl":     { "value": "0 16px 40px rgba(0,0,0,0.14)",                         "use": "Overlay, sheet" },
+    "button": { "value": "0 8px 12px rgba(0,0,0,0.18)",                          "use": "CTA buttons" },
+    "hero":   { "value": "0 4px 20px rgba(0,0,0,0.18)",                          "use": "Hero slide buttons" },
+    "teal":   { "value": "0 8px 24px rgba(0,123,133,0.30)",                      "use": "Teal-glow button hover" },
+    "inner":  { "value": "inset 0 1px 3px rgba(0,0,0,0.08)",                     "use": "Pressed / active states" },
+    "focus":  { "value": "0 0 0 3px rgba(0,123,133,0.30)",                       "use": "Keyboard focus ring" }
+  },
+
+  "breakpoints": {
+    "sm":  { "value": 640,  "use": "Mobile landscape" },
+    "md":  { "value": 768,  "use": "Tablet" },
+    "lg":  { "value": 1024, "use": "Small desktop" },
+    "xl":  { "value": 1280, "use": "Desktop" },
+    "2xl": { "value": 1536, "use": "Wide desktop" }
+  },
+
+  "animation": {
+    "duration": {
+      "instant": { "value": "100ms", "use": "Icon swap, opacity flicker" },
+      "fast":    { "value": "150ms", "use": "Button hover, color transitions" },
+      "normal":  { "value": "300ms", "use": "Panel open, tooltip" },
+      "slow":    { "value": "500ms", "use": "Slide/page transitions" },
+      "slower":  { "value": "800ms", "use": "Hero animations" }
+    },
+    "easing": {
+      "default":  { "value": "cubic-bezier(0.4, 0, 0.2, 1)", "use": "Standard easing (Material)" },
+      "in":       { "value": "cubic-bezier(0.4, 0, 1, 1)",   "use": "Entering elements" },
+      "out":      { "value": "cubic-bezier(0, 0, 0.2, 1)",   "use": "Exiting elements" },
+      "bounce":   { "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "use": "Playful bounce (hero icons)" }
+    }
+  },
+
+  "zIndex": {
+    "base":     { "value": 0,    "use": "Default stacking" },
+    "raised":   { "value": 10,   "use": "Cards, sticky elements" },
+    "dropdown": { "value": 20,   "use": "Dropdowns, tooltips" },
+    "overlay":  { "value": 30,   "use": "Backdrop overlays" },
+    "panel":    { "value": 40,   "use": "Side panels, drawers" },
+    "modal":    { "value": 50,   "use": "Modals, dialogs" },
+    "toast":    { "value": 60,   "use": "Toast notifications" },
+    "max":      { "value": 9999, "use": "Always on top (dev tools)" }
+  }
+}
