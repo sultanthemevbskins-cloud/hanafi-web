@@ -82,15 +82,15 @@ If a token doesn't exist for what you need → add it to `design-tokens.json` fi
        │      git push origin main
        ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  GitHub — sultanthemevbskins-cloud/hanafi-designsystem          │
+│  GitHub — sultanthemevbskins-cloud/hanafi-web  (monorepo)       │
 │  • PR review → merge into main                                  │
 │  • Direct push to main also triggers deploy                     │
 └──────┬──────────────────────────────────────────────────────────┘
        │
        │  STEP 7 — Vercel auto-deploys  ✅ AUTOMATIC on every push to main
-       │  • No manual action needed after merge / push to main
-       │  • Build: npm run build-storybook
-       │  • Live URL: https://hanafi-designsystem.vercel.app
+       │  • Storybook build: npm run sync && npm run build-storybook
+       │  • App build: cd apps/web && npm run build
+       │  • Live Storybook URL: https://hanafi-designsystem.vercel.app
        │  • Preview URL auto-created for every open PR branch
        ▼
 ┌─────────────────────────────────────────────────────────────────┐
@@ -319,25 +319,48 @@ Tailwind-compatible, mobile-first.
 
 ---
 
-## Project Stack
+## Project Stack (Monorepo — Option B)
 
-- **Framework:** React 18 + Vite + TypeScript
-- **Styling:** Tailwind CSS v3 + custom CSS in `src/index.css`
-- **Fonts:** Poppins, Plus Jakarta Sans, Manrope (Google Fonts)
-- **Icons:** Custom SVG line icons in `src/components/Icon/`
-- **Components:** `src/components/` — each in its own folder
-- **Design System:** `design-tokens.json` → synced to Storybook via `npm run sync`
+```
+ctos-web/                        ← monorepo root (one git repo)
+  packages/
+    tokens/                      ← @ctos/tokens  design-tokens.json + sync script
+    ui/                          ← @ctos/ui       Button, Badge, Input, Icon
+  apps/
+    web/                         ← @ctos/web      React 18 + Vite + TypeScript
+  .storybook/ + stories/         ← Storybook 10   lives at monorepo root
+```
+
+- **Framework:** React 18 + Vite + TypeScript (`apps/web/`)
+- **Styling:** Tailwind CSS v3 + custom CSS in `apps/web/src/index.css`
+- **Fonts:** Poppins (primary), Parkinsans (card descriptions), Plus Jakarta Sans, Manrope
+- **Icons:** `packages/ui/src/Icon/Icon.tsx` — 32 SVG line icons, exported as `@ctos/ui`
+- **Shared components:** `packages/ui/src/` — Button, Badge, Input, Icon
+- **Page components:** `apps/web/src/components/` — Hero, Header, Pricing, Footer, etc.
+- **Design tokens:** `packages/tokens/design-tokens.json` → `npm run sync` → `tokens.js` + `tokens.css`
+- **Storybook:** `stories/*.stories.jsx` — imports from `@ctos/ui` and `@ctos/tokens`
+- **GitHub:** `sultanthemevbskins-cloud/hanafi-web`
+- **Vercel Storybook:** `hanafi-designsystem.vercel.app` (root build)
 
 ## File conventions
 
-- One component per folder: `ComponentName/ComponentName.tsx`
-- Styles in `src/index.css` using `@layer components` for reusable classes
-- No CSS modules — use Tailwind + `index.css` custom classes only
+- Shared UI: `packages/ui/src/ComponentName/ComponentName.tsx` + `index.ts`
+- Page-level: `apps/web/src/components/ComponentName.tsx`
+- Styles in `apps/web/src/index.css` using `@layer components`
+- No CSS modules — Tailwind + `index.css` only
 - TypeScript strict mode — no `any` types
 
-## When adding a new component
+## When adding a new reusable UI component
 
-1. Check `design-tokens.json` — all values must already exist as tokens
-2. Use existing button/input/badge patterns from `src/components/`
-3. Add the component to Storybook (`hanafi-claude-shop/stories/`)
-4. Verify in Storybook that every colour maps to a named token
+1. Check `packages/tokens/design-tokens.json` — values must exist as tokens first
+2. Create `packages/ui/src/ComponentName/ComponentName.tsx` + `index.ts`
+3. Export from `packages/ui/src/index.ts`
+4. Add story to `stories/ComponentName.stories.jsx` — import from `@ctos/ui`
+5. Verify in Storybook every colour maps to a named token
+6. Commit + push → Vercel auto-deploys updated Storybook
+
+## When adding a new page-level component
+
+1. Create in `apps/web/src/components/ComponentName.tsx`
+2. Import reusable primitives from `@ctos/ui` (not local paths)
+3. Update Figma Design System page if the layout introduces new patterns
