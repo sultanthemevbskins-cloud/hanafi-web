@@ -4,9 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-        manrope: ['Manrope', 'sans-serif'],
-        jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+        poppins:    ['Poppins', 'sans-serif'],
+        manrope:    ['Manrope', 'sans-serif'],
+        jakarta:    ['"Plus Jakarta Sans"', 'sans-serif'],
+        lato:       ['Lato', 'sans-serif'],
       },
 
       // ── Design-system colour tokens ─────────────────────────────────────

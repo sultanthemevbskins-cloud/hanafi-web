@@ -1,4 +1,4 @@
-﻿const imgConsumer   = 'https://www.figma.com/api/mcp/asset/ae2f7ba8-ce86-4ff6-9f44-4982be5c92a2'
+const imgConsumer   = 'https://www.figma.com/api/mcp/asset/ae2f7ba8-ce86-4ff6-9f44-4982be5c92a2'
 const imgCommercial = 'https://www.figma.com/api/mcp/asset/903a9637-a41b-4161-a1e5-faf941fb5a90'
 const imgCorporate  = 'https://www.figma.com/api/mcp/asset/f66eee15-9964-4755-b552-968dbc7ecfff'
 const imgFiBanks    = 'https://www.figma.com/api/mcp/asset/80cdb8c7-c939-47bd-b40d-627fb9922ca9'
@@ -10,7 +10,7 @@ const segments = [
     image: imgConsumer,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d2efe0 100%)',
     desc: 'Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.',
-    cta: 'Get free report â†’',
+    cta: 'Get free report →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -18,7 +18,7 @@ const segments = [
     image: imgCommercial,
     gradient: 'linear-gradient(144deg, #ffe9d0 0%, #fcd0ab 100%)',
     desc: 'SMEs and traders, search 1.3M+ companies, run litigation checks, and screen partners for compliance risk.',
-    cta: 'Search companies â†’',
+    cta: 'Search companies →',
     ctaColor: 'text-[#f15d22]',
   },
   {
@@ -26,7 +26,7 @@ const segments = [
     image: imgCorporate,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d6ccfa 100%)',
     desc: 'Bulk credit decisioning, KYC, AML screening, and portfolio monitoring for large enterprises and conglomerates.',
-    cta: 'Talk to sales â†’',
+    cta: 'Talk to sales →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -34,7 +34,7 @@ const segments = [
     image: imgFiBanks,
     gradient: 'linear-gradient(144deg, #eaecef 0%, #c8d5f8 100%)',
     desc: 'CCRIS integration, real-time API data services, score analytics, and end-to-end loan origination workflows.',
-    cta: 'Request a demo â†’',
+    cta: 'Request a demo →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -42,7 +42,7 @@ const segments = [
     image: imgGlobal,
     gradient: 'linear-gradient(144deg, #d7efe2 0%, #bce3ce 100%)',
     desc: 'Cross-border credit intelligence across ASEAN, sanctions, PEP screening, and international business reports.',
-    cta: 'Explore markets â†’',
+    cta: 'Explore markets →',
     ctaColor: 'text-[#007b85]',
   },
 ]
@@ -96,17 +96,17 @@ export default function MarketSegments() {
 
               {/* Content */}
               <div className="flex flex-col flex-1 px-5 py-5 gap-0">
-                {/* Card title â€” Poppins Bold 18px */}
+                {/* Card title — Poppins Bold 18px */}
                 <h3 className="font-poppins font-bold text-[18px] text-[#102a2e] leading-[28px] tracking-[-0.3px] mb-3">
                   {seg.name}
                 </h3>
 
-                {/* Card description â€” Parkinsans Regular 13px (design change from Figma node 171:533) */}
-                <p className="font-lato font-normal text-[13px] text-[#374151] leading-[20px] flex-1 mb-4">
+                {/* Card description — Parkinsans Regular 13px (design change from Figma node 171:533) */}
+                <p className="font-parkinsans font-normal text-[13px] text-[#374151] leading-[20px] flex-1 mb-4">
                   {seg.desc}
                 </p>
 
-                {/* CTA link â€” Poppins SemiBold 13px */}
+                {/* CTA link — Poppins SemiBold 13px */}
                 <span className={`font-poppins font-semibold text-[13px] leading-[20px] ${seg.ctaColor}`}>
                   {seg.cta}
                 </span>
@@ -118,4 +118,3 @@ export default function MarketSegments() {
     </section>
   )
 }
-

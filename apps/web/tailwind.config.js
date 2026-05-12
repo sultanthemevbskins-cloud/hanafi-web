@@ -7,7 +7,7 @@ export default {
         poppins:    ['Poppins', 'sans-serif'],
         manrope:    ['Manrope', 'sans-serif'],
         jakarta:    ['"Plus Jakarta Sans"', 'sans-serif'],
-        parkinsans: ['Parkinsans', 'sans-serif'],
+        lato:       ['Lato', 'sans-serif'],
       },
 
       // ── Design-system colour tokens ─────────────────────────────────────

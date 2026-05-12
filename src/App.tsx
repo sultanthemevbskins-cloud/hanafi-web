@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import ContactUs from './components/ContactUs'
 import Pricing from './components/Pricing'
 import AppPromo from './components/AppPromo'
+import MarketSegments from './components/MarketSegments'
 import Footer from './components/Footer'
 import SecureIDPanel from './components/SecureIDPanel'
 import CreditReportPanel from './components/CreditReportPanel'
@@ -44,6 +45,7 @@ export default function App() {
             <ContactUs onClose={() => setContactOpen(false)} />
           </div>
         </div>
+        <MarketSegments />
         <Pricing onSubscribe={openPanel} onGetCreditReport={() => setCreditPanelOpen(true)} />
         <AppPromo />
       </main>

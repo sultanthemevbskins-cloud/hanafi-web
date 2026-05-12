@@ -163,12 +163,12 @@ In Tailwind, map to the closest configured colour class or use the CSS variable 
 
 ## Typography Rules
 
-**Two font families only: Poppins (primary) and Parkinsans (card descriptions).**
+**Two font families only: Poppins (primary) and Lato (card descriptions).**
 
-| Family       | Tailwind class      | Use for                                              |
-|--------------|---------------------|------------------------------------------------------|
-| `Poppins`    | `font-poppins`      | All headings, labels, UI text, CTAs, nav — default   |
-| `Parkinsans` | `font-parkinsans`   | Card body descriptions in MarketSegments section only|
+| Family    | Tailwind class  | Use for                                              |
+|-----------|-----------------|------------------------------------------------------|
+| `Poppins` | `font-poppins`  | All headings, labels, UI text, CTAs, nav — default   |
+| `Lato`    | `font-lato`     | Card body descriptions in MarketSegments section only|
 
 Type scale — always use these sizes and weights, never arbitrary values:
 
@@ -333,7 +333,7 @@ ctos-web/                        ← monorepo root (one git repo)
 
 - **Framework:** React 18 + Vite + TypeScript (`apps/web/`)
 - **Styling:** Tailwind CSS v3 + custom CSS in `apps/web/src/index.css`
-- **Fonts:** Poppins (primary), Parkinsans (card descriptions), Plus Jakarta Sans, Manrope
+- **Fonts:** Poppins (primary), Lato (card descriptions), Plus Jakarta Sans, Manrope
 - **Icons:** `packages/ui/src/Icon/Icon.tsx` — 32 SVG line icons, exported as `@ctos/ui`
 - **Shared components:** `packages/ui/src/` — Button, Badge, Input, Icon
 - **Page components:** `apps/web/src/components/` — Hero, Header, Pricing, Footer, etc.

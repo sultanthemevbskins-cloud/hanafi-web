@@ -7,7 +7,7 @@ export default {
 };
 
 const P  = 'Poppins, sans-serif';
-const PK = 'Parkinsans, sans-serif';
+const L  = 'Lato, sans-serif';
 
 const lbl  = { fontFamily: P, fontSize: 11, fontWeight: 600, color: '#007B85', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 6, display: 'block' };
 const meta = { fontFamily: P, fontSize: 11, color: '#9CA3AF', marginTop: 4, display: 'block' };
@@ -20,7 +20,7 @@ export const TypeScale = {
     <div style={{ fontFamily: P, maxWidth: 860, padding: 32 }}>
       <h1 style={{ fontFamily: P, fontSize: 28, fontWeight: 700, color: '#111827', marginBottom: 4 }}>Typography System</h1>
       <p style={{ fontFamily: P, fontSize: 14, color: '#9CA3AF', marginBottom: 40 }}>
-        Two font families — <strong>Poppins</strong> (primary, all UI) and <strong>Parkinsans</strong> (card body descriptions only). Hierarchy is expressed through weight and size.
+        Two font families — <strong>Poppins</strong> (primary, all UI) and <strong>Lato</strong> (card body descriptions only). Hierarchy is expressed through weight and size.
       </p>
 
       {/* Hero Display */}
@@ -123,14 +123,14 @@ export const TypeScale = {
       <span style={meta}>Poppins Regular · 10px · lh 150% · Timestamps, footnotes, data source labels</span>
       <hr style={hr} />
 
-      {/* Parkinsans — Card Description */}
-      <span style={lbl}>Card Description (Parkinsans)</span>
+      {/* Lato — Card Description */}
+      <span style={lbl}>Card Description (Lato)</span>
       <div style={{ background: '#F9FAFB', borderRadius: 10, padding: '20px 24px', marginBottom: 8 }}>
-        <span style={{ fontFamily: PK, fontWeight: 400, fontSize: 13, color: '#374151', lineHeight: 1.54, display: 'block' }}>
+        <span style={{ fontFamily: L, fontWeight: 400, fontSize: 13, color: '#374151', lineHeight: 1.54, display: 'block' }}>
           Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.
         </span>
       </div>
-      <span style={meta}>Parkinsans Regular · 13px · lh 154% · Card body descriptions in Market Segments section only</span>
+      <span style={meta}>Lato Regular · 13px · lh 154% · Card body descriptions in Market Segments section only</span>
     </div>
   ),
 };
@@ -198,11 +198,11 @@ export const FontFamily = {
         </div>
       </div>
 
-      {/* Parkinsans card */}
+      {/* Lato card */}
       <div style={{ flex: '1 1 440px', background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: 12, overflow: 'hidden' }}>
         <div style={{ height: 4, background: '#0BB1BE' }} />
         <div style={{ padding: 28 }}>
-          <p style={{ fontFamily: PK, fontSize: 40, fontWeight: 700, color: '#0BB1BE', margin: '0 0 8px', lineHeight: 1 }}>Parkinsans</p>
+          <p style={{ fontFamily: L, fontSize: 40, fontWeight: 700, color: '#0BB1BE', margin: '0 0 8px', lineHeight: 1 }}>Lato</p>
           <p style={{ fontFamily: P, fontSize: 13, fontWeight: 500, color: '#374151', margin: '0 0 4px' }}>Secondary typeface · Card descriptions only</p>
           <p style={{ fontFamily: P, fontSize: 11, color: '#9CA3AF', margin: '0 0 20px' }}>Regular · Medium · SemiBold · Bold</p>
           <hr style={{ border: 'none', borderTop: '1px solid #E5E7EB', margin: '16px 0' }} />
@@ -219,7 +219,7 @@ export const FontFamily = {
           ].map(({ w, label }) => (
             <div key={w} style={{ marginBottom: 10 }}>
               <span style={{ fontFamily: P, fontSize: 9, color: '#9CA3AF', display: 'block', marginBottom: 2 }}>{label}</span>
-              <span style={{ fontFamily: PK, fontSize: 16, fontWeight: w, color: '#111827', letterSpacing: '0.5px' }}>
+              <span style={{ fontFamily: L, fontSize: 16, fontWeight: w, color: '#111827', letterSpacing: '0.5px' }}>
                 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
               </span>
             </div>

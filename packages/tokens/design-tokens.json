@@ -50,7 +50,7 @@
   "typography": {
     "families": {
       "primary":   { "value": "'Poppins', sans-serif",     "use": "All headings, labels, UI text, CTAs — default font across the product" },
-      "secondary": { "value": "'Parkinsans', sans-serif",  "use": "Card body descriptions in market segment cards only (Trusted Intelligence section)" }
+      "secondary": { "value": "'Lato', sans-serif",  "use": "Card body descriptions in market segment cards only (Trusted Intelligence section)" }
     },
     "scale": {
       "heroDisplay":  { "family": "Poppins", "size": 40, "weight": 700, "lineHeight": 120 },
