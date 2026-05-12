@@ -19,21 +19,24 @@ If a token doesn't exist for what you need → add it to `design-tokens.json` fi
                          │  designer makes visual changes
                          ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  design-tokens.json  (repo root)                                │
+│  packages/tokens/design-tokens.json  (monorepo canonical)       │
 │  ← SINGLE SOURCE OF TRUTH — edit values here only              │
 └──────┬──────────────────────────────────────────────────────────┘
        │
-       │  STEP 1 — npm run sync  (in hanafi-claude-shop)
+       │  STEP 1 — npm run sync  (at monorepo root: ctos-web/)
        ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  hanafi-claude-shop/src/tokens.js   (auto-generated)            │
-│  hanafi-claude-shop/src/tokens.css  (auto-generated)            │
+│  packages/tokens/tokens.js   (auto-generated — @ctos/tokens)    │
+│  packages/tokens/tokens.css  (auto-generated — CSS variables)   │
 └──────┬──────────────────────────────────────────────────────────┘
        │
-       │  STEP 2 — update Storybook stories
-       │  • tokens.js/css auto-update via sync
-       │  • If component structure changes → update stories/*.stories.jsx manually
-       │  • Stories must reflect the latest token names and component states
+       │  STEP 2 — update code in monorepo
+       │  • apps/web/src/components/  ← component source files
+       │  • apps/web/tailwind.config.js  ← font/colour utility classes
+       │  • apps/web/index.html  ← Google Fonts <link> tags
+       │  • stories/*.stories.jsx  ← Storybook stories (import from @ctos/ui)
+       │  • packages/ui/src/  ← shared React components (@ctos/ui)
+       │  • If token/font changes → update all four above
        ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │  Storybook  localhost:6006  (living component library)          │
@@ -102,13 +105,14 @@ If a token doesn't exist for what you need → add it to `design-tokens.json` fi
 
 ### Quick reference — what to run after each change
 
-| What changed | Commands to run | Push needed? | Vercel auto-deploys? |
-|---|---|---|---|
-| Token value in `design-tokens.json` | `npm run sync` → check Storybook → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
-| New component added to ctos-web | Add story to `stories/*.stories.jsx` → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
-| Component visual update | Update story → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
-| Font / colour standardisation | Update `design-tokens.json` → sync → update stories → update Figma DS page | ✅ Yes — commit + push | ✅ Yes, on merge to main |
-| Figma DS page only (no code change) | Use `mcp__figma__use_figma` — no commit needed | ❌ No | ❌ No (Figma only) |
+| What changed | Files to edit | Commands to run | Push? | Vercel? |
+|---|---|---|---|---|
+| Token value (colour, spacing, shadow…) | `packages/tokens/design-tokens.json` | `npm run sync` → check Storybook → update Figma DS page | ✅ Yes | ✅ Auto |
+| Font family change | `packages/tokens/design-tokens.json` + `apps/web/tailwind.config.js` + `apps/web/index.html` + component files | `npm run sync` → update stories → update Figma DS page | ✅ Yes | ✅ Auto |
+| New shared component | `packages/ui/src/` + `packages/ui/src/index.ts` | Add story `stories/*.stories.jsx` → update Figma DS page | ✅ Yes | ✅ Auto |
+| App component visual update | `apps/web/src/components/` | Update story → update Figma DS page | ✅ Yes | ✅ Auto |
+| Storybook story only | `stories/*.stories.jsx` | Check `npm run storybook` locally | ✅ Yes | ✅ Auto |
+| Figma DS page only (no code change) | — | Use `mcp__figma__use_figma` — no commit needed | ❌ No | ❌ No |
 
 ### Push & deploy rules
 
