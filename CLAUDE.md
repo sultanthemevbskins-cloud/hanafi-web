@@ -1,0 +1,304 @@
+# CTOS Web — Claude Code Instructions
+
+## Design Token Rule (CRITICAL)
+**Never use raw hex values, hardcoded font sizes, or magic numbers.**
+Every colour, spacing value, radius, shadow, z-index and duration must map to a named token from `design-tokens.json`.
+
+An invented hex value (e.g. `#3a7bd5`, `text-[13px]`, `rounded-[7px]`) is a bug.
+If a token doesn't exist for what you need → add it to `design-tokens.json` first, then use it.
+
+---
+
+## Complete Design Workflow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Figma — Page 1 "CTOS web"  (source of design intent)          │
+│  figma.com/design/MpHkBNWSBKa2wUanFty8uX                       │
+└────────────────────────┬────────────────────────────────────────┘
+                         │  designer makes visual changes
+                         ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  design-tokens.json  (repo root)                                │
+│  ← SINGLE SOURCE OF TRUTH — edit values here only              │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 1 — npm run sync  (in hanafi-claude-shop)
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  hanafi-claude-shop/src/tokens.js   (auto-generated)            │
+│  hanafi-claude-shop/src/tokens.css  (auto-generated)            │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 2 — update Storybook stories
+       │  • tokens.js/css auto-update via sync
+       │  • If component structure changes → update stories/*.stories.jsx manually
+       │  • Stories must reflect the latest token names and component states
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Storybook  localhost:6006  (living component library)          │
+│  • Visual verification — every colour must map to a token       │
+│  • Invented hex in render = bug, fix in design-tokens.json      │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 3 — update Figma Design System page
+       │  • Use mcp__figma__use_figma on file MpHkBNWSBKa2wUanFty8uX
+       │  • Target page: "Design System" (node-id 198-2)
+       │  • Mirror any token/component changes from steps 1–2
+       │  • Keep in sync with Storybook stories
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Figma — Page 2 "Design System"                                 │
+│  figma.com/design/MpHkBNWSBKa2wUanFty8uX?node-id=198-2        │
+│  • Buttons · Colours · Spacing · Radius · Typography            │
+│  • Input · Badge · Icons · Shadows · Animation · Z-index        │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 4 — Claude reads CLAUDE.md before writing any code
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  CLAUDE.md  ←  "use token names, never raw hex"                 │
+│  Claude writes code referencing token names from this file      │
+└──────┬──────────────────────────────────────────────────────────┘
+       │
+       │  STEP 5 — verify render in Storybook
+       ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Mismatch found?                                                │
+│  → Update design-tokens.json  (not the component, not the hex) │
+│  → Re-run npm run sync                                          │
+│  → Re-check Storybook                                           │
+│  → Re-update Figma Design System page (Step 3)                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Quick reference — what to run after each change
+
+| What changed | Commands to run |
+|---|---|
+| Token value in `design-tokens.json` | `npm run sync` in hanafi-claude-shop → check Storybook → update Figma DS page |
+| New component added to ctos-web | Add story to `stories/*.stories.jsx` → update Figma DS page |
+| Component visual update | Update story → update Figma DS page |
+| Font / colour standardisation | Update `design-tokens.json` → sync → update stories → update Figma DS page |
+
+---
+
+## Token Source of Truth
+
+**File:** `design-tokens.json` (repo root)
+**Figma Page 1:** https://www.figma.com/design/MpHkBNWSBKa2wUanFty8uX/CTOS-web (source of design)
+**Figma Page 2:** https://www.figma.com/design/MpHkBNWSBKa2wUanFty8uX/CTOS-web?node-id=198-2 (Design System)
+**Storybook:** http://localhost:6006 (run `npm run sync` in `hanafi-claude-shop` to push token changes)
+
+When tokens change:
+1. Edit `design-tokens.json`
+2. Run `npm run sync` in `hanafi-claude-shop` → regenerates `tokens.js` + `tokens.css`
+3. Storybook hot-reloads automatically
+
+---
+
+## Colour Tokens
+
+Use the semantic name, not the hex.
+
+| Token name       | Value       | Use when…                                  |
+|------------------|-------------|--------------------------------------------|
+| `blueLagoon`     | `#007B85`   | Primary buttons, links, icons              |
+| `darkTeal`       | `#055157`   | Button hover, dark backgrounds             |
+| `cerulean`       | `#0BB1BE`   | Accent, gradients, focus rings             |
+| `firefly`        | `#102A2E`   | Deep dark text, header bg                  |
+| `buttercup`      | `#F15D22`   | Orange CTAs, hover text                    |
+| `saffron`        | `#F2B530`   | Amber, gradient end                        |
+| `text.dark`      | `#111827`   | Headings                                   |
+| `text.body`      | `#374151`   | Body copy                                  |
+| `text.muted`     | `#6B7280`   | Secondary / helper text                    |
+| `text.subtle`    | `#9CA3AF`   | Placeholders, captions                     |
+| `surface.bgLight`| `#F9FAFB`   | Page / card backgrounds                    |
+| `surface.bgMid`  | `#F3F4F6`   | Pressed / active state backgrounds         |
+| `border.light`   | `#E5E7EB`   | Dividers, card borders                     |
+| `border.mid`     | `#D1D5DB`   | Input borders                              |
+| `border.error`   | `#EF4444`   | Error state borders                        |
+
+In Tailwind, map to the closest configured colour class or use the CSS variable `--ctos-<tokenName>`.
+
+---
+
+## Typography Rules
+
+**One font family only: Poppins.** Do not use Manrope, Plus Jakarta Sans, Inter, or any other font.
+
+| Family    | Tailwind class   | Use for              |
+|-----------|------------------|----------------------|
+| `Poppins` | `font-poppins`   | Everything           |
+
+Type scale — always use these sizes and weights, never arbitrary values:
+
+| Token           | Size  | Weight         | Use                          |
+|-----------------|-------|----------------|------------------------------|
+| `heroDisplay`   | 40px  | 700 (Bold)     | Hero slide H1                |
+| `heroSub`       | 16px  | 400 (Regular)  | Hero slide subtext           |
+| `sectionTitle`  | 28px  | 700 (Bold)     | Section headings             |
+| `cardTitle`     | 18px  | 600 (SemiBold) | Card / panel headings        |
+| `cardSubtitle`  | 15px  | 500 (Medium)   | Pricing, feature subtitles   |
+| `body`          | 14px  | 400 (Regular)  | General body copy            |
+| `bodyEmphasis`  | 14px  | 600 (SemiBold) | Highlighted body text        |
+| `small`         | 12px  | 400 (Regular)  | Helper text, disclaimers     |
+| `label`         | 11px  | 600 (SemiBold) | Tags, badges, section labels |
+| `caption`       | 10px  | 400 (Regular)  | Timestamps, footnotes        |
+
+---
+
+## Spacing Rules
+
+Base unit: **4px**. All spacing is a multiple of 4.
+
+| Token      | px  | Tailwind    | Use                              |
+|------------|-----|-------------|----------------------------------|
+| `space-1`  | 4   | `p-1 / gap-1`  | Icon gap, tight inline padding |
+| `space-2`  | 8   | `p-2 / gap-2`  | Button icon gap, small padding |
+| `space-3`  | 12  | `p-3 / gap-3`  | Badge padding, input padding   |
+| `space-4`  | 16  | `p-4 / gap-4`  | Default padding, input y-pad   |
+| `space-5`  | 20  | `p-5 / gap-5`  | Button x-padding, card gap     |
+| `space-6`  | 24  | `p-6 / gap-6`  | Section inner padding          |
+| `space-8`  | 32  | `p-8 / gap-8`  | Card padding, grid gap         |
+| `space-10` | 40  | `p-10`         | Section vertical gap           |
+| `space-12` | 48  | `p-12`         | Large section gap              |
+| `space-16` | 64  | `p-16`         | Page section gap               |
+| `space-20` | 80  | `p-20`         | Hero section gap               |
+
+---
+
+## Border Radius Rules
+
+| Token        | px   | Tailwind           | Use                              |
+|--------------|------|--------------------|----------------------------------|
+| `radius-sm`  | 6    | `rounded-md`       | Tags, badges, chips              |
+| `radius-md`  | 8    | `rounded-lg`       | Toggle pills, small inputs       |
+| `radius-card`| 10   | `rounded-[10px]`   | Hero buttons, input boxes        |
+| `radius-lg`  | 12   | `rounded-xl`       | Cards, panels, modals            |
+| `radius-xl`  | 16   | `rounded-2xl`      | Large cards, feature blocks      |
+| `radius-2xl` | 20   | `rounded-[20px]`   | Sheets, bottom panels            |
+| `radius-pill`| 999  | `rounded-full`     | CTA buttons, header buttons      |
+
+---
+
+## Button Components
+
+Four variants — never create a fifth without adding it to `design-tokens.json` first.
+
+### Hero Button (`btn-hero` in `index.css`)
+- Background: `#FFFFFF` → hover: `#F9FAFB`
+- Text: `blueLagoon` (`#007B85`) → hover: `#F58220` (orange)
+- Radius: `radius-card` (10px)
+- Shadow: `shadow-hero` (`0 4px 20px rgba(0,0,0,0.18)`)
+- Font: Poppins SemiBold 14px
+- Padding: `py-[13px] px-[22px]`
+
+### Primary CTA Button (`btn-cta-pricing` in `index.css`)
+- Background: `blueLagoon` → hover: `darkTeal`
+- Text: white
+- Radius: `radius-pill` (999px)
+- Shadow: `shadow-button` (`0 8px 12px rgba(0,0,0,0.18)`)
+- Font: Plus Jakarta Sans ExtraBold 14px, letter-spacing 0.3px
+
+### Header Sign-In Button (`btn-header` in `index.css`)
+- Background: dark gradient (`#1F1F1F` → `#0E0E0E`)
+- Border: `border.dark` (`#2A2A2A`)
+- Text: white
+- Radius: `radius-pill` (999px)
+- Font: Plus Jakarta Sans Bold 13px
+
+### Link Button (`btn-link` in `index.css`)
+- Background: none
+- Text: `blueLagoon` → hover: `buttercup`
+- Font: Manrope Bold 14px
+
+---
+
+## Shadow Rules
+
+| Token           | Value                                   | Use                   |
+|-----------------|-----------------------------------------|-----------------------|
+| `shadow-xs`     | `0 1px 2px rgba(0,0,0,0.06)`           | Subtle lift           |
+| `shadow-sm`     | `0 1px 4px rgba(0,0,0,0.08)`           | Input, small card     |
+| `shadow-md`     | `0 4px 12px rgba(0,0,0,0.10)`          | Card default          |
+| `shadow-lg`     | `0 8px 24px rgba(0,0,0,0.12)`          | Modal, panel          |
+| `shadow-xl`     | `0 16px 40px rgba(0,0,0,0.14)`         | Overlay, sheet        |
+| `shadow-button` | `0 8px 12px rgba(0,0,0,0.18)`          | CTA buttons           |
+| `shadow-hero`   | `0 4px 20px rgba(0,0,0,0.18)`          | Hero slide buttons    |
+| `shadow-teal`   | `0 8px 24px rgba(0,123,133,0.30)`      | Teal glow hover       |
+| `shadow-focus`  | `0 0 0 3px rgba(0,123,133,0.30)`       | Keyboard focus ring   |
+
+---
+
+## Z-Index Rules
+
+| Token          | Value | Use                          |
+|----------------|-------|------------------------------|
+| `z-base`       | 0     | Default stacking             |
+| `z-raised`     | 10    | Cards, sticky elements       |
+| `z-dropdown`   | 20    | Dropdowns, tooltips          |
+| `z-overlay`    | 30    | Backdrop overlays            |
+| `z-panel`      | 40    | Side panels, drawers         |
+| `z-modal`      | 50    | Modals, dialogs              |
+| `z-toast`      | 60    | Toast notifications          |
+| `z-max`        | 9999  | Always on top                |
+
+---
+
+## Animation Rules
+
+Always use token values for transitions. Never hardcode durations or easing.
+
+```css
+transition: background var(--ctos-duration-fast) var(--ctos-ease-default);
+```
+
+| Duration token | Value  | Use                          |
+|----------------|--------|------------------------------|
+| `instant`      | 100ms  | Icon swap, opacity flicker   |
+| `fast`         | 150ms  | Button hover, colour change  |
+| `normal`       | 300ms  | Panel open, tooltip          |
+| `slow`         | 500ms  | Slide transitions            |
+| `slower`       | 800ms  | Hero animations              |
+
+Easing: always use `cubic-bezier(0.4, 0, 0.2, 1)` (default) unless entering (`in`) or exiting (`out`) an element.
+
+---
+
+## Responsive Breakpoints
+
+Tailwind-compatible, mobile-first.
+
+| Token | px   | Use                            |
+|-------|------|--------------------------------|
+| `sm`  | 640  | Mobile landscape               |
+| `md`  | 768  | Tablet                         |
+| `lg`  | 1024 | Small desktop                  |
+| `xl`  | 1280 | Desktop (primary breakpoint)   |
+| `2xl` | 1536 | Wide desktop                   |
+
+---
+
+## Project Stack
+
+- **Framework:** React 18 + Vite + TypeScript
+- **Styling:** Tailwind CSS v3 + custom CSS in `src/index.css`
+- **Fonts:** Poppins, Plus Jakarta Sans, Manrope (Google Fonts)
+- **Icons:** Custom SVG line icons in `src/components/Icon/`
+- **Components:** `src/components/` — each in its own folder
+- **Design System:** `design-tokens.json` → synced to Storybook via `npm run sync`
+
+## File conventions
+
+- One component per folder: `ComponentName/ComponentName.tsx`
+- Styles in `src/index.css` using `@layer components` for reusable classes
+- No CSS modules — use Tailwind + `index.css` custom classes only
+- TypeScript strict mode — no `any` types
+
+## When adding a new component
+
+1. Check `design-tokens.json` — all values must already exist as tokens
+2. Use existing button/input/badge patterns from `src/components/`
+3. Add the component to Storybook (`hanafi-claude-shop/stories/`)
+4. Verify in Storybook that every colour maps to a named token
