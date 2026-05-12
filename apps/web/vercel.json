@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd ../.. && npm run sync && cd apps/web && npm run build",
+  "buildCommand": "cd ../.. && npm run sync && npm run build --workspace=apps/web",
   "outputDirectory": "dist",
   "framework": "vite",
-  "installCommand": "npm install"
+  "installCommand": "cd ../.. && npm install"
 }
