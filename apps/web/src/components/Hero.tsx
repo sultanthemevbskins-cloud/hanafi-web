@@ -350,12 +350,15 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
               <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[70px] size-[400px] rounded-[200px] border border-white/[0.06] pointer-events-none" />
               <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[110px] size-[320px] rounded-[160px] border border-dashed border-[rgba(245,130,32,0.18)] pointer-events-none" />
               <div className="relative mt-2 md:mt-4 lg:mt-6 drop-shadow-[0px_30px_30px_rgba(0,0,0,0.45)] w-[130px] h-[270px] md:w-[200px] md:h-[420px] lg:w-[280px] lg:h-[580px] rounded-[24px] md:rounded-[36px] overflow-hidden mx-auto">
-                <img
-                  src="https://www.figma.com/api/mcp/asset/6294a179-bd1f-48b2-846a-0ef56596a4d5"
-                  alt="CTOS SecureID app"
-                  className="absolute top-0 left-0 w-full"
-                  style={{ borderRadius: '36px' }}
-                />
+                <div
+                  className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center gap-3"
+                  style={{ background: 'linear-gradient(160deg, #055157 0%, #007b85 60%, #0bb1be 100%)', borderRadius: '36px' }}
+                >
+                  <div className="size-12 rounded-2xl bg-white/20 flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+                  </div>
+                  <span className="text-white/80 text-xs font-poppins font-semibold tracking-wide">SecureID</span>
+                </div>
               </div>
               <div className="hidden lg:flex absolute left-0 top-[260px] bg-white/[0.96] items-center gap-[10px] px-4 py-3 rounded-[14px] shadow-[0px_18px_40px_0px_rgba(0,0,0,0.25)]"
                 style={{ transform: `translate(${mouse.x * -10}px, ${mouse.y * -7}px)`, transition: 'transform 0.25s ease-out' }}>
@@ -459,7 +462,7 @@ export default function Hero({ onSubscribe }: { onSubscribe?: (plan: 'monthly' |
       <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 10% 90%, rgba(11,177,190,0.25) 0%, rgba(11,177,190,0) 45%)' }} />
 
       <div
-        className="relative overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="relative overflow-hidden select-none cursor-grab active:cursor-grabbing h-[335px] md:h-[600px]"
         style={{ touchAction: 'pan-y' }}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}

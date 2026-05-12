@@ -134,7 +134,7 @@ If a token doesn't exist for what you need → add it to `design-tokens.json` fi
 
 When tokens change:
 1. Edit `design-tokens.json`
-2. Run `npm run sync` in `hanafi-claude-shop` → regenerates `tokens.js` + `tokens.css`
+2. Run `npm run sync` in `ctos-web` → regenerates `tokens.js` + `tokens.css`
 3. Storybook hot-reloads automatically
 
 ---
@@ -242,19 +242,19 @@ Four variants — never create a fifth without adding it to `design-tokens.json`
 - Text: white
 - Radius: `radius-pill` (999px)
 - Shadow: `shadow-button` (`0 8px 12px rgba(0,0,0,0.18)`)
-- Font: Plus Jakarta Sans ExtraBold 14px, letter-spacing 0.3px
+- Font: Poppins ExtraBold 14px, letter-spacing 0.3px
 
 ### Header Sign-In Button (`btn-header` in `index.css`)
 - Background: dark gradient (`#1F1F1F` → `#0E0E0E`)
 - Border: `border.dark` (`#2A2A2A`)
 - Text: white
 - Radius: `radius-pill` (999px)
-- Font: Plus Jakarta Sans Bold 13px
+- Font: Poppins Bold 13px
 
 ### Link Button (`btn-link` in `index.css`)
 - Background: none
 - Text: `blueLagoon` → hover: `buttercup`
-- Font: Manrope Bold 14px
+- Font: Poppins Bold 14px
 
 ---
 
@@ -337,7 +337,7 @@ ctos-web/                        ← monorepo root (one git repo)
 
 - **Framework:** React 18 + Vite + TypeScript (`apps/web/`)
 - **Styling:** Tailwind CSS v3 + custom CSS in `apps/web/src/index.css`
-- **Fonts:** Poppins (primary), Lato (card descriptions), Plus Jakarta Sans, Manrope
+- **Fonts:** Poppins (primary), Lato (card descriptions)
 - **Icons:** `packages/ui/src/Icon/Icon.tsx` — 32 SVG line icons, exported as `@ctos/ui`
 - **Shared components:** `packages/ui/src/` — Button, Badge, Input, Icon
 - **Page components:** `apps/web/src/components/` — Hero, Header, Pricing, Footer, etc.
