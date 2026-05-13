@@ -405,6 +405,25 @@ export default function Hero({ onSubscribe }: { onSubscribe?: (plan: 'monthly' |
     }
   }, [animated])
 
+  // Pause when tab is hidden; on return, silently recover from any stuck clone position
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) {
+        setPaused(true)
+      } else {
+        setAnimated(false)
+        setIndex(prev => {
+          if (prev === 0) return SLIDE_COUNT
+          if (prev === SLIDE_COUNT + 1) return 1
+          return prev
+        })
+        setPaused(false)
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => document.removeEventListener('visibilitychange', handleVisibility)
+  }, [])
+
   // When the CSS transition ends, detect if we landed on a clone and silently jump to the real slide
   const handleTransitionEnd = useCallback(() => {
     if (index === 0) {
