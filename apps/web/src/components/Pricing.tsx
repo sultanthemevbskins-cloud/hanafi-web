@@ -3,12 +3,6 @@ import { Button } from '@ctos/ui'
 
 const checkIcon = 'https://www.figma.com/api/mcp/asset/a1d019ad-248e-4eb9-94c7-beb2564fe313'
 
-const consumerPhoto = 'https://www.figma.com/api/mcp/asset/5f47b93e-275a-4a9b-9b31-bda9a64edea4'
-const commercialPhoto = 'https://www.figma.com/api/mcp/asset/e7ee0a63-443e-4082-99fc-cae1c7e9c94e'
-const corporatePhoto = 'https://www.figma.com/api/mcp/asset/8556467b-2863-43f2-b47e-8040d642e4a3'
-const fibanksPhoto = 'https://www.figma.com/api/mcp/asset/7a5e1fe9-44f2-4e6e-a260-ce706a685898'
-const globalPhoto = 'https://www.figma.com/api/mcp/asset/bbcbcae4-462c-4ae8-84ca-238aa8a50ee2'
-
 const creditReportFeatures = [
   'CTOS Score',
   'CCRIS Records (BNM)',
@@ -28,14 +22,6 @@ const basicReportFeatures = [
   'Litigation & Bankruptcy records',
   'Non Banking (eTR)',
   '2 Free MyCTOS Basic Reports a year',
-]
-
-const platformCards = [
-  { title: 'Consumer',   desc: 'Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.', cta: 'Get free report â†’',   ctaColor: 'text-[#007b85]', bg: 'linear-gradient(135deg, #e5deff 0%, #d2efe0 100%)', photo: consumerPhoto,   imgAnim: 'anim-consumer'   },
-  { title: 'Commercial', desc: 'SMEs and traders, search 1.3M+ companies, run litigation checks, and screen partners for compliance risk.',      cta: 'Search companies â†’', ctaColor: 'text-[#f15d22]', bg: 'linear-gradient(135deg, #ffe9d0 0%, #fcd0ab 100%)', photo: commercialPhoto, imgAnim: 'anim-commercial' },
-  { title: 'Corporate',  desc: 'Bulk credit decisioning, KYC, AML screening, and portfolio monitoring for large enterprises and conglomerates.', cta: 'Talk to sales â†’',    ctaColor: 'text-[#007b85]', bg: 'linear-gradient(135deg, #e5deff 0%, #d6ccfa 100%)', photo: corporatePhoto,  imgAnim: 'anim-corporate'  },
-  { title: 'FI / Banks', desc: 'CCRIS integration, real-time API data services, score analytics, and end-to-end loan origination workflows.',    cta: 'Request a demo â†’',  ctaColor: 'text-[#007b85]', bg: 'linear-gradient(135deg, #eaecef 0%, #c8d5f8 100%)', photo: fibanksPhoto,   imgAnim: 'anim-fibanks'   },
-  { title: 'Global',     desc: 'Cross-border credit intelligence across ASEAN, sanctions, PEP screening, and international business reports.',    cta: 'Explore markets â†’', ctaColor: 'text-[#007b85]', bg: 'linear-gradient(135deg, #d7efe2 0%, #bce3ce 100%)', photo: globalPhoto,    imgAnim: 'anim-global'    },
 ]
 
 function FeatureList({ items }: { items: string[] }) {
@@ -149,39 +135,6 @@ export default function Pricing({ onSubscribe, onGetCreditReport }: { onSubscrib
           </div>
         </div>
 
-        {/* Platform section */}
-        <div className="mt-16">
-          <p className="text-[#007b85] text-[12px] font-extrabold uppercase tracking-[2.4px] font-manrope mb-9">Trusted Intelligence</p>
-          <h2 className="font-extrabold text-[36px] md:text-[54px] leading-tight md:leading-[56.7px] tracking-[-1px] md:tracking-[-1.5px] font-jakarta pb-2 gradient-animate"
-            style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #0bb1be 20%, #F15D22 60%, #2d9f4e 80%, #007b85 100%)', backgroundSize: '300% 100%', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', color: 'transparent' }}>
-            CTOS Digital.{' '}
-            <span style={{ WebkitTextFillColor: '#5c5c5c', color: '#5c5c5c' }}>One trusted platform.</span>
-          </h2>
-          <p className="mt-5 text-[#374151] text-[15px] md:text-[17px] leading-[26.35px] font-manrope max-w-[720px]">
-            From individual consumers to global financial institutions, CTOS delivers credit intelligence tailored to every scale of decision-making.
-          </p>
-
-          {/* Platform cards */}
-          <div className="mt-[60px] -mx-6 md:mx-0">
-            <div className="flex md:grid gap-[14px] md:gap-[18px] px-6 md:px-0 overflow-x-auto md:overflow-visible pb-4 md:pb-0 snap-x snap-mandatory md:snap-none scroll-smooth scrollbar-hide"
-              style={{ gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' }}>
-              {platformCards.map((card) => (
-                <a key={card.title} href="#"
-                  className="group flex-shrink-0 w-[220px] md:w-auto snap-start bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 ease-out">
-                  <div className="relative h-[150px] md:h-[160px] overflow-hidden rounded-t-[14px]">
-                    <img src={card.photo} alt={card.title} className={`absolute inset-0 w-full h-full object-cover ${card.imgAnim}`} />
-                    <div className="absolute inset-0 opacity-50 group-hover:opacity-0 transition-opacity duration-300 rounded-t-[14px]" style={{ background: card.bg }} />
-                  </div>
-                  <div className="p-4 md:p-5 flex flex-col flex-1">
-                    <h3 className="font-extrabold text-[16px] md:text-[18px] leading-[28px] tracking-[-0.3px] text-[#102a2e] font-jakarta mb-2">{card.title}</h3>
-                    <p className="text-[#374151] text-[12px] md:text-[13px] leading-[20px] font-manrope flex-1">{card.desc}</p>
-                    <span className={`mt-3 text-[12px] md:text-[13px] font-bold font-manrope leading-[20px] ${card.ctaColor}`}>{card.cta}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
