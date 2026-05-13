@@ -353,6 +353,7 @@ ctos-web/                        ← monorepo root (one git repo)
 - Styles in `apps/web/src/index.css` using `@layer components`
 - No CSS modules — Tailwind + `index.css` only
 - TypeScript strict mode — no `any` types
+- **Special characters** — always use UTF-8 literals directly in JSX (`→`, `·`, `🛡️`, `🔔`). Never paste mojibake (`â†'`, `Â·`, `ðŸ›¡`) or use HTML entities (`&rarr;`). If an arrow or symbol looks wrong after a copy-paste, replace it with the actual Unicode character.
 
 ## When adding a new reusable UI component
 
