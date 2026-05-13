@@ -282,7 +282,7 @@ function Slide2() {
                   </div>
                   <div>
                     <p className="text-[12px] text-[#0F2123] font-medium font-poppins">RM 50,000 Personal Loan</p>
-                    <p className="text-[10.5px] text-[rgba(15,33,35,0.55)] font-poppins">Maybank Â· 2 min ago</p>
+                    <p className="text-[10.5px] text-[rgba(15,33,35,0.55)] font-poppins">Maybank · 2 min ago</p>
                   </div>
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold font-poppins px-[9px] py-1 rounded-full text-[#007B85] bg-[rgba(0,123,133,0.10)] border border-[rgba(0,123,133,0.22)] whitespace-nowrap">
                     <span className="size-[5px] rounded-full bg-[#14C5CE] animate-pulse" />
@@ -295,7 +295,7 @@ function Slide2() {
                   </div>
                   <div>
                     <p className="text-[12px] text-[#0F2123] font-medium font-poppins">RM 320,000 Home Loan</p>
-                    <p className="text-[10.5px] text-[rgba(15,33,35,0.55)] font-poppins">CIMB Â· 1 day ago</p>
+                    <p className="text-[10.5px] text-[rgba(15,33,35,0.55)] font-poppins">CIMB · 1 day ago</p>
                   </div>
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold font-poppins px-[9px] py-1 rounded-full text-[#B86A14] bg-[rgba(232,130,31,0.10)] border border-[rgba(232,130,31,0.22)] whitespace-nowrap">
                     <span className="size-[5px] rounded-full bg-[#E8821F]" />
@@ -362,7 +362,7 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
               </div>
               <div className="hidden lg:flex absolute left-0 top-[260px] bg-white/[0.96] items-center gap-[10px] px-4 py-3 rounded-[14px] shadow-[0px_18px_40px_0px_rgba(0,0,0,0.25)]"
                 style={{ transform: `translate(${mouse.x * -10}px, ${mouse.y * -7}px)`, transition: 'transform 0.25s ease-out' }}>
-                <div className="size-7 rounded-[8px] bg-[#0bb1be] flex items-center justify-center text-[14px] flex-shrink-0">ðŸ›¡</div>
+                <div className="size-7 rounded-[8px] bg-[#0bb1be] flex items-center justify-center text-[14px] flex-shrink-0">🛡️</div>
                 <div>
                   <p className="text-[#888] text-[10px] font-semibold font-poppins leading-none tracking-[0.5px]">PROTECTED</p>
                   <p className="text-[#102a2e] text-[12px] font-bold font-poppins leading-none mt-1">24/7 Monitoring</p>
@@ -370,7 +370,7 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
               </div>
               <div className="hidden lg:flex absolute right-0 top-[340px] bg-white/[0.96] items-center gap-[10px] px-4 py-3 rounded-[14px] shadow-[0px_18px_40px_0px_rgba(0,0,0,0.25)]"
                 style={{ transform: `translate(${mouse.x * 14}px, ${mouse.y * 10}px)`, transition: 'transform 0.25s ease-out' }}>
-                <div className="size-7 rounded-[8px] bg-[#f15d22] flex items-center justify-center text-[14px] flex-shrink-0">ðŸ””</div>
+                <div className="size-7 rounded-[8px] bg-[#f15d22] flex items-center justify-center text-[14px] flex-shrink-0">🔔</div>
                 <div>
                   <p className="text-[#888] text-[10px] font-semibold font-poppins leading-none tracking-[0.5px]">REAL-TIME</p>
                   <p className="text-[#102a2e] text-[12px] font-bold font-poppins leading-none mt-1">Instant Alerts</p>

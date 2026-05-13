@@ -10,7 +10,7 @@ const segments = [
     image: imgConsumer,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d2efe0 100%)',
     desc: 'Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.',
-    cta: 'Get free report â†’',
+    cta: 'Get free report →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -18,7 +18,7 @@ const segments = [
     image: imgCommercial,
     gradient: 'linear-gradient(144deg, #ffe9d0 0%, #fcd0ab 100%)',
     desc: 'SMEs and traders, search 1.3M+ companies, run litigation checks, and screen partners for compliance risk.',
-    cta: 'Search companies â†’',
+    cta: 'Search companies →',
     ctaColor: 'text-[#f15d22]',
   },
   {
@@ -26,7 +26,7 @@ const segments = [
     image: imgCorporate,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d6ccfa 100%)',
     desc: 'Bulk credit decisioning, KYC, AML screening, and portfolio monitoring for large enterprises and conglomerates.',
-    cta: 'Talk to sales â†’',
+    cta: 'Talk to sales →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -34,7 +34,7 @@ const segments = [
     image: imgFiBanks,
     gradient: 'linear-gradient(144deg, #eaecef 0%, #c8d5f8 100%)',
     desc: 'CCRIS integration, real-time API data services, score analytics, and end-to-end loan origination workflows.',
-    cta: 'Request a demo â†’',
+    cta: 'Request a demo →',
     ctaColor: 'text-[#007b85]',
   },
   {
@@ -42,7 +42,7 @@ const segments = [
     image: imgGlobal,
     gradient: 'linear-gradient(144deg, #d7efe2 0%, #bce3ce 100%)',
     desc: 'Cross-border credit intelligence across ASEAN, sanctions, PEP screening, and international business reports.',
-    cta: 'Explore markets â†’',
+    cta: 'Explore markets →',
     ctaColor: 'text-[#007b85]',
   },
 ]
