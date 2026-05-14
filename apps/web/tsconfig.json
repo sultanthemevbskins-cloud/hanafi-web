@@ -15,11 +15,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
-      "@ctos/ui":       ["../../packages/ui/src/index.ts"],
-      "@ctos/tokens":   ["../../packages/tokens/tokens.js"]
+      "@ctos/ui":     ["../../packages/ui/src/index.ts"],
+      "@ctos/tokens": ["../../packages/tokens/tokens.js"]
     }
   },
   "include": ["src"],
