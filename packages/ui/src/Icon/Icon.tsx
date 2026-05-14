@@ -11,6 +11,15 @@ export type IconName =
   | 'score' | 'ccris' | 'person' | 'briefcase' | 'scales'
   // SecureID feature icons
   | 'globe' | 'umbrella' | 'credit-monitor'
+  // Mega Menu – Consumer product icons
+  | 'mm-credit-report' | 'mm-secureid' | 'mm-credit-finder'
+  // Mega Menu – Commercial product icons
+  | 'mm-credit-manager' | 'mm-single-report' | 'mm-biz-secure'
+  | 'mm-creditscan' | 'mm-verified' | 'mm-business-loan'
+  // Mega Menu – Corporate & FI product icons
+  | 'mm-ekyc' | 'mm-decisioning' | 'mm-ram-rating'
+  // Mega Menu – International product icons
+  | 'mm-singapore' | 'mm-international'
 
 export const iconNames: IconName[] = [
   'check','close','chevron-down','chevron-up','chevron-left','chevron-right',
@@ -23,9 +32,18 @@ export const iconNames: IconName[] = [
   'score','ccris','person','briefcase','scales',
   // SecureID feature icons
   'globe','umbrella','credit-monitor',
+  // Mega Menu – Consumer product icons
+  'mm-credit-report','mm-secureid','mm-credit-finder',
+  // Mega Menu – Commercial product icons
+  'mm-credit-manager','mm-single-report','mm-biz-secure',
+  'mm-creditscan','mm-verified','mm-business-loan',
+  // Mega Menu – Corporate & FI product icons
+  'mm-ekyc','mm-decisioning','mm-ram-rating',
+  // Mega Menu – International product icons
+  'mm-singapore','mm-international',
 ]
 
-const paths: Record<IconName, string> = {
+export const paths: Record<IconName, string> = {
   'check':           'M20 6L9 17l-5-5',
   'close':           'M18 6L6 18M6 6l12 12',
   'chevron-down':    'M6 9l6 6 6-6',
@@ -82,6 +100,42 @@ const paths: Record<IconName, string> = {
   'umbrella':        'M23 12a11.05 11.05 0 0 0-22 0zM18 19a3 3 0 0 1-6 0v-7',
   // Credit card + trend line / credit monitoring
   'credit-monitor':  'M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM1 10h22M7 14.5l2.5-2 2 2 4-3.5',
+
+  // ── Mega Menu – Consumer ───────────────────────────────────────────────────
+  // Credit Report: document body + text lines + mini bar chart at bottom
+  'mm-credit-report':'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M9 17l2-3 2 3 3-4',
+  // SecureID: shield with checkmark
+  'mm-secureid':     'M12 2L4 5v7c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5zM8 12l3 3 5-5',
+  // Credit Finder: circle magnifier with plus (search for credit)
+  'mm-credit-finder':'M11 19A8 8 0 1 0 11 3a8 8 0 0 0 0 16zM21 21l-4.35-4.35M8 11h6M11 8v6',
+
+  // ── Mega Menu – Commercial ─────────────────────────────────────────────────
+  // Credit Manager: screen/monitor with rising trend line
+  'mm-credit-manager':'M3 4h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM7 14l2-3.5 2.5 2.5 2.5-3 2 2',
+  // Single Report: folded-corner document with content lines
+  'mm-single-report': 'M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM13 2v7h7M8 12h8M8 16h5',
+  // BizSecure: shield with exclamation warning
+  'mm-biz-secure':   'M12 2L4 5v7c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5zM12 9v4M12 15h.01',
+  // CreditSCAN Quick Score: gauge/speedometer (needle points left = scanning)
+  'mm-creditscan':   'M3 12a9 9 0 0 1 18 0M6 17l1.5-1.5M18 17l-1.5-1.5M12 5v2M12 12l-3-5M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z',
+  // CTOS Verified: star badge with checkmark
+  'mm-verified':     'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2zM9 12l2 2 4-4',
+  // Business Loan: wide card with chip circle
+  'mm-business-loan':'M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM1 10h22M6 15a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z',
+
+  // ── Mega Menu – Corporate & FI ─────────────────────────────────────────────
+  // eKYC: person silhouette + verified checkmark (digital identity)
+  'mm-ekyc':         'M12 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20c0-4 3.6-7 8-7s8 3 8 7M15 13l2 2 4-4',
+  // Application & Decisioning: flowchart — 3 boxes connected by branches
+  'mm-decisioning':  'M2 2h6v5H2zM9 2h6v5H9zM16 2h6v5h-6zM5 7v3M12 7v3M19 7v3M5 10H19M12 10v6M9 16h6',
+  // RAM Rating Rationale Report: star (rating symbol)
+  'mm-ram-rating':   'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+
+  // ── Mega Menu – International ──────────────────────────────────────────────
+  // Singapore Report: globe (circle + equator + meridian ellipse)
+  'mm-singapore':    'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2c2.76 3.33 4 6.33 4 10s-1.24 6.67-4 10c-2.76-3.33-4-6.33-4-10s1.24-6.67 4-10z',
+  // International Report: globe + star overlay (cross-border)
+  'mm-international':'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2c2.76 3.33 4 6.33 4 10s-1.24 6.67-4 10c-2.76-3.33-4-6.33-4-10s1.24-6.67 4-10zM19 5l.8 1.7 1.8.3-1.3 1.2.3 1.8-1.6-.8-1.6.8.3-1.8-1.3-1.2 1.8-.3z',
 }
 
 export interface IconProps extends SVGProps<SVGSVGElement> {

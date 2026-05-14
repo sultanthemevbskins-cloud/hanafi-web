@@ -11,3 +11,11 @@ Thumbs.db
 # Generated token files (auto-rebuilt by npm run sync)
 packages/tokens/tokens.js
 packages/tokens/tokens.css
+
+.vercel
+
+# Chromatic
+build-storybook.log
+chromatic.log
+chromatic-build-*.xml
+chromatic-diagnostics.json

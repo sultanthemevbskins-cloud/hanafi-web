@@ -1,5 +1,8 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -8,14 +11,16 @@ const config = {
   stories: [
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../apps/web/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-a11y',
-    '@chromatic-com/storybook',
-    '@storybook/addon-onboarding',
+    getAbsolutePath("@storybook/addon-docs"),
+    getAbsolutePath("@storybook/addon-a11y"),
+    getAbsolutePath("@chromatic-com/storybook"),
+    getAbsolutePath("@storybook/addon-onboarding"),
+    getAbsolutePath("@storybook/addon-vitest"),
   ],
-  framework: '@storybook/react-vite',
+  framework: getAbsolutePath("@storybook/react-vite"),
   async viteFinal(config) {
     config.resolve = config.resolve ?? {}
     config.resolve.alias = {
@@ -28,3 +33,7 @@ const config = {
 };
 
 export default config;
+
+function getAbsolutePath(value) {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

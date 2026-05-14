@@ -11,10 +11,10 @@ export default {
     label:   { control: 'text' },
     onClick: { action: 'clicked' },
   },
-  parameters: {
+  globals: {
     backgrounds: {
-      default: 'light',
-    },
+      value: "light"
+    }
   },
 };
 
@@ -73,7 +73,6 @@ export const HeroDisabled = { args: { label: 'Get Free Report', variant: 'hero',
 
 export const HeroAllStates = {
   name: 'Hero — All States',
-  parameters: { backgrounds: { default: 'teal' } },
   render: () => (
     <div style={{ padding: 32, background: 'radial-gradient(ellipse at 30% 50%, #007b85 0%, #055157 99%)', borderRadius: 12, minHeight: 120, display:'flex', alignItems:'center', gap: 16, flexWrap:'wrap' }}>
       {STATES.map(state => (
@@ -84,6 +83,11 @@ export const HeroAllStates = {
       ))}
     </div>
   ),
+  globals: {
+    backgrounds: {
+      value: "teal"
+    }
+  },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════

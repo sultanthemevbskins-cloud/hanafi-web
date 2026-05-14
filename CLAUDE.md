@@ -369,3 +369,76 @@ ctos-web/                        ← monorepo root (one git repo)
 1. Create in `apps/web/src/components/ComponentName.tsx`
 2. Import reusable primitives from `@ctos/ui` (not local paths)
 3. Update Figma Design System page if the layout introduces new patterns
+
+---
+
+## Figma Auto-Sync Rule (CRITICAL)
+
+**Every code change to `apps/web/src/` MUST be reflected in Figma immediately — no exceptions.**
+
+### Target file
+- **File key:** `MpHkBNWSBKa2wUanFty8uX`
+- **Page 1 — main app frame:** node `171:39` (full page, 1897px wide)
+- **Design System page:** node `198:2` (tokens, buttons, icons, mega menus)
+
+### What to sync after each change
+
+| Change type | What to update in Figma |
+|---|---|
+| Heading / copy text | Find matching TEXT node by content, update `characters` |
+| New section added | Add new frame inside `171:41` (Main Content), adjust y-positions of subsequent sections, resize `171:41` and `171:39` and Footer |
+| Section removed | Remove frame, shift sections up, resize |
+| Section reordered | Update `y` positions to match new order |
+| Card content (features, price, CTA) | Find and update TEXT nodes inside the relevant card frame |
+| Colour / token change | Update `design-tokens.json` + update fills in Figma DS page `198:2` |
+| New component (icon, badge, etc.) | Add to Design System page icon set section |
+| Mega menu change | Update the relevant `Mega Menu / <Tab>` frame on Page 1 |
+| Image/asset replaced | Use `mcp__figma__upload_assets` to push new asset onto the existing node |
+
+### Section layout in 171:41 (Main Content) — keep in sync
+```
+Index  Node ID   Name                 y      h      bottom
+[0]    171:42    Hero                 0      600    600
+[1]    171:404   Welcome              600    749    1349
+[2]    339:2     ConsumerProducts     1349   820    2169
+[3]    334:2     CommercialProducts   2169   684    2853
+[4]    171:596   AppPromo             2853   977    3830
+       171:616   Footer (in 171:39)   y = 85 + mainH
+```
+Total page height: 4347px (Header 85 + Main 3830 + Footer 432)
+
+### Content left alignment in Figma — CRITICAL
+All section content must start at **x=252.79** from the full-width frame's left edge.
+This matches the hero text left edge (the CSS `max-w-[1280px] mx-auto` centering on the 1897px canvas, accounting for the hero slider offset).
+
+| Frame / Node          | How alignment is set                                  |
+|---|---|
+| Hero (171:42)         | Slider container (171:46) at x=-95.71, paddingLeft=348.5 → content at x=252.79 |
+| Welcome (171:404)     | `paddingLeft = 252.79` on the VERTICAL auto-layout frame |
+| ConsumerProducts (339:2) | Container (339:4) `x = 252.79` directly (layoutMode=NONE) |
+| CommercialProducts (334:2) | All direct children set to `x = 252.79` (heading, subtitle, card1); cards 2+3 offset from card1 by original gaps |
+
+- ✅ To move all section content left: set `paddingLeft=<value>` on auto-layout frames, set `x=<value>` directly on NONE-layout frames
+- ❌ Do NOT set `x` directly on children of auto-layout frames (like Welcome's container) — set the frame's `paddingLeft` instead
+
+### CRITICAL: MainContent (171:41) uses AUTO-LAYOUT
+`171:41` is an **auto-layout frame** — child positions are determined by **index order**, not by `y` values.
+- ✅ To reorder sections: `mainContent.insertChild(index, node)`
+- ❌ Never set `node.y` directly on mainContent children — it has no effect
+- To add a new section: `mainContent.insertChild(correctIndex, newFrame)` — auto-layout assigns y automatically
+- To remove a section: `node.remove()` — auto-layout closes the gap automatically
+
+### Rules
+- Use `mcp__figma__use_figma` (fileKey `MpHkBNWSBKa2wUanFty8uX`) for all write operations
+- Always `await figma.setCurrentPageAsync(page)` before accessing nodes
+- Load fonts with `await figma.loadFontAsync(...)` before editing any TEXT node
+- Section names in Figma must match the TSX component filename (e.g. `ConsumerProducts`, `CommercialProducts`, `Welcome`, `AppPromo`)
+- Never leave Figma out of sync with the code — update Figma in the same response as the code change
+
+---
+
+## Copywriting Rules
+
+- **Never use em dashes (—) in copy.** Use a comma instead.
+  - ✅ `Manage risk, protect your business.`
+  - ❌ `Manage risk — protect your business.`

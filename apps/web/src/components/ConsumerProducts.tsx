@@ -39,21 +39,26 @@ function FeatureList({ items }: { items: string[] }) {
   )
 }
 
-export default function Pricing({ onSubscribe, onGetCreditReport }: { onSubscribe?: (plan: 'monthly' | 'yearly') => void; onGetCreditReport?: () => void }) {
+export default function ConsumerProducts({ onSubscribe, onGetCreditReport }: { onSubscribe?: (plan: 'monthly' | 'yearly') => void; onGetCreditReport?: () => void }) {
   const [yearly, setYearly] = useState(false)
 
   return (
-    <section className="py-16" style={{ background: 'radial-gradient(ellipse at 90% 0%, rgba(0,123,133,0.05) 0%, rgba(0,123,133,0) 40%), linear-gradient(90deg, #fafbfc 0%, #fafbfc 100%)' }}>
+    <section id="pricing" className="py-16" style={{ background: 'radial-gradient(ellipse at 90% 0%, rgba(0,123,133,0.05) 0%, rgba(0,123,133,0) 40%), linear-gradient(90deg, #fafbfc 0%, #fafbfc 100%)' }}>
       <div className="max-w-[1280px] mx-auto px-6 xl:px-10">
 
         {/* Welcome heading */}
         <div className="mb-11">
-          <h2 className="font-extrabold text-[36px] md:text-[54px] leading-tight md:leading-[56.7px] tracking-[-1px] md:tracking-[-1.5px] bg-clip-text text-transparent font-jakarta pb-2 gradient-animate"
-            style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #0bb1be 20%, #F15D22 60%, #2d9f4e 80%, #007b85 100%)', backgroundSize: '300% 100%' }}>
-            Welcome to CTOS Digital.
+          <h2 className="font-poppins font-bold text-[54px] leading-[56.7px] tracking-[-1.5px] mb-5">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #f2b530 100%)' }}
+            >
+              For Consumers.{' '}
+            </span>
+            <span className="text-[#5c5c5c]">Check. Protect. Find.</span>
           </h2>
           <p className="mt-5 text-[#374151] text-[15px] md:text-[17px] leading-[26.35px] font-manrope max-w-[900px]">
-            Whether you're an everyday consumer or part of a large financial institution, CTOS provides credit insights designed to support every level of decision-making. Take a moment to check your credit health today!
+            Get your full CTOS Score report, safeguard your identity around the clock with SecureID, and discover the best loan matched to your profile, three ways to take control of your financial health.
           </p>
         </div>
 

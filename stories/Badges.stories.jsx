@@ -10,7 +10,11 @@ export default {
     dot:     { control: 'boolean' },
     label:   { control: 'text' },
   },
-  parameters: { backgrounds: { default: 'white' } },
+  globals: {
+    backgrounds: {
+      value: "white"
+    }
+  },
 };
 
 const row  = { display:'flex', flexWrap:'wrap', gap:10, alignItems:'center' };
@@ -60,7 +64,6 @@ export const AllVariants = {
 // On dark/teal background
 export const OnDarkBackground = {
   name: 'On Teal Background',
-  parameters: { backgrounds: { default: 'teal' } },
   render: () => (
     <div style={{ padding:32, background:'radial-gradient(ellipse at 30% 50%, #007b85 0%, #055157 99%)', borderRadius:12 }}>
       <span style={{ ...head, color:'rgba(255,255,255,0.5)' }}>Dark variant (for teal backgrounds)</span>
@@ -71,6 +74,11 @@ export const OnDarkBackground = {
       </div>
     </div>
   ),
+  globals: {
+    backgrounds: {
+      value: "teal"
+    }
+  },
 };
 
 // Real-world usage

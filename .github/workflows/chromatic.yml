@@ -1,0 +1,35 @@
+name: "Chromatic"
+
+on: push
+
+jobs:
+  chromatic:
+    name: Run Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          # ⚠️ Add CHROMATIC_PROJECT_TOKEN to your GitHub repo secrets:
+          # GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+          # Name: CHROMATIC_PROJECT_TOKEN
+          # Value: your token from https://www.chromatic.com (Manage → Configure)
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Build Storybook before publishing (uses the build-storybook script)
+          buildScriptName: build-storybook
+          # Only run Chromatic on changed stories (TurboSnap — speeds up builds)
+          onlyChanged: true

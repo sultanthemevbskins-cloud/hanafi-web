@@ -2,10 +2,12 @@ import { useState } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ContactUs from './components/ContactUs'
-import Pricing from './components/Pricing'
+import ConsumerProducts from './components/ConsumerProducts'
 import AppPromo from './components/AppPromo'
-import MarketSegments from './components/MarketSegments'
+import Welcome from './components/Welcome'
+import CommercialProducts from './components/CommercialProducts'
 import Footer from './components/Footer'
+import BackToTop from './components/BackToTop'
 import SecureIDPanel from './components/SecureIDPanel'
 import CreditReportPanel from './components/CreditReportPanel'
 
@@ -45,11 +47,13 @@ export default function App() {
             <ContactUs onClose={() => setContactOpen(false)} />
           </div>
         </div>
-        <MarketSegments />
-        <Pricing onSubscribe={openPanel} onGetCreditReport={() => setCreditPanelOpen(true)} />
+        <Welcome />
+        <ConsumerProducts onSubscribe={openPanel} onGetCreditReport={() => setCreditPanelOpen(true)} />
+        <CommercialProducts />
         <AppPromo />
       </main>
       <Footer />
+      <BackToTop />
       <SecureIDPanel open={panelOpen} onClose={() => setPanelOpen(false)} initialPlan={initialPlan} />
       <CreditReportPanel open={creditPanelOpen} onClose={() => setCreditPanelOpen(false)} />
     </div>

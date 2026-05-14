@@ -26,7 +26,7 @@ const faqs = [
   'Where does CTOS get the information from?',
   'How can I get a MyCTOS report?',
   'Does CTOS decide whether to approve my loans?',
-  'My loan was rejected — why is it a CTOS issue?',
+  'My loan was rejected, why is it a CTOS issue?',
   'What if the information in my report is wrong?',
   "I've been told I am blacklisted by CTOS. Why?",
   "What if I'm still rejected after updating my record?",

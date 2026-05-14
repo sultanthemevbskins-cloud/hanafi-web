@@ -2,10 +2,16 @@
 
 export default {
   title: 'CTOS Design System/Tokens',
+
   parameters: {
-    controls: { hideNoControlsWarning: true },
-    backgrounds: { default: 'white' },
+    controls: { hideNoControlsWarning: true }
   },
+
+  globals: {
+    backgrounds: {
+      value: "white"
+    }
+  }
 };
 
 const mono = (v) => (
@@ -23,7 +29,7 @@ export const Colours = {
   render: () => {
     const groups = [
       {
-        title: 'Brand â€” Primary',
+        title: 'Brand: Primary',
         desc:  'Core teal palette for buttons, links, icons, and highlights.',
         tokens: [
           { name: 'blueLagoon', hex: '#007B85', role: 'Primary / Button fill' },
@@ -33,7 +39,7 @@ export const Colours = {
         ],
       },
       {
-        title: 'Brand â€” Accent',
+        title: 'Brand: Accent',
         desc:  'Warm accent colours used for CTAs, gradients and hover states.',
         tokens: [
           { name: 'buttercup', hex: '#F15D22', role: 'Orange CTA / hover text' },
@@ -77,7 +83,7 @@ export const Colours = {
     return (
       <div style={{ fontFamily: 'Manrope, sans-serif', padding: 32, maxWidth: 900 }}>
         <h1 style={sectionHead}>Colour Tokens</h1>
-        <p style={sectionDesc}>Use these tokens consistently â€” never hardcode raw hex values in components.</p>
+        <p style={sectionDesc}>Use these tokens consistently, never hardcode raw hex values in components.</p>
 
         {groups.map(g => (
           <div key={g.title} style={{ marginBottom: 40 }}>

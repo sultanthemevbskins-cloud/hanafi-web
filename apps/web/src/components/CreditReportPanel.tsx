@@ -50,7 +50,7 @@ const NonBankingIcon = () => (
 
 const creditFeatures = [
   { Icon: CtosScoreIcon,    title: 'CTOS Score',              desc: 'Your full CTOS Score with detailed breakdown across all credit factors' },
-  { Icon: CcrisIcon,        title: 'CCRIS Records',           desc: 'Complete Bank Negara Malaysia CCRIS data — exactly what lenders see' },
+  { Icon: CcrisIcon,        title: 'CCRIS Records',           desc: 'Complete Bank Negara Malaysia CCRIS data, exactly what lenders see' },
   { Icon: PersonIcon,       title: 'Personal Info (NRD)',     desc: 'Verified personal information from the National Registration Department' },
   { Icon: BusinessIcon,     title: 'Business & Directorship', desc: 'SSM company directorship and business records linked to your identity' },
   { Icon: LitigationIcon,   title: 'Litigation & Bankruptcy', desc: 'Court litigation and bankruptcy records from official sources' },
@@ -124,7 +124,7 @@ export default function CreditReportPanel({ open, onClose }: Props) {
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-white font-bold text-[22px] font-poppins tracking-[-0.5px] leading-[24px]">Credit Report</span>
-                <p className="text-white/85 text-[11px] font-poppins leading-[1.5]">Full credit snapshot — the same report lenders see</p>
+                <p className="text-white/85 text-[11px] font-poppins leading-[1.5]">Full credit snapshot, the same report lenders see</p>
               </div>
               <button
                 onClick={() => setExpanded(false)}
@@ -140,7 +140,7 @@ export default function CreditReportPanel({ open, onClose }: Props) {
             <div className="flex items-center justify-between px-7 pr-16 h-full">
               <div className="flex flex-col gap-0.5">
                 <span className="text-white font-bold text-[22px] font-poppins tracking-[-0.5px] leading-[24px]">Credit Report</span>
-                <p className="text-white/85 text-[10px] font-poppins leading-[1.5] max-w-[267px]">Full credit snapshot — the same report lenders see</p>
+                <p className="text-white/85 text-[10px] font-poppins leading-[1.5] max-w-[267px]">Full credit snapshot, the same report lenders see</p>
               </div>
               <button
                 onClick={() => setExpanded(true)}
@@ -259,7 +259,7 @@ export default function CreditReportPanel({ open, onClose }: Props) {
             {/* Buy button */}
             <button disabled={!agreed}
               className="w-full bg-[#007b85] disabled:bg-[#007b85]/50 text-white font-bold text-[16px] font-poppins py-3.5 rounded-[8px] transition-colors hover:bg-[#005f68] disabled:cursor-not-allowed">
-              Get My Credit Report — RM27.90
+              Get My Credit Report, RM27.90
             </button>
 
             <p className="text-center text-[10.5px] text-[#9ca3af] font-poppins">One-time purchase · Delivered to your email instantly</p>

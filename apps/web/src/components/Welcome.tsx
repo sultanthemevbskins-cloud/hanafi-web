@@ -47,10 +47,10 @@ const segments = [
   },
 ]
 
-export default function MarketSegments() {
+export default function Welcome() {
   return (
     <section className="bg-white py-16 md:py-24">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10">
+      <div className="max-w-[1280px] mx-auto px-6 xl:px-10">
 
         {/* Section label */}
         <p className="font-poppins font-bold text-[12px] text-[#007b85] uppercase tracking-[2.4px] mb-[54px]">
@@ -59,18 +59,18 @@ export default function MarketSegments() {
 
         {/* Heading */}
         <h2 className="font-poppins font-bold text-[54px] leading-[56.7px] tracking-[-1.5px] mb-5">
+          <span className="text-[#5c5c5c]">Welcome to </span>
           <span
             className="bg-clip-text text-transparent"
-            style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #0bb1be 20%, #f15d22 60%, #2d9f4e 80%, #007b85 100%)' }}
+            style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #f2b530 100%)' }}
           >
-            CTOS Digital.{' '}
+            CTOS Digital.
           </span>
-          <span className="text-[#5c5c5c]">One trusted platform.</span>
         </h2>
 
         {/* Sub-description */}
-        <p className="font-poppins font-normal text-[17px] text-[#374151] leading-[26.35px] max-w-[720px] mb-16">
-          From individual consumers to global financial institutions, CTOS delivers credit intelligence tailored to every scale of decision-making.
+        <p className="font-poppins font-normal text-[17px] text-[#374151] leading-[26.35px] mb-16">
+          Whether you're an everyday consumer or part of a large financial institution, CTOS provides credit insights designed to support every level of decision-making. Take a moment to check your credit health today!
         </p>
 
         {/* Cards grid */}
@@ -78,18 +78,25 @@ export default function MarketSegments() {
           {segments.map((seg) => (
             <a
               key={seg.name}
-              href="#"
-              className="bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              href={seg.name === 'Consumer' ? '#pricing' : seg.name === 'Commercial' ? '#commercial' : '#'}
+              onClick={seg.name === 'Consumer' ? (e) => {
+                e.preventDefault()
+                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+              } : seg.name === 'Commercial' ? (e) => {
+                e.preventDefault()
+                document.getElementById('commercial')?.scrollIntoView({ behavior: 'smooth' })
+              } : undefined}
+              className="group bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
               {/* Image area */}
               <div className="relative h-[160px] overflow-hidden rounded-t-[14px]">
                 <img
                   src={seg.image}
                   alt={seg.name}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 <div
-                  className="absolute inset-0 opacity-50 rounded-t-[14px]"
+                  className="absolute inset-0 opacity-50 group-hover:opacity-0 transition-opacity duration-300 rounded-t-[14px]"
                   style={{ backgroundImage: seg.gradient }}
                 />
               </div>

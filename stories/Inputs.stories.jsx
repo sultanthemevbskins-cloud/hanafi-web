@@ -12,8 +12,12 @@ export default {
     hint:          { control: 'text' },
     errorMessage:  { control: 'text' },
   },
-  parameters: { backgrounds: { default: 'white' } },
   decorators: [Story => <div style={{ maxWidth: 380, padding: 24 }}><Story /></div>],
+  globals: {
+    backgrounds: {
+      value: "white"
+    }
+  },
 };
 
 const wrap = { display: 'flex', flexDirection: 'column', gap: 24, maxWidth: 380, padding: 24 };

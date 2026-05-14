@@ -1,9 +1,15 @@
 export default {
   title: 'CTOS Design System/Typography',
+
   parameters: {
-    controls: { hideNoControlsWarning: true },
-    backgrounds: { default: 'white' },
+    controls: { hideNoControlsWarning: true }
   },
+
+  globals: {
+    backgrounds: {
+      value: "white"
+    }
+  }
 };
 
 const P  = 'Poppins, sans-serif';
