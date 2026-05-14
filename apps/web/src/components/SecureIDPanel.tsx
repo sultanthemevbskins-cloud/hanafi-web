@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Icon } from '@ctos/ui'
 
 // Header assets from Figma
 const imgShield    = 'https://www.figma.com/api/mcp/asset/71f5ae91-8ce5-4308-8e93-261e729f4dc6'
@@ -11,22 +12,11 @@ const imgSneak3 = 'https://www.figma.com/api/mcp/asset/cf6be2d9-3c9d-41d8-8688-c
 const imgSneak4 = 'https://www.figma.com/api/mcp/asset/89c43092-28b7-4c0d-9586-7211a475410d'
 const imgSneak5 = 'https://www.figma.com/api/mcp/asset/992f045d-af06-40ca-8bc4-7ced105ccd0c'
 
-// ── Feature icons from Figma ──────────────────────────────────────────────────
-const imgDarkWebIcon = 'https://www.figma.com/api/mcp/asset/da6810ff-b4ee-4b5a-8be5-b9f83c91971a'
-const imgTakafulIcon = 'https://www.figma.com/api/mcp/asset/dddab10e-6d1d-445f-966a-964572dd09a2'
-const imgCreditIcon  = 'https://www.figma.com/api/mcp/asset/ee5c42de-ec9a-4412-a3c8-65157b3c3604'
-const imgScoreIcon   = 'https://www.figma.com/api/mcp/asset/47b95600-7497-4e20-bedd-2c902ddf7dec'
-
-const DarkWebIcon = () => <img src={imgDarkWebIcon} alt="" className="size-[30px] object-contain" />
-const CreditIcon  = () => <img src={imgCreditIcon}  alt="" className="size-[30px] object-contain" />
-const TakafulIcon = () => <img src={imgTakafulIcon} alt="" className="size-[30px] object-contain" />
-const ScoreIcon   = () => <img src={imgScoreIcon}   alt="" className="w-[30px] h-[22px] object-contain" />
-
 const features = [
-  { Icon: DarkWebIcon, title: 'Dark Web Monitoring', desc: 'Scanning 14 billion+ breach records to check if your info is compromised' },
-  { Icon: CreditIcon, title: 'Credit Monitoring', desc: 'Monitor your credit score every 3 months and stay in control' },
-  { Icon: TakafulIcon, title: 'Takaful', subtitle: '(up to RM20,000 coverage)', desc: 'Peace of mind with coverage against financial losses from transactions' },
-  { Icon: ScoreIcon, titlePrefix: 'FREE ', title: 'MyCTOS Score Report ×4', desc: 'Get 4 free MyCTOS Score reports every year to monitor your credit health' },
+  { iconName: 'globe'          as const, color: '#0bb1be', title: 'Dark Web Monitoring',       desc: 'Scanning 14 billion+ breach records to check if your info is compromised' },
+  { iconName: 'credit-monitor' as const, color: '#0bb1be', title: 'Credit Monitoring',         desc: 'Monitor your credit score every 3 months and stay in control' },
+  { iconName: 'umbrella'       as const, color: '#0bb1be', title: 'Takaful',                   subtitle: '(up to RM20,000 coverage)', desc: 'Peace of mind with coverage against financial losses from transactions' },
+  { iconName: 'score'          as const, color: '#f15d22', titlePrefix: 'FREE ', title: 'MyCTOS Score Report ×4', desc: 'Get 4 free MyCTOS Score reports every year to monitor your credit health' },
 ]
 
 type Props = { open: boolean; onClose: () => void; initialPlan?: 'monthly' | 'yearly' }
@@ -156,7 +146,9 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
               <div className="grid grid-cols-2 gap-3 mb-7">
                 {features.map((f, i) => (
                   <div key={i} className="bg-[#f4f8f6] rounded-[8px] p-4 flex gap-3 items-start hover:bg-[#e6f2f0] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-default">
-                    <div className="flex-shrink-0 size-[30px]"><f.Icon /></div>
+                    <div className="flex-shrink-0 size-[30px] flex items-center justify-center">
+                      <Icon name={f.iconName} size={24} color={f.color} />
+                    </div>
                     <div>
                       <p className="font-normal text-[13px] text-[#303434] font-poppins leading-[1.4] mb-1">
                         {f.titlePrefix && <span className="text-[#f15d22]">{f.titlePrefix}</span>}

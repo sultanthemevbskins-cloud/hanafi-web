@@ -20,7 +20,7 @@ export const AllIcons = {
   render: () => (
     <div style={{ padding:32, maxWidth:900 }}>
       <h1 style={head}>Icon Set</h1>
-      <p style={desc}>SVG line icons. All icons are 1.8â€“2.2px stroke, round caps. Use at 16Ã—16, 20Ã—20 or 24Ã—24.</p>
+      <p style={desc}>SVG line icons. All icons are 1.8–2.2px stroke, round caps. Use at 16×16, 20×20 or 24×24.</p>
 
       <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
         {iconNames.map(name => (
@@ -114,6 +114,46 @@ export const CreditReportIcons = {
               </div>
               <div>
                 <div style={{ fontFamily:'Manrope,sans-serif', fontSize:12, fontWeight:700, color:'#111827' }}>{item.label}</div>
+                <div style={{ fontFamily:'Manrope,sans-serif', fontSize:11, color:'#9CA3AF' }}>{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  },
+};
+
+// SecureID feature icons in context
+export const SecureIDIcons = {
+  name: 'SecureID Feature Icons',
+  render: () => {
+    const items = [
+      { icon:'globe',          color:'#0bb1be', bg:'rgba(11,177,190,0.12)',  label:'Dark Web Monitoring', desc:'Globe — dark web scan' },
+      { icon:'credit-monitor', color:'#0bb1be', bg:'rgba(11,177,190,0.12)',  label:'Credit Monitoring',   desc:'Card + trend — score tracking' },
+      { icon:'umbrella',       color:'#0bb1be', bg:'rgba(0,123,133,0.12)',   label:'Takaful',             desc:'Umbrella — financial protection' },
+      { icon:'score',          color:'#f15d22', bg:'rgba(241,93,34,0.12)',   label:'MyCTOS Score ×4',     desc:'Gauge — free score reports' },
+    ];
+    return (
+      <div style={{ padding:32, maxWidth:700 }}>
+        <h2 style={head}>SecureID Feature Icons</h2>
+        <p style={desc}>Icons used in the SecureID features grid. Each icon uses the product's brand color.</p>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:12 }}>
+          {items.map(item => (
+            <div key={item.icon} style={{
+              display:'flex', alignItems:'center', gap:12,
+              padding:'14px 16px', background:'#F4F8F6',
+              borderRadius:10, border:'1px solid #E5E7EB',
+            }}>
+              <div style={{
+                width:48, height:48, borderRadius:8,
+                background: item.bg,
+                display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0,
+              }}>
+                <Icon name={item.icon} size={24} color={item.color} />
+              </div>
+              <div>
+                <div style={{ fontFamily:'Poppins,sans-serif', fontSize:12, fontWeight:600, color:'#303434' }}>{item.label}</div>
                 <div style={{ fontFamily:'Manrope,sans-serif', fontSize:11, color:'#9CA3AF' }}>{item.desc}</div>
               </div>
             </div>

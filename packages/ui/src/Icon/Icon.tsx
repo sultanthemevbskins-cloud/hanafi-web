@@ -7,6 +7,10 @@ export type IconName =
   | 'download' | 'upload' | 'edit' | 'trash' | 'copy' | 'link'
   | 'home' | 'menu' | 'more-horizontal' | 'plus' | 'minus' | 'refresh'
   | 'credit-card' | 'lock' | 'unlock' | 'chart' | 'document' | 'mail'
+  // Credit Report panel icons
+  | 'score' | 'ccris' | 'person' | 'briefcase' | 'scales'
+  // SecureID feature icons
+  | 'globe' | 'umbrella' | 'credit-monitor'
 
 export const iconNames: IconName[] = [
   'check','close','chevron-down','chevron-up','chevron-left','chevron-right',
@@ -15,6 +19,10 @@ export const iconNames: IconName[] = [
   'download','upload','edit','trash','copy','link',
   'home','menu','more-horizontal','plus','minus','refresh',
   'credit-card','lock','unlock','chart','document','mail',
+  // Credit Report panel icons
+  'score','ccris','person','briefcase','scales',
+  // SecureID feature icons
+  'globe','umbrella','credit-monitor',
 ]
 
 const paths: Record<IconName, string> = {
@@ -54,6 +62,26 @@ const paths: Record<IconName, string> = {
   'chart':           'M18 20V10M12 20V4M6 20v-6',
   'document':        'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8',
   'mail':            'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6',
+
+  // ── Credit Report panel icons ──────────────────────────────────────────────
+  // Speedometer / credit score gauge
+  'score':           'M3 12a9 9 0 0 1 18 0M6 17l1.5-1.5M12 5v2M18 17l-1.5-1.5M12 12l3-5M12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z',
+  // 2×2 data grid (CCRIS records)
+  'ccris':           'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
+  // Person / personal info
+  'person':          'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20c0-4 3.6-7 8-7s8 3 8 7',
+  // Briefcase / business & directorship
+  'briefcase':       'M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v4M10 14h4',
+  // Balance scales / litigation
+  'scales':          'M12 3v18M7 21h10M3 7h18M6 7l-3 8a3 3 0 0 0 6 0zM18 7l3 8a3 3 0 0 1-6 0z',
+
+  // ── SecureID feature icons ─────────────────────────────────────────────────
+  // Globe / dark web monitoring
+  'globe':           'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z',
+  // Umbrella / Takaful
+  'umbrella':        'M23 12a11.05 11.05 0 0 0-22 0zM18 19a3 3 0 0 1-6 0v-7',
+  // Credit card + trend line / credit monitoring
+  'credit-monitor':  'M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM1 10h22M7 14.5l2.5-2 2 2 4-3.5',
 }
 
 export interface IconProps extends SVGProps<SVGSVGElement> {
