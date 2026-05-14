@@ -15,6 +15,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@ctos/ui":       ["../../packages/ui/src/index.ts"],
@@ -22,5 +23,6 @@
     }
   },
   "include": ["src"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.stories.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
