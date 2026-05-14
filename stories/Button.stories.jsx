@@ -57,14 +57,14 @@ const descStyle = {
 
 const STATES = ['default', 'hover', 'active', 'focus', 'disabled'];
 
-// â”€â”€ Individual controls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Individual controls ──────────────────────────────────────────────────────â”€
 export const Playground = {
   args: { label: 'Get Free Report', variant: 'hero', state: 'default', size: 'md' },
 };
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 // HERO BUTTON
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 export const HeroDefault  = { args: { label: 'Get Free Report', variant: 'hero', state: 'default', size: 'md' } };
 export const HeroHover    = { args: { label: 'Get Free Report', variant: 'hero', state: 'hover',   size: 'md' } };
 export const HeroActive   = { args: { label: 'Get Free Report', variant: 'hero', state: 'active',  size: 'md' } };
@@ -72,7 +72,7 @@ export const HeroFocus    = { args: { label: 'Get Free Report', variant: 'hero',
 export const HeroDisabled = { args: { label: 'Get Free Report', variant: 'hero', state: 'disabled',size: 'md' } };
 
 export const HeroAllStates = {
-  name: 'Hero â€” All States',
+  name: 'Hero — All States',
   parameters: { backgrounds: { default: 'teal' } },
   render: () => (
     <div style={{ padding: 32, background: 'radial-gradient(ellipse at 30% 50%, #007b85 0%, #055157 99%)', borderRadius: 12, minHeight: 120, display:'flex', alignItems:'center', gap: 16, flexWrap:'wrap' }}>
@@ -86,9 +86,9 @@ export const HeroAllStates = {
   ),
 };
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 // PRIMARY CTA BUTTON
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 export const CtaDefault  = { args: { label: 'Get it now', variant: 'cta', state: 'default', size: 'md' } };
 export const CtaHover    = { args: { label: 'Get it now', variant: 'cta', state: 'hover',   size: 'md' } };
 export const CtaActive   = { args: { label: 'Get it now', variant: 'cta', state: 'active',  size: 'md' } };
@@ -96,12 +96,12 @@ export const CtaFocus    = { args: { label: 'Get it now', variant: 'cta', state:
 export const CtaDisabled = { args: { label: 'Get it now', variant: 'cta', state: 'disabled',size: 'md' } };
 
 export const CtaAllStates = {
-  name: 'CTA â€” All States',
+  name: 'CTA — All States',
   render: () => (
     <div style={sectionStyle}>
       <div>
         <p style={sectionHeadStyle}>Primary CTA Button</p>
-        <p style={descStyle}>Teal fill Â· White text Â· Pill Â· Plus Jakarta Sans ExtraBold Â· Used in pricing cards & CTAs</p>
+        <p style={descStyle}>Teal fill · White text · Pill · Poppins ExtraBold · Used in pricing cards & CTAs</p>
         <div style={rowStyle}>
           {STATES.map(state => (
             <div key={state} style={{ textAlign: 'center' }}>
@@ -123,9 +123,9 @@ export const CtaAllStates = {
   ),
 };
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 // HEADER BUTTON
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 export const HeaderDefault  = { args: { label: 'Sign in', variant: 'header', state: 'default', size: 'md' } };
 export const HeaderHover    = { args: { label: 'Sign in', variant: 'header', state: 'hover',   size: 'md' } };
 export const HeaderActive   = { args: { label: 'Sign in', variant: 'header', state: 'active',  size: 'md' } };
@@ -133,11 +133,11 @@ export const HeaderFocus    = { args: { label: 'Sign in', variant: 'header', sta
 export const HeaderDisabled = { args: { label: 'Sign in', variant: 'header', state: 'disabled',size: 'md' } };
 
 export const HeaderAllStates = {
-  name: 'Header â€” All States',
+  name: 'Header — All States',
   render: () => (
     <div style={{ padding: 24, background: '#FFFFFF', borderRadius: 12 }}>
       <p style={sectionHeadStyle}>Header Sign-In Button</p>
-      <p style={descStyle}>Dark gradient fill Â· Pill Â· Plus Jakarta Sans Bold 13px Â· Used in site header</p>
+      <p style={descStyle}>Dark gradient fill · Pill · Poppins Bold 13px · Used in site header</p>
       <div style={rowStyle}>
         {STATES.map(state => (
           <div key={state} style={{ textAlign: 'center' }}>
@@ -150,21 +150,21 @@ export const HeaderAllStates = {
   ),
 };
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 // LINK BUTTON
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 export const LinkDefault  = { args: { label: 'Learn More', variant: 'link', state: 'default', size: 'md' } };
 export const LinkHover    = { args: { label: 'Learn More', variant: 'link', state: 'hover',   size: 'md' } };
 export const LinkActive   = { args: { label: 'Learn More', variant: 'link', state: 'active',  size: 'md' } };
 export const LinkDisabled = { args: { label: 'Learn More', variant: 'link', state: 'disabled',size: 'md' } };
 
 export const LinkAllStates = {
-  name: 'Link â€” All States',
+  name: 'Link — All States',
   render: () => (
     <div style={sectionStyle}>
       <div>
         <p style={sectionHeadStyle}>Link Button</p>
-        <p style={descStyle}>No background Â· Teal (#007B85) default Â· Orange (#F15D22) on hover/active Â· Manrope Bold 14px</p>
+        <p style={descStyle}>No background · Teal (#007B85) default · Orange (#F15D22) on hover/active · Poppins Bold 14px</p>
         <div style={rowStyle}>
           {['default', 'hover', 'active', 'disabled'].map(state => (
             <div key={state} style={{ textAlign: 'center' }}>
@@ -178,16 +178,16 @@ export const LinkAllStates = {
   ),
 };
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 // ALL VARIANTS OVERVIEW
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ═══════════════════════════════════════════════════════════════════════════════
 export const AllVariants = {
-  name: 'â¬› All Variants Overview',
+  name: '⬛ All Variants Overview',
   render: () => (
     <div style={{ ...sectionStyle, padding: 32 }}>
       {/* Hero */}
       <div style={{ background: 'radial-gradient(ellipse at 30% 50%, #007b85 0%, #055157 99%)', padding: '32px 24px', borderRadius: 12 }}>
-        <p style={{ ...sectionHeadStyle, color: '#fff', opacity: 0.6, marginBottom: 16 }}>HERO SLIDE BUTTON â€” Poppins SemiBold Â· White bg Â· Radius 10px</p>
+        <p style={{ ...sectionHeadStyle, color: '#fff', opacity: 0.6, marginBottom: 16 }}>HERO SLIDE BUTTON — Poppins SemiBold · White bg · Radius 10px</p>
         <div style={rowStyle}>
           {STATES.map(s => <Button key={s} label="Get Free Report" variant="hero" state={s} />)}
         </div>
@@ -195,7 +195,7 @@ export const AllVariants = {
 
       {/* CTA */}
       <div style={{ background: '#F9FAFB', padding: '24px', borderRadius: 12 }}>
-        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>PRIMARY CTA BUTTON â€” Plus Jakarta Sans ExtraBold Â· Teal Â· Pill</p>
+        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>PRIMARY CTA BUTTON — Poppins ExtraBold · Teal · Pill</p>
         <div style={rowStyle}>
           {STATES.map(s => <Button key={s} label="Get it now" variant="cta" state={s} />)}
         </div>
@@ -203,7 +203,7 @@ export const AllVariants = {
 
       {/* Header */}
       <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', padding: '24px', borderRadius: 12 }}>
-        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>HEADER SIGN-IN BUTTON â€” Plus Jakarta Sans Bold Â· Dark gradient Â· Pill</p>
+        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>HEADER SIGN-IN BUTTON — Poppins Bold · Dark gradient · Pill</p>
         <div style={rowStyle}>
           {STATES.map(s => <Button key={s} label="Sign in" variant="header" state={s} />)}
         </div>
@@ -211,7 +211,7 @@ export const AllVariants = {
 
       {/* Link */}
       <div style={{ background: '#FFFFFF', border: '1px solid #E5E7EB', padding: '24px', borderRadius: 12 }}>
-        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>LINK BUTTON â€” Manrope Bold Â· Teal â†’ Orange Â· No bg</p>
+        <p style={{ ...sectionHeadStyle, marginBottom: 16 }}>LINK BUTTON — Manrope Bold · Teal → Orange · No bg</p>
         <div style={rowStyle}>
           {['default', 'hover', 'active', 'disabled'].map(s => (
             <Button key={s} label="Learn More" variant="link" state={s} />
@@ -222,7 +222,7 @@ export const AllVariants = {
   ),
 };
 
-// â”€â”€â”€ Sizes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ──â”€ Sizes ────────────────────────────────────────────────────────────────────â”€
 export const Sizes = {
   name: 'Size Scale',
   render: () => (

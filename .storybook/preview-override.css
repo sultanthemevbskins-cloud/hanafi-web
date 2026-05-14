@@ -1,0 +1,2 @@
+/* Reset the web app's teal body background so Storybook stays white */
+body { background-color: #ffffff !important; }

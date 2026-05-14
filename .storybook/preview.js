@@ -1,4 +1,6 @@
 import '../packages/tokens/tokens.css';
+import '../apps/web/src/index.css';
+import './preview-override.css';
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
