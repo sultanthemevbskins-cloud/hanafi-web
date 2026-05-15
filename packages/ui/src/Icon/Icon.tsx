@@ -20,6 +20,8 @@ export type IconName =
   | 'mm-ekyc' | 'mm-decisioning' | 'mm-ram-rating'
   // Mega Menu – International product icons
   | 'mm-singapore' | 'mm-international'
+  // Social brand icons (use fill prop override for solid rendering)
+  | 'social-facebook' | 'social-youtube' | 'social-linkedin' | 'social-tiktok'
 
 export const iconNames: IconName[] = [
   'check','close','chevron-down','chevron-up','chevron-left','chevron-right',
@@ -41,6 +43,8 @@ export const iconNames: IconName[] = [
   'mm-ekyc','mm-decisioning','mm-ram-rating',
   // Mega Menu – International product icons
   'mm-singapore','mm-international',
+  // Social brand icons
+  'social-facebook','social-youtube','social-linkedin','social-tiktok',
 ]
 
 export const paths: Record<IconName, string> = {
@@ -136,6 +140,17 @@ export const paths: Record<IconName, string> = {
   'mm-singapore':    'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2c2.76 3.33 4 6.33 4 10s-1.24 6.67-4 10c-2.76-3.33-4-6.33-4-10s1.24-6.67 4-10z',
   // International Report: globe + star overlay (cross-border)
   'mm-international':'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2c2.76 3.33 4 6.33 4 10s-1.24 6.67-4 10c-2.76-3.33-4-6.33-4-10s1.24-6.67 4-10zM19 5l.8 1.7 1.8.3-1.3 1.2.3 1.8-1.6-.8-1.6.8.3-1.8-1.3-1.2 1.8-.3z',
+
+  // ── Social brand icons ─────────────────────────────────────────────────────
+  // Tip: pass fill={color} stroke="none" strokeWidth={0} for solid brand rendering
+  // Facebook: letter-f letterform
+  'social-facebook': 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z',
+  // YouTube: rounded-rect container + play triangle
+  'social-youtube':  'M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z',
+  // LinkedIn: the classic "in" letterform
+  'social-linkedin': 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  // TikTok: music-note-like shape
+  'social-tiktok':   'M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5',
 }
 
 export interface IconProps extends SVGProps<SVGSVGElement> {

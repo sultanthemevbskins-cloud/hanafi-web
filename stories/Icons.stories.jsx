@@ -481,3 +481,106 @@ export const MegaMenuIcons = {
     </div>
   ),
 };
+
+// ─── Social Brand Icons ─────────────────────────────────────────────────────
+// facebook, youtube, linkedin, tiktok — add fill/stroke props for solid rendering
+
+const socialItems = [
+  { name:'social-facebook', label:'Facebook', color:'#1877F2', bg:'rgba(24,119,242,0.10)' },
+  { name:'social-youtube',  label:'YouTube',  color:'#FF0000', bg:'rgba(255,0,0,0.10)'    },
+  { name:'social-linkedin', label:'LinkedIn', color:'#0A66C2', bg:'rgba(10,102,194,0.10)' },
+  { name:'social-tiktok',   label:'TikTok',   color:'#010101', bg:'rgba(0,0,0,0.07)'      },
+];
+
+export const SocialIcons = {
+  name: 'Social Brand Icons',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div style={{ padding:32, maxWidth:700, fontFamily:'Manrope,sans-serif' }}>
+      <h2 style={head}>Social Brand Icons</h2>
+      <p style={desc}>
+        Used in the Footer bottom bar. Pass{' '}
+        <code style={{ background:'#F3F4F6', padding:'1px 5px', borderRadius:4, fontSize:11 }}>
+          {'fill={color} stroke="none" strokeWidth={0}'}
+        </code>{' '}
+        for solid filled rendering.
+      </p>
+
+      {/* Filled — as used in the footer */}
+      <div style={{ marginBottom:24 }}>
+        <div style={{ fontSize:11, fontWeight:700, color:'#9CA3AF', letterSpacing:'0.06em',
+                      textTransform:'uppercase', marginBottom:12 }}>Filled (footer style)</div>
+        <div style={{ display:'flex', gap:10 }}>
+          {socialItems.map(item => (
+            <div key={item.name} style={{ textAlign:'center' }}>
+              <div style={{
+                width:44, height:44, borderRadius:10, background:item.bg,
+                display:'flex', alignItems:'center', justifyContent:'center', marginBottom:6,
+              }}>
+                <Icon name={item.name} size={22} color={item.color}
+                      fill={item.color} stroke="none" strokeWidth={0} />
+              </div>
+              <span style={{ ...label, fontSize:10 }}>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Stroke — line-icon representation */}
+      <div style={{ marginBottom:24 }}>
+        <div style={{ fontSize:11, fontWeight:700, color:'#9CA3AF', letterSpacing:'0.06em',
+                      textTransform:'uppercase', marginBottom:12 }}>Stroke (line icon)</div>
+        <div style={{ display:'flex', gap:10 }}>
+          {socialItems.map(item => (
+            <div key={item.name} style={{ textAlign:'center' }}>
+              <div style={{
+                width:44, height:44, borderRadius:10, background:'#F9FAFB',
+                border:'1px solid #E5E7EB',
+                display:'flex', alignItems:'center', justifyContent:'center', marginBottom:6,
+              }}>
+                <Icon name={item.name} size={22} color="#007B85" />
+              </div>
+              <span style={{ ...label, fontSize:10 }}>{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* On teal — as it appears in the actual footer */}
+      <div style={{ marginBottom:24 }}>
+        <div style={{ fontSize:11, fontWeight:700, color:'#9CA3AF', letterSpacing:'0.06em',
+                      textTransform:'uppercase', marginBottom:12 }}>On teal footer background</div>
+        <div style={{ display:'flex', gap:8, background:'#0f7a82', padding:16, borderRadius:12 }}>
+          {socialItems.map(item => (
+            <div key={item.name} aria-label={item.label} style={{
+              width:30, height:30, borderRadius:6,
+              background:'rgba(255,255,255,0.14)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+            }}>
+              <Icon name={item.name} size={15} color="white"
+                    fill="white" stroke="none" strokeWidth={0} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Usage snippet */}
+      <div>
+        <div style={{ fontSize:11, fontWeight:700, color:'#9CA3AF', letterSpacing:'0.06em',
+                      textTransform:'uppercase', marginBottom:8 }}>React usage</div>
+        <pre style={{
+          margin:0, padding:'12px 14px', background:'#1E293B', color:'#7DD3FC',
+          borderRadius:8, fontSize:11, lineHeight:1.7, overflowX:'auto',
+          fontFamily:'\'Fira Code\', Consolas, monospace',
+        }}>
+{`{/* Filled / solid — for footer, social buttons */}
+<Icon name="social-facebook" size={15} color="white"
+      fill="white" stroke="none" strokeWidth={0} />
+
+{/* Stroke / outline — for line-icon contexts */}
+<Icon name="social-linkedin" size={20} color="#007B85" />`}
+        </pre>
+      </div>
+    </div>
+  ),
+};

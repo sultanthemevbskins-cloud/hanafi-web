@@ -1,26 +1,25 @@
-const ctosLogo = 'https://www.figma.com/api/mcp/asset/bf1f4170-46b5-4154-92b0-81d24cdfb213'
-const appQrCode = 'https://www.figma.com/api/mcp/asset/8546187c-1ff0-4fd3-9704-9aa224ef47b1'
-const facebookIcon = 'https://www.figma.com/api/mcp/asset/fddfe13d-0a51-4ac1-8d6b-cc4d92985758'
-const youtubeIcon = 'https://www.figma.com/api/mcp/asset/9aa31b2c-42b5-47b9-99c9-acfb01a15289'
-const linkedinIcon = 'https://www.figma.com/api/mcp/asset/92f605ca-1d47-4a34-98be-f75844ee7e7d'
-const tiktokIcon = 'https://www.figma.com/api/mcp/asset/8e3c2560-b8a5-4c4c-bdcb-2a23748e7c2d'
+import { CtosLogo, Icon } from '@ctos/ui'
+
+// Stable hosted QR code pointing to the CTOS app download page
+const APP_QR_URL =
+  'https://api.qrserver.com/v1/create-qr-code/?size=156x156&data=https%3A%2F%2Fapps.ctos.com.my&margin=10&format=png'
 
 const footerLinks = [
-  { label: 'FAQs', col: 1 },
-  { label: 'Disclaimer Clause', col: 2 },
-  { label: 'Terms and Conditions', col: 1 },
-  { label: 'Security Disclaimer', col: 2 },
-  { label: 'Privacy Policy', col: 1 },
-  { label: 'Terms of Use', col: 2 },
+  { label: 'FAQs',                   col: 1 },
+  { label: 'Disclaimer Clause',      col: 2 },
+  { label: 'Terms and Conditions',   col: 1 },
+  { label: 'Security Disclaimer',    col: 2 },
+  { label: 'Privacy Policy',         col: 1 },
+  { label: 'Terms of Use',           col: 2 },
   { label: 'Declaration of Consent', col: 1 },
-  { label: 'Contact Us', col: 2 },
+  { label: 'Contact Us',             col: 2 },
 ]
 
-const socialLinks = [
-  { icon: facebookIcon, label: 'Facebook' },
-  { icon: youtubeIcon, label: 'YouTube' },
-  { icon: linkedinIcon, label: 'LinkedIn' },
-  { icon: tiktokIcon, label: 'TikTok' },
+const socialLinks: Array<{ name: 'social-facebook' | 'social-youtube' | 'social-linkedin' | 'social-tiktok'; label: string; href: string }> = [
+  { name: 'social-facebook', label: 'Facebook', href: 'https://www.facebook.com/CTOSMalaysia' },
+  { name: 'social-youtube',  label: 'YouTube',  href: 'https://www.youtube.com/@CTOSMalaysia' },
+  { name: 'social-linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/ctos-data-systems' },
+  { name: 'social-tiktok',   label: 'TikTok',   href: 'https://www.tiktok.com/@ctos.my' },
 ]
 
 export default function Footer() {
@@ -29,9 +28,10 @@ export default function Footer() {
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         {/* Main footer grid */}
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1.2fr_1.6fr] gap-10 md:gap-14 pb-10 md:pb-14">
+
           {/* Column 1: Brand */}
           <div className="flex flex-col gap-7">
-            <img src={ctosLogo} alt="CTOS" className="h-[50px] w-auto object-contain object-left" />
+            <CtosLogo color="white" height={44} />
             <div className="flex flex-col gap-[17px]">
               <p className="text-white/[0.85] text-[14px] leading-[23.1px] font-poppins">
                 Established in 1990, CTOS is Malaysia's leading Credit Reporting Agency (CRA) under
@@ -65,8 +65,14 @@ export default function Footer() {
           {/* Column 3: App download */}
           <div className="flex items-center py-0 md:py-[86px]">
             <div className="flex items-start gap-[18px]">
-              <div className="bg-white rounded-[4px] size-[78px] p-1.5 flex-shrink-0">
-                <img src={appQrCode} alt="Download CTOS App QR" className="size-full" />
+              {/* QR code — hosted via qrserver.com, no auth required */}
+              <div className="bg-white rounded-[4px] size-[78px] p-1.5 flex-shrink-0 overflow-hidden">
+                <img
+                  src={APP_QR_URL}
+                  alt="Scan to download the CTOS app"
+                  className="size-full object-contain"
+                  loading="lazy"
+                />
               </div>
               <div className="flex flex-col gap-[3px]">
                 <p className="text-white font-semibold text-[14px] leading-[21px] font-poppins">
@@ -87,11 +93,21 @@ export default function Footer() {
             {socialLinks.map((social) => (
               <a
                 key={social.label}
-                href="#"
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={social.label}
-                className="size-[30px] rounded-[6px] bg-white/[0.14] flex items-center justify-center hover:bg-white/20 transition-colors"
+                className="size-[30px] rounded-[6px] bg-white/[0.14] flex items-center justify-center hover:bg-white/25 transition-colors"
               >
-                <img src={social.icon} alt={social.label} className="size-3.5" />
+                {/* Inline SVG via Icon DS component — no external image deps */}
+                <Icon
+                  name={social.name}
+                  size={15}
+                  color="white"
+                  fill="white"
+                  stroke="none"
+                  strokeWidth={0}
+                />
               </a>
             ))}
           </div>
