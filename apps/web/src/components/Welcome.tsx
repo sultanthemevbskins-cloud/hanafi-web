@@ -1,8 +1,9 @@
-const imgConsumer   = 'https://www.figma.com/api/mcp/asset/ae2f7ba8-ce86-4ff6-9f44-4982be5c92a2'
-const imgCommercial = 'https://www.figma.com/api/mcp/asset/903a9637-a41b-4161-a1e5-faf941fb5a90'
-const imgCorporate  = 'https://www.figma.com/api/mcp/asset/f66eee15-9964-4755-b552-968dbc7ecfff'
-const imgFiBanks    = 'https://www.figma.com/api/mcp/asset/80cdb8c7-c939-47bd-b40d-627fb9922ca9'
-const imgGlobal     = 'https://www.figma.com/api/mcp/asset/c1e6fee0-6a3d-46d6-9929-e17293fd7bef'
+// Stable free images — picsum seeds are deterministic (same seed = same photo)
+const imgConsumer   = 'https://picsum.photos/seed/consumer-credit/400/220'
+const imgCommercial = 'https://picsum.photos/seed/commercial-biz/400/220'
+const imgCorporate  = 'https://picsum.photos/seed/corporate-brief/400/220'
+const imgFiBanks    = 'https://picsum.photos/seed/fibanks-atm/400/220'
+const imgGlobal     = 'https://picsum.photos/seed/global-world/400/220'
 
 const segments = [
   {
