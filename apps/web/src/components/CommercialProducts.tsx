@@ -1,6 +1,11 @@
 import { Button } from '@ctos/ui'
 
-const checkIcon = 'https://www.figma.com/api/mcp/asset/a1d019ad-248e-4eb9-94c7-beb2564fe313'
+const CheckIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 mt-[2px]">
+    <circle cx="8" cy="8" r="7" fill="#007b8518" />
+    <path d="M5 8l2 2 4-4" stroke="#007b85" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
 
 const creditManagerFeatures = [
   'Comprehensive client credit reports',
@@ -28,9 +33,7 @@ function FeatureList({ items }: { items: string[] }) {
     <ul className="flex flex-col">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2.5 py-[5px]">
-          <div className="flex-shrink-0 w-4 h-[19px] flex items-start pt-[3px]">
-            <img src={checkIcon} alt="" className="size-4" />
-          </div>
+          <CheckIcon />
           <span className="text-[#374151] text-[14px] leading-[21px] font-manrope">{item}</span>
         </li>
       ))}
