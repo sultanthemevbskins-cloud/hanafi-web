@@ -32,7 +32,7 @@ export default function Footer() {
 
           {/* Column 1: Brand */}
           <div className="flex flex-col gap-7">
-            <img src={ctosFooterLogo} alt="CTOS Digital" className="h-[44px] w-auto" />
+            <img src={ctosFooterLogo} alt="CTOS Digital" className="h-[22px] w-auto" />
             <div className="flex flex-col gap-[17px]">
               <p className="text-white/[0.85] text-[14px] leading-[23.1px] font-poppins">
                 Established in 1990, CTOS is Malaysia's leading Credit Reporting Agency (CRA) under
