@@ -1,16 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@ctos/ui'
-
-// Header assets from Figma
-const imgShield    = 'https://www.figma.com/api/mcp/asset/71f5ae91-8ce5-4308-8e93-261e729f4dc6'
-const imgArrow     = 'https://www.figma.com/api/mcp/asset/7c590dba-7deb-4661-b3fa-23dbc63d2d19'
-
-// Sneak peek screenshots
-const imgSneak1 = 'https://www.figma.com/api/mcp/asset/0e3db989-efc4-45dd-bdd8-b5b778977cc4'
-const imgSneak2 = 'https://www.figma.com/api/mcp/asset/8fcff6be-f5d1-4fe0-8f27-6a12ed034438'
-const imgSneak3 = 'https://www.figma.com/api/mcp/asset/cf6be2d9-3c9d-41d8-8688-cf5488f14569'
-const imgSneak4 = 'https://www.figma.com/api/mcp/asset/89c43092-28b7-4c0d-9586-7211a475410d'
-const imgSneak5 = 'https://www.figma.com/api/mcp/asset/992f045d-af06-40ca-8bc4-7ced105ccd0c'
+import appScreen from '../assets/ctos-app-screen.png'
 
 const features = [
   { iconName: 'globe'          as const, color: '#0bb1be', title: 'Dark Web Monitoring',       desc: 'Scanning 14 billion+ breach records to check if your info is compromised' },
@@ -85,12 +75,6 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
           {expanded ? (
             /* ── Expanded header (173:775) ── */
             <div className="flex items-center gap-4 px-7 pr-16 h-full">
-              {/* Shield graphic */}
-              <img
-                src={imgShield}
-                alt=""
-                className="hidden md:block h-[57px] w-auto flex-shrink-0 pointer-events-none select-none"
-              />
               {/* Title + subtitle */}
               <div className="flex flex-col gap-0.5">
                 <span className="text-white font-bold text-[24px] font-poppins tracking-[-0.6px] leading-[24px]">CTOS SecureID</span>
@@ -104,7 +88,7 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
                 className="flex-shrink-0 flex items-center gap-2 bg-white rounded-[8px] pl-[14px] pr-[18px] h-[30px] text-[#007b85] font-semibold text-[12px] font-poppins hover:bg-white/90 transition-colors"
               >
                 Close
-                <img src={imgArrow} alt="" className="size-4" />
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
               </button>
             </div>
           ) : (
@@ -165,7 +149,7 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
 
               {/* Thumbnail strip */}
               <div className="flex gap-3 py-2 pl-1" style={{ overflowX: 'auto', overflowY: 'visible' }}>
-                {[imgSneak1, imgSneak2, imgSneak3, imgSneak4, imgSneak5].map((src, i) => (
+                {[appScreen, appScreen, appScreen, appScreen, appScreen].map((src, i) => (
                   <img
                     key={i}
                     src={src}
@@ -288,7 +272,7 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
                 </div>
               )}
               <img
-                src={[imgSneak1, imgSneak2, imgSneak3, imgSneak4, imgSneak5][hoveredSneak]}
+                src={[appScreen, appScreen, appScreen, appScreen, appScreen][hoveredSneak]}
                 alt="Preview"
                 className={`h-[75vh] w-auto object-contain rounded-[10px] transition-opacity duration-300 ${previewLoaded ? 'opacity-100' : 'opacity-0'}`}
                 onLoad={() => setPreviewLoaded(true)}
@@ -314,7 +298,7 @@ export default function SecureIDPanel({ open, onClose, initialPlan = 'monthly' }
               </div>
             )}
             <img
-              src={[imgSneak1, imgSneak2, imgSneak3, imgSneak4, imgSneak5][hoveredSneak]}
+              src={[appScreen, appScreen, appScreen, appScreen, appScreen][hoveredSneak]}
               alt="Preview"
               className={`h-[85vh] w-auto object-contain rounded-[10px] transition-opacity duration-300 ${previewLoaded ? 'opacity-100' : 'opacity-0'}`}
               onLoad={() => setPreviewLoaded(true)}
