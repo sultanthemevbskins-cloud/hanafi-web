@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { expect, within } from 'storybook/react'
+import { expect, within } from 'storybook/test'
 import CommercialProducts from './CommercialProducts'
 
 const meta = {
-  title: 'Components/CommercialProducts',
+  title: 'CTOS Design System/Commercial Products',
   component: CommercialProducts,
   tags: ['autodocs'],
   parameters: {

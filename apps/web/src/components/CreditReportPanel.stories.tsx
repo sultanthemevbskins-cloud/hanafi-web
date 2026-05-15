@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import CreditReportPanel from './CreditReportPanel'
 
 const meta = {
-  title: 'Components/CreditReportPanel',
+  title: 'CTOS Design System/Credit Report Checkout',
   component: CreditReportPanel,
   parameters: {
     layout: 'fullscreen',

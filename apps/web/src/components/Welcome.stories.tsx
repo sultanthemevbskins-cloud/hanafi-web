@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test'
 import Welcome from './Welcome'
 
 const meta = {
-  title: 'Components/Welcome',
+  title: 'CTOS Design System/Welcome Cards',
   component: Welcome,
   tags: ['autodocs'],
   parameters: {

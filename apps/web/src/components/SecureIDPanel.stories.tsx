@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import SecureIDPanel from './SecureIDPanel'
 
 const meta = {
-  title: 'Components/SecureIDPanel',
+  title: 'CTOS Design System/SecureID Checkout',
   component: SecureIDPanel,
   parameters: {
     layout: 'fullscreen',

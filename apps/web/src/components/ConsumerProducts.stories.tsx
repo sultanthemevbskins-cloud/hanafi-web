@@ -6,6 +6,7 @@ import SecureIDPanel from './SecureIDPanel'
 import CreditReportPanel from './CreditReportPanel'
 
 const meta = {
+  title: 'CTOS Design System/Consumer Products',
   component: ConsumerProducts,
   tags: ['autodocs'],
   parameters: {
