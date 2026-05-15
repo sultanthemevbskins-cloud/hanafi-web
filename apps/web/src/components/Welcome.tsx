@@ -1,4 +1,4 @@
-﻿const imgConsumer   = 'https://www.figma.com/api/mcp/asset/ae2f7ba8-ce86-4ff6-9f44-4982be5c92a2'
+const imgConsumer   = 'https://www.figma.com/api/mcp/asset/ae2f7ba8-ce86-4ff6-9f44-4982be5c92a2'
 const imgCommercial = 'https://www.figma.com/api/mcp/asset/903a9637-a41b-4161-a1e5-faf941fb5a90'
 const imgCorporate  = 'https://www.figma.com/api/mcp/asset/f66eee15-9964-4755-b552-968dbc7ecfff'
 const imgFiBanks    = 'https://www.figma.com/api/mcp/asset/80cdb8c7-c939-47bd-b40d-627fb9922ca9'
@@ -10,40 +10,35 @@ const segments = [
     image: imgConsumer,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d2efe0 100%)',
     desc: 'Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.',
-    cta: 'Get free report →',
-    ctaColor: 'text-[#007b85]',
+    cta: 'Get free report',
   },
   {
     name: 'Commercial',
     image: imgCommercial,
     gradient: 'linear-gradient(144deg, #ffe9d0 0%, #fcd0ab 100%)',
     desc: 'SMEs and traders, search 1.3M+ companies, run litigation checks, and screen partners for compliance risk.',
-    cta: 'Search companies →',
-    ctaColor: 'text-[#f15d22]',
+    cta: 'Search companies',
   },
   {
     name: 'Corporate',
     image: imgCorporate,
     gradient: 'linear-gradient(144deg, #e5deff 0%, #d6ccfa 100%)',
     desc: 'Bulk credit decisioning, KYC, AML screening, and portfolio monitoring for large enterprises and conglomerates.',
-    cta: 'Talk to sales →',
-    ctaColor: 'text-[#007b85]',
+    cta: 'Talk to sales',
   },
   {
     name: 'FI / Banks',
     image: imgFiBanks,
     gradient: 'linear-gradient(144deg, #eaecef 0%, #c8d5f8 100%)',
     desc: 'CCRIS integration, real-time API data services, score analytics, and end-to-end loan origination workflows.',
-    cta: 'Request a demo →',
-    ctaColor: 'text-[#007b85]',
+    cta: 'Request a demo',
   },
   {
     name: 'Global',
     image: imgGlobal,
     gradient: 'linear-gradient(144deg, #d7efe2 0%, #bce3ce 100%)',
     desc: 'Cross-border credit intelligence across ASEAN, sanctions, PEP screening, and international business reports.',
-    cta: 'Explore markets →',
-    ctaColor: 'text-[#007b85]',
+    cta: 'Explore markets',
   },
 ]
 
@@ -79,13 +74,13 @@ export default function Welcome() {
             <a
               key={seg.name}
               href={seg.name === 'Consumer' ? '#pricing' : seg.name === 'Commercial' ? '#commercial' : '#'}
-              onClick={seg.name === 'Consumer' ? (e) => {
-                e.preventDefault()
-                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
-              } : seg.name === 'Commercial' ? (e) => {
-                e.preventDefault()
-                document.getElementById('commercial')?.scrollIntoView({ behavior: 'smooth' })
-              } : undefined}
+              onClick={
+                seg.name === 'Consumer'
+                  ? (e) => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }
+                  : seg.name === 'Commercial'
+                    ? (e) => { e.preventDefault(); document.getElementById('commercial')?.scrollIntoView({ behavior: 'smooth' }) }
+                    : undefined
+              }
               className="group bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
               {/* Image area */}
@@ -103,19 +98,22 @@ export default function Welcome() {
 
               {/* Content */}
               <div className="flex flex-col flex-1 px-5 py-5 gap-0">
-                {/* Card title â€” Poppins Bold 18px */}
+                {/* Card title */}
                 <h3 className="font-poppins font-bold text-[18px] text-[#102a2e] leading-[28px] tracking-[-0.3px] mb-3">
                   {seg.name}
                 </h3>
 
-                {/* Card description â€” Parkinsans Regular 13px (design change from Figma node 171:533) */}
+                {/* Card description */}
                 <p className="font-lato font-normal text-[13px] text-[#374151] leading-[20px] flex-1 mb-4">
                   {seg.desc}
                 </p>
 
-                {/* CTA link â€” Poppins SemiBold 13px */}
-                <span className={`font-poppins font-semibold text-[13px] leading-[20px] ${seg.ctaColor}`}>
+                {/* CTA link -- matches Learn More btn-link style in ConsumerProducts */}
+                <span className="btn-link text-[13px] inline-flex items-center gap-1">
                   {seg.cta}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
                 </span>
               </div>
             </a>
@@ -125,4 +123,3 @@ export default function Welcome() {
     </section>
   )
 }
-
