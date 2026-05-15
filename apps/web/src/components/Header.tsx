@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@ctos/ui'
-
-const ctosLogo = 'https://www.figma.com/api/mcp/asset/08ce713a-5341-4b9e-83dc-7ed47d51dd8b'
+import ctosLogo from '../assets/ctos-logo-circle.png'
 
 // ── Shared type ──────────────────────────────────────────────────────────────
 type Product = {

@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
+import appScreenshot from '../assets/ctos-app-screen.png'
 
-const appScreenshot = 'https://www.figma.com/api/mcp/asset/1af255cb-accd-48f2-9abc-8f4126218830'
-const qrAndroid = 'https://www.figma.com/api/mcp/asset/42b0bb2d-c587-466d-843a-49f67fbdb356'
-const qrIos     = 'https://www.figma.com/api/mcp/asset/42b0bb2d-c587-466d-843a-49f67fbdb356'
-const qrHuawei  = 'https://www.figma.com/api/mcp/asset/42b0bb2d-c587-466d-843a-49f67fbdb356'
-const bgLarge   = 'https://www.figma.com/api/mcp/asset/62accd08-a86f-43e4-9b7e-ba9d6859dc2d'
+// Stable hosted QR codes — each points to the relevant app store page
+const QR_BASE = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=6&format=png&data='
+const qrAndroid = QR_BASE + encodeURIComponent('https://play.google.com/store/apps/details?id=com.ctosdigital.ctosapp')
+const qrIos     = QR_BASE + encodeURIComponent('https://apps.apple.com/my/app/myctos/id1496539141')
+const qrHuawei  = QR_BASE + encodeURIComponent('https://appgallery.huawei.com/app/C103285547')
 
 function AndroidIcon() {
   // Android Bugdroid — Font Awesome path, official green
@@ -65,29 +65,8 @@ const stores = [
 ]
 
 export default function AppPromo() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const bgRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || !bgRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      bgRef.current.style.transform = `translateY(${rect.top * 0.3}px)`
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[#e8e8e8]" style={{ minHeight: '500px' }}>
-      {/* Background with parallax */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img ref={bgRef} src={bgLarge} alt="" style={{ position: 'absolute', left: 0, width: '100%', height: '370.68%', top: '-219.64%', maxWidth: 'none', objectFit: 'cover', willChange: 'transform' }} />
-      </div>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(171.59deg, rgba(191,191,191,0.68) 28.34%, rgba(255,255,255,0.68) 89.3%)' }} />
+    <section className="relative overflow-hidden" style={{ minHeight: '500px', background: 'linear-gradient(135deg, #d4eeef 0%, #e8f6f7 40%, #f0f9fa 70%, #ffffff 100%)' }}>
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">

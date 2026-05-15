@@ -1,4 +1,5 @@
-import { CtosLogo, Icon } from '@ctos/ui'
+import { Icon } from '@ctos/ui'
+import ctosLogoCircle from '../assets/ctos-logo-circle.png'
 
 // Stable hosted QR code pointing to the CTOS app download page
 const APP_QR_URL =
@@ -31,7 +32,7 @@ export default function Footer() {
 
           {/* Column 1: Brand */}
           <div className="flex flex-col gap-7">
-            <CtosLogo color="white" height={44} />
+            <img src={ctosLogoCircle} alt="CTOS Digital" height={44} className="h-[44px] w-auto" />
             <div className="flex flex-col gap-[17px]">
               <p className="text-white/[0.85] text-[14px] leading-[23.1px] font-poppins">
                 Established in 1990, CTOS is Malaysia's leading Credit Reporting Agency (CRA) under
