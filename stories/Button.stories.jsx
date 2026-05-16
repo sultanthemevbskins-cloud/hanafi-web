@@ -187,6 +187,7 @@ export const LinkAllStates = {
 // ═══════════════════════════════════════════════════════════════════════════════
 export const AllVariants = {
   name: '⬛ All Variants Overview',
+  tags: ['!dev'],
   render: () => (
     <div style={{ ...sectionStyle, padding: 32 }}>
       {/* Hero */}
@@ -229,6 +230,7 @@ export const AllVariants = {
 // ──â”€ Sizes ────────────────────────────────────────────────────────────────────â”€
 export const Sizes = {
   name: 'Size Scale',
+  tags: ['!dev'],
   render: () => (
     <div style={sectionStyle}>
       {['hero', 'cta', 'header'].map(variant => (
