@@ -16,6 +16,11 @@ const preview = {
     docs: {
       theme: ctosTheme,
     },
+    options: {
+      storySort: {
+        order: ['CTOS Design System', '*', ['*'], ['_Archived']],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
