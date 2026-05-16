@@ -130,10 +130,10 @@ export default function CreditReportPanel({ open, onClose }: Props) {
                 onClick={() => setExpanded(false)}
                 className="flex-shrink-0 flex items-center gap-1.5 bg-white rounded-[8px] pl-3 pr-4 h-[30px] text-[#007b85] font-semibold text-[12px] font-poppins hover:bg-white/90 transition-colors"
               >
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                  <path d="M8 6H1M4 9l-3-3 3-3" />
-                </svg>
                 Close
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M2 6h8M7 3l3 3-3 3" />
+                </svg>
               </button>
             </div>
           ) : (
