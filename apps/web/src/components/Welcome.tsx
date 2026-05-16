@@ -1,9 +1,8 @@
-// Stable free images — picsum seeds are deterministic (same seed = same photo)
-const imgConsumer   = 'https://picsum.photos/seed/consumer-credit/400/220'
-const imgCommercial = 'https://picsum.photos/seed/commercial-biz/400/220'
-const imgCorporate  = 'https://picsum.photos/seed/corporate-brief/400/220'
-const imgFiBanks    = 'https://picsum.photos/seed/fibanks-atm/400/220'
-const imgGlobal     = 'https://picsum.photos/seed/global-world/400/220'
+import imgConsumer   from '../assets/welcome-consumer.png'
+import imgCommercial from '../assets/welcome-commercial.png'
+import imgCorporate  from '../assets/welcome-corporate.png'
+import imgFiBanks    from '../assets/welcome-fibanks.png'
+import imgGlobal     from '../assets/welcome-global.png'
 
 const segments = [
   {
