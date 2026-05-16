@@ -18,7 +18,7 @@ const preview = {
     },
     options: {
       storySort: {
-        order: ['CTOS Design System', '*', ['*'], ['_Archived']],
+        order: ['CTOS Design System', '*', ['*'], ['_Archived'], 'Configure your project'],
       },
     },
     controls: {
