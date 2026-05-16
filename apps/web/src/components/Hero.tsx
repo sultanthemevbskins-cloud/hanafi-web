@@ -394,27 +394,35 @@ export default function Hero({ onSubscribe }: { onSubscribe?: (plan: 'monthly' |
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const sectionRef = React.useRef<HTMLElement>(null)
 
-  // After a silent (no-transition) position reset, re-enable the transition
+  // After a silent (no-transition) position reset, re-enable the transition.
+  // setTimeout is more reliable than rAF when returning from a hidden tab
+  // (rAF can silently fail to fire, leaving animated=false forever).
   useEffect(() => {
     if (!animated) {
-      const id = requestAnimationFrame(() => requestAnimationFrame(() => setAnimated(true)))
-      return () => cancelAnimationFrame(id)
+      const id = setTimeout(() => setAnimated(true), 50)
+      return () => clearTimeout(id)
     }
   }, [animated])
 
-  // Pause when tab is hidden; on return, silently recover from any stuck clone position
+  // Pause when tab is hidden; on return, silently snap to a valid slide then
+  // resume auto-advance only AFTER animation has been re-enabled (50ms via the
+  // animated effect above). Batching setPaused(false) with setAnimated(false)
+  // was the root cause: auto-advance could increment index while animated was
+  // still false, transitionend never fired, and the track drifted off-screen.
   useEffect(() => {
     const handleVisibility = () => {
       if (document.hidden) {
         setPaused(true)
       } else {
+        // 1. Snap to a real slide with no animation
         setAnimated(false)
         setIndex(prev => {
           if (prev === 0) return SLIDE_COUNT
           if (prev === SLIDE_COUNT + 1) return 1
           return prev
         })
-        setPaused(false)
+        // 2. Resume auto-advance after animation is safely re-enabled (~50ms)
+        setTimeout(() => setPaused(false), 150)
       }
     }
     document.addEventListener('visibilitychange', handleVisibility)
