@@ -25,6 +25,13 @@ const descStyle       = { fontSize: 11, fontFamily: 'Manrope, sans-serif', color
 const STATES = ['default', 'hover', 'active', 'focus', 'disabled'];
 
 // =============================================================================
+// PLAYGROUND — primary story (appears as hero canvas on Docs page)
+// =============================================================================
+export const Playground = {
+  args: { label: 'Get Free Report', variant: 'hero', state: 'default', size: 'md' },
+};
+
+// =============================================================================
 // ALL VARIANTS OVERVIEW — Docs-only (hidden from sidebar)
 // =============================================================================
 export const AllVariants = {
@@ -92,13 +99,6 @@ export const Sizes = {
       ))}
     </div>
   ),
-};
-
-// =============================================================================
-// PLAYGROUND
-// =============================================================================
-export const Playground = {
-  args: { label: 'Get Free Report', variant: 'hero', state: 'default', size: 'md' },
 };
 
 // =============================================================================
