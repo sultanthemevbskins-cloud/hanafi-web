@@ -25,14 +25,8 @@ const border = {
 };
 
 // ── Logo as inline SVG data URI ───────────────────────────────────────────────
-// Replicate the CTOS wordmark in brand teal so no external file is needed
-const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 36" fill="none">
-  <path d="M14 10C9.029 10 5 14.029 5 19s4.029 9 9 9h7v-3h-7c-3.314 0-6-2.686-6-6s2.686-6 6-6h7v-3h-7Z" fill="${brand.primary}"/>
-  <path d="M32 7h-3v3h-4v3h4v12h3V13h4v-3h-4V7Z" fill="${brand.primary}"/>
-  <path d="M49 10c-4.971 0-9 4.029-9 9s4.029 9 9 9 9-4.029 9-9-4.029-9-9-9Zm0 15c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6Z" fill="${brand.primary}"/>
-  <path d="M70 10h-8v3h8c.552 0 1 .448 1 1s-.448 1-1 1h-5c-2.209 0-4 1.791-4 4v1c0 2.209 1.791 4 4 4h9v-3h-9c-.552 0-1-.448-1-1v-1c0-.552.448-1 1-1h5c2.209 0 4-1.791 4-4s-1.791-4-4-4Z" fill="${brand.primary}"/>
-  <rect x="82" y="18" width="1.5" height="12" rx=".75" fill="${border.light}"/>
-  <text x="90" y="26" font-family="Poppins, Inter, sans-serif" font-size="11" font-weight="500" fill="${text.muted}" letter-spacing="0.3">Design System</text>
+const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 36" fill="none">
+  <text x="4" y="27" font-family="Poppins, Inter, sans-serif" font-size="26" font-weight="700" fill="${brand.primary}" letter-spacing="-1">HBJ</text>
 </svg>`;
 
 const logoDataUri = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
@@ -43,7 +37,7 @@ export default create({
   base: 'light',
 
   // Branding
-  brandTitle: 'CTOS Design System',
+  brandTitle: 'HBJ',
   brandUrl:   '/',
   brandImage: logoDataUri,
   brandTarget: '_self',
