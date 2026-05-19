@@ -1,9 +1,9 @@
 {
   "_meta": {
     "project": "CTOS Web",
-    "figma": "MpHkBNWSBKa2wUanFty8uX",
+    "figma": "https://www.figma.com/design/MpHkBNWSBKa2wUanFty8uX/CTOS-web?node-id=198-2",
     "version": "1.0.0",
-    "description": "Single source of truth for all CTOS Web design tokens. Edit here — run `npm run sync` in hanafi-claude-shop to push to Storybook."
+    "description": "Single source of truth for all CTOS Web design tokens. Edit here — run `npm run sync` in ctos-web to push to Storybook."
   },
 
   "colors": {
