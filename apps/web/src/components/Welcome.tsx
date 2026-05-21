@@ -68,8 +68,8 @@ export default function Welcome() {
           Whether you're an everyday consumer or part of a large financial institution, CTOS provides credit insights designed to support every level of decision-making. Take a moment to check your credit health today!
         </p>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[18px]">
+        {/* Cards grid — horizontal scroll on mobile, grid on md+ */}
+        <div className="flex overflow-x-auto gap-[18px] pb-3 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden md:pb-0 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-5">
           {segments.map((seg) => (
             <a
               key={seg.name}
@@ -81,7 +81,7 @@ export default function Welcome() {
                     ? (e) => { e.preventDefault(); document.getElementById('commercial')?.scrollIntoView({ behavior: 'smooth' }) }
                     : undefined
               }
-              className="group bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+              className="group bg-white border border-[#eaecef] rounded-[14px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex-shrink-0 w-[220px] snap-start md:w-auto md:flex-shrink"
             >
               {/* Image area */}
               <div className="relative h-[160px] overflow-hidden rounded-t-[14px]">

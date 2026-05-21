@@ -154,7 +154,7 @@ function Slide1() {
   return (
     <div className="min-w-full">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <div className="grid grid-cols-2 gap-3 md:gap-[40px] lg:gap-[65px] items-start pt-3 md:pt-[65px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-[40px] lg:gap-[65px] items-start pt-3 md:pt-[65px]">
           <div className="flex flex-col gap-3 md:gap-5">
             <div className="flex items-center gap-1 text-[9px] md:text-[12px] tracking-[0.48px] font-poppins">
               <span className="font-bold text-white">#1</span>
@@ -185,7 +185,7 @@ function Slide1() {
               ))}
             </div>
           </div>
-          <div className="hero-dashboard-wrap md:flex md:justify-end">
+          <div className="hidden md:flex md:justify-end">
             <div className="hero-dashboard-inner w-full max-w-[460px] rounded-[22px] border border-white/60 p-5 lg:p-6 flex flex-col gap-1" style={{ background: 'linear-gradient(160deg, #ffffff 0%, #f1f4f6 100%)' }}>
               <div className="flex items-center justify-between">
                 <span className="font-semibold text-[13.5px] text-[#102a2e] font-poppins">Credit Health</span>
@@ -228,7 +228,7 @@ function Slide2() {
   return (
     <div className="min-w-full">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <div className="grid grid-cols-2 gap-3 md:gap-[40px] lg:gap-[65px] items-start pt-3 md:pt-[65px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-[40px] lg:gap-[65px] items-start pt-3 md:pt-[65px]">
           <div className="flex flex-col gap-3 md:gap-5">
             <div className="flex items-center gap-1 text-[9px] md:text-[12px] tracking-[0.48px] font-poppins">
               <span className="font-bold text-white">#1</span>
@@ -259,7 +259,7 @@ function Slide2() {
               ))}
             </div>
           </div>
-          <div className="hero-dashboard-wrap md:flex md:justify-end">
+          <div className="hidden md:flex md:justify-end">
             <div className="hero-dashboard-inner w-full max-w-[460px] rounded-[22px] border border-white/60 flex flex-col" style={{ background: 'linear-gradient(160deg, #ffffff 0%, #f1f4f6 100%)', boxShadow: '0 30px 80px rgba(0,0,0,0.45), inset 0 2px 0 rgba(255,255,255,0.6)', padding: '22px 22px 20px' }}>
               <div className="flex items-center justify-between mb-4">
                 <span className="font-semibold text-[13.5px] text-[#0F2123] font-poppins">Loan Application Review</span>
@@ -323,7 +323,7 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
   return (
     <div className="min-w-full">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
-        <div className="grid grid-cols-2 gap-3 md:gap-[40px] items-start pt-3 md:pt-[65px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-[40px] items-start pt-3 md:pt-[65px]">
           <div className="flex flex-col gap-3 md:gap-5">
             <div className="font-bold text-[18px] md:text-[26px] lg:text-[60px] leading-tight lg:leading-[63.6px] tracking-[-0.5px] md:tracking-[-1px] font-poppins">
               <p className="text-white">Stay ahead with</p>
@@ -345,7 +345,7 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
               </Button>
             </div>
           </div>
-          <div className="flex justify-center md:justify-end">
+          <div className="hidden md:flex md:justify-end">
             <div className="relative flex items-start justify-center w-full">
               <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[30px] size-[480px] rounded-[240px] border border-dashed border-white/[0.12] pointer-events-none" />
               <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-[70px] size-[400px] rounded-[200px] border border-white/[0.06] pointer-events-none" />
