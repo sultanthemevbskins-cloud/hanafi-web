@@ -160,7 +160,7 @@ function Slide1() {
               <span className="font-bold text-white">#1</span>
               <span className="font-medium text-white">People's Choice for Credit Report</span>
             </div>
-            <div className="font-bold text-[18px] md:text-[26px] lg:text-[58px] leading-tight lg:leading-[60.9px] tracking-[-0.5px] md:tracking-[-1px] lg:tracking-[-2.03px] font-poppins">
+            <div className="font-bold text-[30px] md:text-[26px] lg:text-[58px] leading-tight lg:leading-[60.9px] tracking-[-0.8px] md:tracking-[-1px] lg:tracking-[-2.03px] font-poppins">
               <p className="bg-clip-text text-transparent pb-1" style={{ backgroundImage: 'linear-gradient(90deg, #ffc28e 0%, #1feeff 100%)' }}>Smarter credit</p>
               <p className="text-white">Stronger decisions.</p>
             </div>
@@ -234,7 +234,7 @@ function Slide2() {
               <span className="font-bold text-white">#1</span>
               <span className="font-medium text-white">Bank's choice for Credit Report</span>
             </div>
-            <div className="font-bold text-[18px] md:text-[26px] lg:text-[58px] leading-tight lg:leading-[60.9px] tracking-[-0.5px] md:tracking-[-1px] lg:tracking-[-2.03px] font-poppins">
+            <div className="font-bold text-[30px] md:text-[26px] lg:text-[58px] leading-tight lg:leading-[60.9px] tracking-[-0.8px] md:tracking-[-1px] lg:tracking-[-2.03px] font-poppins">
               <p className="text-white">See what</p>
               <p className="bg-clip-text text-transparent pb-1" style={{ backgroundImage: 'linear-gradient(90deg, #ffc28e 0%, #1feeff 100%)' }}>your bank sees.</p>
             </div>
@@ -325,7 +325,7 @@ function Slide3({ mouse, onSubscribe }: { mouse: { x: number; y: number }; onSub
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-[40px] items-start pt-3 md:pt-[65px]">
           <div className="flex flex-col gap-3 md:gap-5">
-            <div className="font-bold text-[18px] md:text-[26px] lg:text-[60px] leading-tight lg:leading-[63.6px] tracking-[-0.5px] md:tracking-[-1px] font-poppins">
+            <div className="font-bold text-[30px] md:text-[26px] lg:text-[60px] leading-tight lg:leading-[63.6px] tracking-[-0.8px] md:tracking-[-1px] font-poppins">
               <p className="text-white">Stay ahead with</p>
               <p className="text-white">
                 <span className="bg-clip-text text-transparent inline-block pb-1" style={{ backgroundImage: 'linear-gradient(90deg, #ffa53f 0%, #8bffde 100%)' }}>CTOS SecureID</span>
