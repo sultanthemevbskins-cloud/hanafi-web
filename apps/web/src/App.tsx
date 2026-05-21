@@ -24,29 +24,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-manrope">
-      {/* Click-outside backdrop — sits below the hero slot (z-31) but above page content */}
+
+      {/* ── ContactUs: fixed overlay — slides down from top of viewport ── */}
+      {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-30 transition-opacity duration-500 ${contactOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[49] bg-black/30 transition-opacity duration-500 ${contactOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setContactOpen(false)}
       />
+      {/* Panel */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-[50] h-[335px] md:h-[600px] transition-transform duration-500 ease-in-out ${contactOpen ? 'translate-y-0' : '-translate-y-full'}`}
+        style={{ pointerEvents: contactOpen ? 'auto' : 'none' }}
+      >
+        <ContactUs onClose={() => setContactOpen(false)} />
+      </div>
 
       <Header onLogoClick={() => setContactOpen(v => !v)} onSupportClick={() => setContactOpen(v => !v)} />
       <main>
-        {/* overflow-hidden clips the ContactUs as it slides out above */}
-        <div
-          className="relative h-[335px] md:h-[600px] overflow-hidden"
-          style={{ zIndex: contactOpen ? 31 : undefined }}
-        >
-          <div className="absolute inset-0">
-            <Hero onSubscribe={openPanel} />
-          </div>
-          <div
-            className={`absolute inset-0 z-[30] transition-transform duration-500 ease-in-out ${contactOpen ? 'translate-y-0' : '-translate-y-full'}`}
-            style={{ pointerEvents: contactOpen ? 'auto' : 'none' }}
-          >
-            <ContactUs onClose={() => setContactOpen(false)} />
-          </div>
-        </div>
+        <Hero onSubscribe={openPanel} />
         <Welcome />
         <ConsumerProducts onSubscribe={openPanel} onGetCreditReport={() => setCreditPanelOpen(true)} />
         <CommercialProducts />

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="160" viewBox="0 0 400 160">
+  <!-- Base map background -->
+  <rect width="400" height="160" fill="#e9e5dc"/>
+  <!-- Block fills -->
+  <rect x="0" y="0" width="60" height="65" fill="#d6cfc4"/>
+  <rect x="80" y="0" width="110" height="65" fill="#d6cfc4"/>
+  <rect x="210" y="0" width="75" height="65" fill="#d6cfc4"/>
+  <rect x="305" y="0" width="95" height="65" fill="#d6cfc4"/>
+  <rect x="0" y="78" width="90" height="48" fill="#d6cfc4"/>
+  <rect x="110" y="78" width="75" height="48" fill="#d6cfc4"/>
+  <rect x="205" y="78" width="95" height="48" fill="#d6cfc4"/>
+  <rect x="320" y="78" width="80" height="48" fill="#d6cfc4"/>
+  <rect x="0" y="138" width="80" height="22" fill="#d6cfc4"/>
+  <rect x="100" y="138" width="100" height="22" fill="#d6cfc4"/>
+  <rect x="220" y="138" width="80" height="22" fill="#d6cfc4"/>
+  <rect x="320" y="138" width="80" height="22" fill="#d6cfc4"/>
+  <!-- Green (residential park) -->
+  <rect x="192" y="78" width="8" height="48" fill="#c6dfc8"/>
+  <rect x="113" y="4" width="72" height="58" fill="#ccd9c8" rx="2"/>
+  <!-- Main roads (horizontal) -->
+  <rect x="0" y="66" width="400" height="9" fill="#fff"/>
+  <rect x="0" y="128" width="400" height="9" fill="#fff"/>
+  <!-- Main roads (vertical) -->
+  <rect x="68" y="0" width="9" height="160" fill="#fff"/>
+  <rect x="188" y="0" width="9" height="160" fill="#fff"/>
+  <rect x="298" y="0" width="9" height="160" fill="#fff"/>
+  <!-- Minor roads -->
+  <rect x="0" y="30" width="400" height="4" fill="#f0ece3"/>
+  <rect x="0" y="100" width="400" height="4" fill="#f0ece3"/>
+  <rect x="35" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="130" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="247" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="360" y="0" width="4" height="160" fill="#f0ece3"/>
+  <!-- Location pin -->
+  <circle cx="196" cy="74" r="14" fill="#007b85" opacity="0.25"/>
+  <path d="M196 54 C189 54 183 60 183 67 C183 77 196 89 196 89 C196 89 209 77 209 67 C209 60 203 54 196 54Z" fill="#007b85"/>
+  <circle cx="196" cy="67" r="5" fill="white"/>
+  <!-- Label -->
+  <rect x="90" y="108" width="220" height="26" rx="4" fill="white" opacity="0.85"/>
+  <text x="200" y="125" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="#102a2e">Setia Tropika, Johor Bahru</text>
+</svg>

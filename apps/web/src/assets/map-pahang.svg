@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="160" viewBox="0 0 400 160">
+  <!-- Base map background -->
+  <rect width="400" height="160" fill="#e9e5dc"/>
+  <!-- Block fills -->
+  <rect x="0" y="0" width="75" height="60" fill="#d6cfc4"/>
+  <rect x="95" y="0" width="95" height="60" fill="#d6cfc4"/>
+  <rect x="210" y="0" width="60" height="60" fill="#d6cfc4"/>
+  <rect x="290" y="0" width="110" height="60" fill="#d6cfc4"/>
+  <rect x="0" y="75" width="80" height="50" fill="#d6cfc4"/>
+  <rect x="100" y="75" width="60" height="50" fill="#d6cfc4"/>
+  <rect x="180" y="75" width="100" height="50" fill="#d6cfc4"/>
+  <rect x="300" y="75" width="100" height="50" fill="#d6cfc4"/>
+  <rect x="0" y="138" width="110" height="22" fill="#d6cfc4"/>
+  <rect x="130" y="138" width="80" height="22" fill="#d6cfc4"/>
+  <rect x="230" y="138" width="170" height="22" fill="#d6cfc4"/>
+  <!-- Water / green area -->
+  <ellipse cx="310" cy="30" rx="30" ry="20" fill="#b8d8f0" opacity="0.7"/>
+  <rect x="35" y="78" width="58" height="44" fill="#c6dfc8" rx="3"/>
+  <!-- Main roads (horizontal) -->
+  <rect x="0" y="62" width="400" height="9" fill="#fff"/>
+  <rect x="0" y="126" width="400" height="9" fill="#fff"/>
+  <!-- Main roads (vertical) -->
+  <rect x="82" y="0" width="9" height="160" fill="#fff"/>
+  <rect x="168" y="0" width="9" height="160" fill="#fff"/>
+  <rect x="278" y="0" width="9" height="160" fill="#fff"/>
+  <!-- Minor roads -->
+  <rect x="0" y="32" width="400" height="4" fill="#f0ece3"/>
+  <rect x="0" y="104" width="400" height="4" fill="#f0ece3"/>
+  <rect x="40" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="130" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="224" y="0" width="4" height="160" fill="#f0ece3"/>
+  <rect x="340" y="0" width="4" height="160" fill="#f0ece3"/>
+  <!-- Location pin -->
+  <circle cx="175" cy="70" r="14" fill="#007b85" opacity="0.25"/>
+  <path d="M175 50 C168 50 162 56 162 63 C162 73 175 85 175 85 C175 85 188 73 188 63 C188 56 182 50 175 50Z" fill="#007b85"/>
+  <circle cx="175" cy="63" r="5" fill="white"/>
+  <!-- Label -->
+  <rect x="90" y="108" width="220" height="26" rx="4" fill="white" opacity="0.85"/>
+  <text x="200" y="125" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="#102a2e">Jln Haji Abdul Aziz, Kuantan</text>
+</svg>

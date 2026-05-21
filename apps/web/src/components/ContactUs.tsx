@@ -1,20 +1,23 @@
 import { useState } from 'react'
 import ctosLogo from '../assets/ctos-logo-circle.png'
+import mapPenang from '../assets/map-penang.svg'
+import mapPahang from '../assets/map-pahang.svg'
+import mapJohor  from '../assets/map-johor.svg'
 
 const branches = [
   {
     name: 'Service Centre (Penang)',
-    img: 'https://www.figma.com/api/mcp/asset/8d0b14a2-85ee-4d7f-a19f-b7343f84c195',
+    img: mapPenang,
     address: 'Unit G-17-3, Lorong Bayan Indah 1, Bay Avenue, 11900 Penang.',
   },
   {
     name: 'Service Centre (Pahang)',
-    img: 'https://www.figma.com/api/mcp/asset/012446bb-0775-47b2-b050-151dac052d73',
+    img: mapPahang,
     address: 'A133, 1st Floor, Jalan Haji Abdul Aziz, 25000 Kuantan, Pahang.',
   },
   {
     name: 'Service Centre (Johor)',
-    img: 'https://www.figma.com/api/mcp/asset/140eda4b-75fa-4abc-ab2c-3fbc1244e800',
+    img: mapJohor,
     address: "72-01, Jalan Setia Tropika 1/14, Setia Tropika, 81200 Johor Bahru, Johor Darul Ta'zim.",
   },
 ]
@@ -226,7 +229,7 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
         <div className="flex flex-col divide-y divide-gray-200">
           {branches.map((branch) => (
             <div key={branch.name} className="px-4 py-3 flex flex-col gap-2">
-              <div className="w-full h-[70px] rounded-[8px] overflow-hidden flex-shrink-0">
+              <div className="w-full h-[90px] rounded-[8px] overflow-hidden flex-shrink-0">
                 <img src={branch.img} alt={branch.name} className="w-full h-full object-cover" />
               </div>
               <p className="text-gray-900 font-semibold text-[13px] font-manrope leading-tight">{branch.name}</p>
