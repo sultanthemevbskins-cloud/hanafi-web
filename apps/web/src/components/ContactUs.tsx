@@ -68,7 +68,7 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
 
   return (
     <section
-      className="relative flex overflow-hidden"
+      className="relative flex overflow-hidden rounded-b-[16px]"
       style={{
         height: '100%',
         background: 'linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%)',
@@ -78,8 +78,8 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 0% 100%, rgba(11,177,190,0.07) 0%, transparent 50%)' }} />
 
-      {/* ── Column 1: Logo — black background, doubled width ── */}
-      <div className="bg-black border-r border-gray-800 flex-shrink-0 w-[320px] md:w-[480px] lg:w-[480px] flex flex-col items-center px-4 md:px-8">
+      {/* ── Column 1: Logo — hidden on mobile, visible md+ ── */}
+      <div className="hidden md:flex bg-black border-r border-gray-800 flex-shrink-0 w-[320px] md:w-[380px] lg:w-[420px] flex-col items-center px-4 md:px-8">
         {/* Centered logo + title */}
         <div className="flex-1 flex flex-col items-center justify-center gap-4 md:gap-6">
           <div className="size-[90px] md:size-[150px] lg:size-[190px] rounded-full overflow-hidden shadow-[0_12px_48px_rgba(0,123,133,0.3)] flex-shrink-0">
@@ -112,6 +112,17 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
           <h2 className="font-semibold text-[16px] font-manrope text-gray-500">
             Contact us
           </h2>
+          {/* Close button — mobile only (desktop uses Column 1 close btn) */}
+          <button
+            onClick={onClose}
+            className="md:hidden flex items-center gap-1.5 bg-[#007b85] hover:bg-[#006570] text-white text-[12px] font-semibold font-manrope px-3 py-1.5 rounded-full transition-colors"
+            aria-label="Close"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+            Close
+          </button>
         </div>
 
         {/* Body: stacked boxes */}
@@ -121,7 +132,7 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
           <div className="rounded-[12px] border border-gray-200 bg-white shadow-sm p-4 flex gap-4 flex-shrink-0">
             <div className="flex flex-col gap-2 flex-1 min-w-0">
               <p
-                className="font-extrabold text-[18px] md:text-[27px] leading-tight tracking-[-0.5px] font-manrope bg-clip-text text-transparent gradient-animate pb-1"
+                className="font-extrabold text-[16px] md:text-[24px] leading-tight tracking-[-0.5px] font-manrope bg-clip-text text-transparent gradient-animate pb-1"
                 style={{ backgroundImage: 'linear-gradient(90deg, #007b85 0%, #0bb1be 20%, #F15D22 60%, #2d9f4e 80%, #007b85 100%)', backgroundSize: '300% 100%' }}
               >
                 CTOS Data Systems Sdn Bhd
@@ -157,7 +168,7 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
 
           {/* ── Box 2: Contact Centre ── */}
           <div className="rounded-[12px] border border-gray-200 bg-white shadow-sm p-4 flex-shrink-0">
-            <div className="flex gap-6">
+            <div className="flex flex-col gap-3 md:flex-row md:gap-6">
               {/* Phones */}
               <div className="flex-1 min-w-0">
                 <p className="text-gray-700 text-[11px] font-manrope font-bold tracking-[0.6px] mb-2">Contact centre</p>
@@ -199,7 +210,7 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
           </div>
 
           {/* ── Box 3: FAQ prompt ── */}
-          <div className="rounded-[12px] border border-[#007b85]/20 bg-[#007b85]/5 p-4 flex-shrink-0">
+          <div className="hidden md:block rounded-[12px] border border-[#007b85]/20 bg-[#007b85]/5 p-4 flex-shrink-0">
             <div className="flex items-start gap-3">
               <QuestionMarkIcon />
               <div className="flex-1 min-w-0">

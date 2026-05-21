@@ -31,9 +31,9 @@ export default function App() {
         className={`fixed inset-0 z-[49] bg-black/30 transition-opacity duration-500 ${contactOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setContactOpen(false)}
       />
-      {/* Panel */}
+      {/* Panel — starts 85px from top (below the header) */}
       <div
-        className={`fixed top-0 left-0 right-0 z-[50] h-[335px] md:h-[600px] transition-transform duration-500 ease-in-out ${contactOpen ? 'translate-y-0' : '-translate-y-full'}`}
+        className={`fixed top-[85px] left-0 right-0 z-[50] h-[400px] md:h-[540px] shadow-[0_8px_40px_rgba(0,0,0,0.18)] transition-transform duration-500 ease-in-out ${contactOpen ? 'translate-y-0' : '-translate-y-[calc(100%+85px)]'}`}
         style={{ pointerEvents: contactOpen ? 'auto' : 'none' }}
       >
         <ContactUs onClose={() => setContactOpen(false)} />
