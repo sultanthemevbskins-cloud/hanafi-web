@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ContactUs from './components/ContactUs'
+import ContactForm from './components/ContactForm'
 import ConsumerProducts from './components/ConsumerProducts'
 import AppPromo from './components/AppPromo'
 import Welcome from './components/Welcome'
@@ -47,6 +48,7 @@ export default function App() {
         <CommercialProducts />
         <AppPromo />
       </main>
+      <ContactForm />
       <Footer />
       <BackToTop />
       <SecureIDPanel open={panelOpen} onClose={() => setPanelOpen(false)} initialPlan={initialPlan} />
