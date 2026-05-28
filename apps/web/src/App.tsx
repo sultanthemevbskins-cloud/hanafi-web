@@ -29,13 +29,13 @@ export default function App() {
       {/* ── ContactUs: fixed overlay — slides down from top of viewport ── */}
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-[49] bg-black/30 transition-opacity duration-500 ${contactOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[49] transition-all duration-400 ${contactOpen ? 'bg-black/40 backdrop-blur-[3px] pointer-events-auto' : 'bg-transparent backdrop-blur-none pointer-events-none'}`}
         onClick={() => setContactOpen(false)}
       />
-      {/* Panel — starts 85px from top (below the header) */}
+      {/* Left drawer */}
       <div
-        className={`fixed top-[85px] left-0 right-0 z-[50] h-[400px] md:h-[540px] shadow-[0_8px_40px_rgba(0,0,0,0.18)] transition-transform duration-500 ease-in-out ${contactOpen ? 'translate-y-0' : '-translate-y-[calc(100%+85px)]'}`}
-        style={{ pointerEvents: contactOpen ? 'auto' : 'none' }}
+        className={`fixed left-0 top-0 bottom-0 z-[50] w-[460px] max-w-[calc(100vw-48px)] shadow-[8px_0_48px_rgba(0,0,0,0.18)] transition-transform duration-[380ms] ${contactOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ transitionTimingFunction: 'cubic-bezier(0.32,0.72,0,1)', pointerEvents: contactOpen ? 'auto' : 'none' }}
       >
         <ContactUs onClose={() => setContactOpen(false)} />
       </div>
