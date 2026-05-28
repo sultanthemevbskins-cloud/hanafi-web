@@ -48,7 +48,7 @@ export default function App() {
         <CommercialProducts />
         <AppPromo />
       </main>
-      <ContactForm />
+      <ContactForm onOpenContact={() => setContactOpen(true)} />
       <Footer />
       <BackToTop />
       <SecureIDPanel open={panelOpen} onClose={() => setPanelOpen(false)} initialPlan={initialPlan} />

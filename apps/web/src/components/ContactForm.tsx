@@ -22,7 +22,22 @@ const topics = [
   'Other',
 ]
 
-export default function ContactForm() {
+const faqs = [
+  'What is a credit report?',
+  'What information is in a MyCTOS report?',
+  'Where does CTOS get the information from?',
+  'How can I get a MyCTOS report?',
+  'Does CTOS decide whether to approve my loans?',
+  'My loan was rejected, why is it a CTOS issue?',
+  'What if the information in my report is wrong?',
+  "I've been told I am blacklisted by CTOS. Why?",
+  "What if I'm still rejected after updating my record?",
+  'I was rejected by one bank. Will others do the same?',
+]
+
+type Props = { onOpenContact?: () => void }
+
+export default function ContactForm({ onOpenContact }: Props) {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const formRef = useRef<HTMLFormElement>(null)
@@ -230,69 +245,119 @@ export default function ContactForm() {
             </div>
           </form>
 
-          {/* ── Right sidebar: contact info cards ── */}
-          <div className="flex flex-col gap-4">
+          {/* ── Right sidebar ── */}
+          <div className="flex flex-col gap-6">
 
-            {/* Card: HQ */}
-            <div className="rounded-[14px] border border-[#e5e7eb] bg-white p-5 flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[rgba(0,123,133,0.10)] flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-                </svg>
+            {/* Call Us card */}
+            <div className="rounded-[16px] border border-[#e5e7eb] bg-white overflow-hidden shadow-sm">
+              {/* Teal header bar */}
+              <div className="bg-[#007b85] px-5 py-4 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-poppins font-bold text-[15px] text-white">Call Us</p>
+                  <p className="font-poppins text-[11px] text-white/70">Mon – Fri, 8am – 7pm</p>
+                </div>
               </div>
-              <div>
-                <p className="font-poppins font-semibold text-[13px] text-[#102a2e] mb-1">Head Office</p>
-                <p className="font-poppins text-[12.5px] text-[#374151] leading-relaxed">
-                  Tower 3, Avenue 7, The Horizon,<br />
-                  Bangsar South, No. 8,<br />
-                  Jalan Kerinchi, 59200 Kuala Lumpur
-                </p>
+
+              {/* Phone numbers */}
+              <div className="px-5 py-4 flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-poppins text-[11px] text-[#6b7280] uppercase tracking-[0.6px] font-semibold">Personal</p>
+                    <a href="tel:+60327228833" className="font-poppins font-bold text-[18px] text-[#102a2e] hover:text-[#007b85] transition-colors tracking-[-0.3px]">
+                      +603 2722 8833
+                    </a>
+                  </div>
+                  <a href="tel:+60327228833" className="w-9 h-9 rounded-full bg-[rgba(0,123,133,0.08)] hover:bg-[rgba(0,123,133,0.15)] flex items-center justify-center transition-colors flex-shrink-0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
+                    </svg>
+                  </a>
+                </div>
+
+                <div className="border-t border-[#f3f4f6]" />
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-poppins text-[11px] text-[#6b7280] uppercase tracking-[0.6px] font-semibold">Business</p>
+                    <a href="tel:+60327228882" className="font-poppins font-bold text-[18px] text-[#102a2e] hover:text-[#007b85] transition-colors tracking-[-0.3px]">
+                      +603 2722 8882
+                    </a>
+                  </div>
+                  <a href="tel:+60327228882" className="w-9 h-9 rounded-full bg-[rgba(0,123,133,0.08)] hover:bg-[rgba(0,123,133,0.15)] flex items-center justify-center transition-colors flex-shrink-0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
+                    </svg>
+                  </a>
+                </div>
+
+                {/* More contact options */}
+                {onOpenContact && (
+                  <button
+                    onClick={onOpenContact}
+                    className="mt-1 w-full flex items-center justify-center gap-2 h-[40px] rounded-[10px] border border-[#007b85]/30 bg-[rgba(0,123,133,0.04)] hover:bg-[rgba(0,123,133,0.08)] text-[#007b85] font-poppins font-semibold text-[13px] transition-all"
+                  >
+                    More contact options
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* Card: Phone */}
-            <div className="rounded-[14px] border border-[#e5e7eb] bg-white p-5 flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[rgba(0,123,133,0.10)] flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z" />
-                </svg>
+            {/* FAQs */}
+            <div className="rounded-[16px] border border-[#e5e7eb] bg-white overflow-hidden shadow-sm">
+              {/* Header */}
+              <div className="px-5 py-4 border-b border-[#f3f4f6] flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-[rgba(0,123,133,0.10)] flex items-center justify-center flex-shrink-0">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                </div>
+                <p className="font-poppins font-semibold text-[13px] text-[#102a2e]">Frequently Asked Questions</p>
               </div>
-              <div>
-                <p className="font-poppins font-semibold text-[13px] text-[#102a2e] mb-1">Contact Centre</p>
-                <p className="font-poppins text-[12.5px] text-[#374151]">+603-2722 8811</p>
-                <p className="font-poppins text-[11.5px] text-[#6b7280] mt-0.5">Mon – Fri, 9am – 6pm</p>
-              </div>
-            </div>
 
-            {/* Card: Email */}
-            <div className="rounded-[14px] border border-[#e5e7eb] bg-white p-5 flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[rgba(0,123,133,0.10)] flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007b85" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                </svg>
+              {/* FAQ list */}
+              <div className="flex flex-col divide-y divide-[#f3f4f6]">
+                {faqs.map((q, i) => (
+                  <a
+                    key={i}
+                    href="https://ctoscredit.com.my/learn/faqs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2.5 px-5 py-3 hover:bg-[#f9fafb] transition-colors group"
+                  >
+                    <svg className="flex-shrink-0 mt-[3px] text-[#007b85]" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
+                    <span className="font-poppins text-[12.5px] text-[#374151] group-hover:text-[#102a2e] leading-snug transition-colors">{q}</span>
+                  </a>
+                ))}
               </div>
-              <div>
-                <p className="font-poppins font-semibold text-[13px] text-[#102a2e] mb-1">Email Us</p>
-                <a href="mailto:customerservice@ctos.com.my" className="font-poppins text-[12.5px] text-[#007b85] hover:underline">
-                  customerservice@ctos.com.my
+
+              {/* Footer link */}
+              <div className="px-5 py-3 border-t border-[#f3f4f6]">
+                <a
+                  href="https://ctoscredit.com.my/learn/faqs/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-poppins font-semibold text-[12px] text-[#007b85] hover:underline inline-flex items-center gap-1"
+                >
+                  View all FAQs
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
                 </a>
-                <p className="font-poppins text-[11.5px] text-[#6b7280] mt-0.5">We reply within 1–2 business days</p>
               </div>
             </div>
 
-            {/* Card: Response time badge */}
-            <div className="rounded-[14px] border border-[#007b85]/20 bg-[rgba(0,123,133,0.05)] p-5 flex gap-4 items-center">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#007b85] flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-poppins font-semibold text-[13px] text-[#102a2e]">Avg. response time</p>
-                <p className="font-poppins font-bold text-[22px] text-[#007b85] leading-tight">&lt; 24 hrs</p>
-                <p className="font-poppins text-[11.5px] text-[#6b7280]">During business hours</p>
-              </div>
-            </div>
           </div>
 
         </div>
