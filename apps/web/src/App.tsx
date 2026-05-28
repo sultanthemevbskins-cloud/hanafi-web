@@ -29,12 +29,12 @@ export default function App() {
       {/* ── ContactUs: fixed overlay — slides down from top of viewport ── */}
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-[49] transition-all duration-400 ${contactOpen ? 'bg-black/40 backdrop-blur-[3px] pointer-events-auto' : 'bg-transparent backdrop-blur-none pointer-events-none'}`}
+        className={`fixed inset-0 z-[59] transition-all duration-400 ${contactOpen ? 'bg-black/40 backdrop-blur-[3px] pointer-events-auto' : 'bg-transparent backdrop-blur-none pointer-events-none'}`}
         onClick={() => setContactOpen(false)}
       />
       {/* Left drawer */}
       <div
-        className={`fixed left-0 top-0 bottom-0 z-[50] w-[460px] max-w-[calc(100vw-48px)] shadow-[8px_0_48px_rgba(0,0,0,0.18)] transition-transform duration-[380ms] ${contactOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed left-0 top-0 bottom-0 z-[60] w-[460px] max-w-[calc(100vw-48px)] shadow-[8px_0_48px_rgba(0,0,0,0.18)] transition-transform duration-[380ms] ${contactOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{ transitionTimingFunction: 'cubic-bezier(0.32,0.72,0,1)', pointerEvents: contactOpen ? 'auto' : 'none' }}
       >
         <ContactUs onClose={() => setContactOpen(false)} />

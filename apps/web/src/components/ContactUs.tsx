@@ -148,8 +148,42 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
           </div>
         </div>
 
-        {/* ── FAQs collapsible ── */}
+        {/* ── Branch offices collapsible ── */}
         <div className="px-6 py-5 border-b border-[#f3f4f6]">
+          <button
+            onClick={() => setBranchOpen(v => !v)}
+            className="w-full flex items-center justify-between"
+          >
+            <SectionLabel icon={<BranchIcon />} label="Branch Offices" noMargin />
+            <svg
+              className={`text-[#007b85] transition-transform duration-300 ${branchOpen ? 'rotate-180' : 'rotate-0'}`}
+              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          <div
+            className="overflow-hidden transition-all duration-300 ease-in-out"
+            style={{ maxHeight: branchOpen ? '600px' : '0px' }}
+          >
+            <div className="mt-3 flex flex-col gap-3">
+              {branches.map(b => (
+                <div key={b.name} className="rounded-[10px] border border-[#eaecef] overflow-hidden">
+                  <img src={b.img} alt={b.name} className="w-full h-[90px] object-cover" />
+                  <div className="px-3 py-2.5">
+                    <p className="font-manrope font-semibold text-[12.5px] text-[#102a2e]">Service Centre ({b.name})</p>
+                    <p className="font-manrope text-[11.5px] text-[#6b7280] leading-relaxed mt-0.5">{b.address}</p>
+                    <p className="font-manrope text-[11px] text-[#9ca3af] mt-1">Mon – Fri, 8:30am – 5:30pm</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── FAQs collapsible ── */}
+        <div className="px-6 py-5">
           <button
             onClick={() => setFaqOpen(v => !v)}
             className="w-full flex items-center justify-between group"
@@ -191,40 +225,6 @@ export default function ContactUs({ onClose }: { onClose: () => void }) {
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </a>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Branch offices collapsible ── */}
-        <div className="px-6 py-5">
-          <button
-            onClick={() => setBranchOpen(v => !v)}
-            className="w-full flex items-center justify-between"
-          >
-            <SectionLabel icon={<BranchIcon />} label="Branch Offices" noMargin />
-            <svg
-              className={`text-[#007b85] transition-transform duration-300 ${branchOpen ? 'rotate-180' : 'rotate-0'}`}
-              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </button>
-
-          <div
-            className="overflow-hidden transition-all duration-300 ease-in-out"
-            style={{ maxHeight: branchOpen ? '600px' : '0px' }}
-          >
-            <div className="mt-3 flex flex-col gap-3">
-              {branches.map(b => (
-                <div key={b.name} className="rounded-[10px] border border-[#eaecef] overflow-hidden">
-                  <img src={b.img} alt={b.name} className="w-full h-[90px] object-cover" />
-                  <div className="px-3 py-2.5">
-                    <p className="font-manrope font-semibold text-[12.5px] text-[#102a2e]">Service Centre ({b.name})</p>
-                    <p className="font-manrope text-[11.5px] text-[#6b7280] leading-relaxed mt-0.5">{b.address}</p>
-                    <p className="font-manrope text-[11px] text-[#9ca3af] mt-1">Mon – Fri, 8:30am – 5:30pm</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
