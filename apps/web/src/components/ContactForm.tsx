@@ -227,10 +227,18 @@ export default function ContactForm({ onOpenContact }: Props) {
                     <path d={PHONE_PATH} />
                   </svg>
                 </div>
-                <div>
+                <div className="flex-1">
                   <p className="font-poppins font-bold text-[15px] text-white">Call Us</p>
                   <p className="font-poppins text-[11px] text-white/70">Mon – Fri, 8am – 7pm</p>
                 </div>
+                {onOpenContact && (
+                  <button
+                    onClick={onOpenContact}
+                    className="font-poppins text-[12px] text-white/80 hover:text-white underline underline-offset-2 decoration-white/40 hover:decoration-white transition-colors flex-shrink-0"
+                  >
+                    more…
+                  </button>
+                )}
               </div>
 
               <div className="px-5 py-4 flex flex-col gap-3">
@@ -260,17 +268,6 @@ export default function ContactForm({ onOpenContact }: Props) {
                   </a>
                 </div>
 
-                {onOpenContact && (
-                  <button
-                    onClick={onOpenContact}
-                    className="mt-1 w-full flex items-center justify-center gap-2 h-[40px] rounded-[10px] border border-[#007b85]/30 bg-[rgba(0,123,133,0.04)] hover:bg-[rgba(0,123,133,0.08)] text-[#007b85] font-poppins font-semibold text-[13px] transition-all"
-                  >
-                    More contact options
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                )}
               </div>
             </div>
 
