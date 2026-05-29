@@ -195,7 +195,7 @@ function imgProps(src: string) {
 function CategoryBadge({ label, color, small }: { label: string; color: string; small?: boolean }) {
   return (
     <span
-      className={`inline-block font-poppins font-bold uppercase tracking-[0.7px] text-white rounded-full ${small ? 'text-[9px] px-2 py-[3px]' : 'text-[10px] px-2.5 py-1'}`}
+      className={`self-start inline-block font-poppins font-bold uppercase tracking-[0.7px] text-white rounded-full ${small ? 'text-[9px] px-2 py-[3px]' : 'text-[10px] px-2.5 py-1'}`}
       style={{ backgroundColor: color }}
     >
       {label}
@@ -213,20 +213,20 @@ function ArticleCard({ art, tall }: { art: Article; tall?: boolean }) {
       className="group flex flex-col rounded-[14px] border border-[#eaecef] bg-white overflow-hidden hover:shadow-[0_8px_28px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all duration-200 h-full"
     >
       {/* Image */}
-      <div className={`relative overflow-hidden flex-shrink-0 ${tall ? 'h-[160px]' : 'h-[130px]'}`}>
+      <div className={`relative overflow-hidden flex-shrink-0 ${tall ? 'h-[120px]' : 'h-[100px]'}`}>
         <img
           {...imgProps(art.image)}
           alt={art.title}
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-500"
+          className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.45) 100%)' }} />
-        <div className="absolute bottom-2.5 left-3">
+        <div className="absolute bottom-2 left-3">
           <CategoryBadge label={art.category} color={art.color} small />
         </div>
       </div>
       {/* Text */}
       <div className="flex flex-col flex-1 px-4 py-3 gap-1.5">
-        <h4 className="font-poppins font-semibold text-[13px] text-[#102a2e] leading-[1.45] line-clamp-2 group-hover:text-[#007b85] transition-colors">
+        <h4 className="font-poppins font-semibold text-[14.5px] text-[#102a2e] leading-[1.42] line-clamp-2 group-hover:text-[#007b85] transition-colors">
           {art.title}
         </h4>
         {tall && (
@@ -386,7 +386,7 @@ export default function LearnCentre() {
 
           {/* Row 1 — 2 side boxes */}
           {side.map((art, i) => (
-            <div key={i} style={{ minHeight: '320px' }}>
+            <div key={i} style={{ minHeight: '320px' }} className="flex">
               <ArticleCard art={art} tall />
             </div>
           ))}
