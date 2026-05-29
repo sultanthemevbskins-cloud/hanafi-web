@@ -192,11 +192,11 @@ function imgProps(src: string) {
   }
 }
 
-function CategoryBadge({ label, color, small }: { label: string; color: string; small?: boolean }) {
+function CategoryBadge({ label, small }: { label: string; color?: string; small?: boolean }) {
   return (
     <span
       className={`self-start inline-block font-poppins font-bold uppercase tracking-[0.7px] text-white rounded-full ${small ? 'text-[9px] px-2 py-[3px]' : 'text-[10px] px-2.5 py-1'}`}
-      style={{ backgroundColor: color }}
+      style={{ backgroundColor: '#007b85' }}
     >
       {label}
     </span>
@@ -219,7 +219,7 @@ function ArticleCard({ art, tall }: { art: Article; tall?: boolean }) {
           alt={art.title}
           className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 40%, transparent 65%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)' }} />
         <div className="absolute bottom-2 left-3">
           <CategoryBadge label={art.category} color={art.color} small />
         </div>
@@ -328,8 +328,8 @@ export default function LearnCentre() {
               alt={current.title}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 group-hover:scale-[1.02] transition-transform duration-700 ${fade ? 'opacity-100' : 'opacity-0'}`}
             />
-            {/* Gradient overlay — strong at bottom, fades to transparent at centre */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, transparent 62%)' }} />
+            {/* Gradient overlay — teal scrim bottom to centre */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)' }} />
 
             {/* Prev / Next arrows */}
             <button
