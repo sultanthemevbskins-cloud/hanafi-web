@@ -192,11 +192,21 @@ function imgProps(src: string) {
   }
 }
 
+/* 3 rotating scrims for article cards */
+const CARD_SCRIMS = [
+  /* teal-green (original) */
+  'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)',
+  /* deep navy-teal */
+  'linear-gradient(to top, rgba(10,31,34,0.96) 0%, rgba(0,81,90,0.58) 38%, transparent 92%)',
+  /* warm amber */
+  'linear-gradient(to top, rgba(155,70,8,0.90) 0%, rgba(212,140,30,0.52) 42%, transparent 92%)',
+]
+
 function CategoryBadge({ label, small }: { label: string; color?: string; small?: boolean }) {
   return (
     <span
       className={`self-start inline-block font-poppins font-bold uppercase tracking-[0.7px] text-white rounded-full ${small ? 'text-[9px] px-2 py-[3px]' : 'text-[10px] px-2.5 py-1'}`}
-      style={{ backgroundColor: '#007b85' }}
+      style={{ backgroundColor: '#23211d' }}
     >
       {label}
     </span>
@@ -204,7 +214,7 @@ function CategoryBadge({ label, small }: { label: string; color?: string; small?
 }
 
 /* Standard box card — used for row-1 side boxes and row-2 boxes */
-function ArticleCard({ art, tall }: { art: Article; tall?: boolean }) {
+function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?: number }) {
   return (
     <a
       href={art.url}
@@ -219,9 +229,9 @@ function ArticleCard({ art, tall }: { art: Article; tall?: boolean }) {
           alt={art.title}
           className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)' }} />
+        <div className="absolute inset-0" style={{ background: CARD_SCRIMS[gi % CARD_SCRIMS.length] }} />
         <div className="absolute bottom-2 left-3">
-          <CategoryBadge label={art.category} color={art.color} small />
+          <CategoryBadge label={art.category} small />
         </div>
       </div>
       {/* Text */}
@@ -328,8 +338,8 @@ export default function LearnCentre() {
               alt={current.title}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 group-hover:scale-[1.02] transition-transform duration-700 ${fade ? 'opacity-100' : 'opacity-0'}`}
             />
-            {/* Gradient overlay — teal scrim bottom to centre */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)' }} />
+            {/* Gradient overlay — black scrim bottom to centre */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.60) 32%, transparent 72%)' }} />
 
             {/* Prev / Next arrows */}
             <button
@@ -384,10 +394,10 @@ export default function LearnCentre() {
             </div>
           </div>
 
-          {/* Row 1 — 2 side boxes */}
+          {/* Row 1 — 2 side boxes (scrims 1 & 2) */}
           {side.map((art, i) => (
             <div key={i} style={{ minHeight: '320px' }} className="flex">
-              <ArticleCard art={art} tall />
+              <ArticleCard art={art} tall gi={i + 1} />
             </div>
           ))}
         </div>
@@ -397,7 +407,7 @@ export default function LearnCentre() {
         ════════════════════════════════════════════════════════════ */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {bottom.map((art, i) => (
-            <ArticleCard key={i} art={art} />
+            <ArticleCard key={i} art={art} gi={i % CARD_SCRIMS.length} />
           ))}
         </div>
 
