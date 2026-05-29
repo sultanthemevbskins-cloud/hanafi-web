@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import ContactUs from './components/ContactUs'
 import ContactForm from './components/ContactForm'
+import LearnCentre from './components/LearnCentre'
 import ConsumerProducts from './components/ConsumerProducts'
 import AppPromo from './components/AppPromo'
 import Welcome from './components/Welcome'
@@ -48,6 +49,7 @@ export default function App() {
         <CommercialProducts />
         <AppPromo />
       </main>
+      <LearnCentre />
       <ContactForm onOpenContact={() => setContactOpen(true)} />
       <Footer />
       <BackToTop />
