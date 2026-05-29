@@ -219,7 +219,7 @@ function ArticleCard({ art, tall }: { art: Article; tall?: boolean }) {
           alt={art.title}
           className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 45%, rgba(0,0,0,0.45) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.38) 40%, transparent 65%)' }} />
         <div className="absolute bottom-2 left-3">
           <CategoryBadge label={art.category} color={art.color} small />
         </div>
@@ -328,8 +328,8 @@ export default function LearnCentre() {
               alt={current.title}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 group-hover:scale-[1.02] transition-transform duration-700 ${fade ? 'opacity-100' : 'opacity-0'}`}
             />
-            {/* Gradient overlay — strong at bottom */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.88) 100%)' }} />
+            {/* Gradient overlay — strong at bottom, fades to transparent at centre */}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, transparent 62%)' }} />
 
             {/* Prev / Next arrows */}
             <button
