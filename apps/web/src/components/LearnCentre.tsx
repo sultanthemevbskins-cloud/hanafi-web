@@ -15,19 +15,15 @@ type Article = {
 const ADMIN_KEY = 'ctos_lc_admin'
 
 type AdminSettings = {
-  sourceMode:     'static' | 'api'
-  apiUrlPersonal: string
-  apiUrlBusiness: string
-  imgOverrides:   Record<string, string>   // article.url → image URL
-  descOverrides:  Record<string, string>   // article.url → description
+  imgOverrides:  Record<string, string>   // article.url → image URL
+  descOverrides: Record<string, string>   // article.url → description
+  urlOverrides:  Record<string, string>   // article.url → custom fetch URL
 }
 
 const DEFAULT_ADMIN: AdminSettings = {
-  sourceMode:     'static',
-  apiUrlPersonal: '',
-  apiUrlBusiness: '',
-  imgOverrides:   {},
-  descOverrides:  {},
+  imgOverrides:  {},
+  descOverrides: {},
+  urlOverrides:  {},
 }
 
 function loadAdmin(): AdminSettings {
@@ -320,33 +316,39 @@ function AdminDrawer({
   settings: AdminSettings
   onSave:   (s: AdminSettings) => void
 }) {
-  const [activeTab,  setActiveTab]  = useState<'source' | 'articles'>('source')
   const [artTab,     setArtTab]     = useState<'personal' | 'business'>('personal')
   const [draft,      setDraft]      = useState<AdminSettings>(settings)
   const [saved,      setSaved]      = useState(false)
   const [fetchState, setFetchState] = useState<Record<string, FetchState>>({})
-  const [testStatus, setTestStatus] = useState<Record<string, 'idle' | 'ok' | 'err'>>({})
+  const [editing,    setEditing]    = useState<Record<string, boolean>>({})   // url → show edit input
+  const [editVal,    setEditVal]    = useState<Record<string, string>>({})    // url → current input value
 
   useEffect(() => { if (open) setDraft(settings) }, [open, settings])
 
-  function handleSave() {
-    onSave(draft)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2200)
+  function handleSave() { onSave(draft); setSaved(true); setTimeout(() => setSaved(false), 2200) }
+  function handleReset() { setDraft(DEFAULT_ADMIN); onSave(DEFAULT_ADMIN); setSaved(true); setTimeout(() => setSaved(false), 2200) }
+
+  /* ── URL edit helpers ── */
+  function startEdit(art: Article) {
+    setEditVal(v => ({ ...v, [art.url]: draft.urlOverrides[art.url] ?? art.url }))
+    setEditing(e => ({ ...e, [art.url]: true }))
+  }
+  function confirmEdit(art: Article) {
+    const newUrl = (editVal[art.url] ?? '').trim()
+    if (newUrl && newUrl !== art.url) {
+      setDraft(d => ({ ...d, urlOverrides: { ...d.urlOverrides, [art.url]: newUrl } }))
+    } else if (!newUrl || newUrl === art.url) {
+      setDraft(d => { const u = { ...d.urlOverrides }; delete u[art.url]; return { ...d, urlOverrides: u } })
+    }
+    setEditing(e => ({ ...e, [art.url]: false }))
   }
 
-  function handleReset() {
-    setDraft(DEFAULT_ADMIN)
-    onSave(DEFAULT_ADMIN)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2200)
-  }
-
-  /* ── Auto-fetch OG data for one article ── */
+  /* ── OG fetch ── */
   async function fetchOne(art: Article) {
+    const targetUrl = draft.urlOverrides[art.url] ?? art.url
     setFetchState(s => ({ ...s, [art.url]: 'loading' }))
     try {
-      const og = await fetchOG(art.url)
+      const og = await fetchOG(targetUrl)
       setDraft(d => ({
         ...d,
         imgOverrides:  og.image       ? { ...d.imgOverrides,  [art.url]: og.image       } : d.imgOverrides,
@@ -359,37 +361,16 @@ function AdminDrawer({
     setTimeout(() => setFetchState(s => ({ ...s, [art.url]: 'idle' })), 3000)
   }
 
-  /* ── Fetch all articles in current sub-tab ── */
   async function fetchAll() {
-    const groups = GROUPS[artTab]
-    for (const g of groups) {
-      for (const art of g.articles) {
-        await fetchOne(art)
-      }
-    }
+    for (const g of GROUPS[artTab]) for (const art of g.articles) await fetchOne(art)
   }
 
   function clearOne(art: Article) {
     setDraft(d => {
-      const img  = { ...d.imgOverrides  }
-      const desc = { ...d.descOverrides }
-      delete img[art.url]
-      delete desc[art.url]
-      return { ...d, imgOverrides: img, descOverrides: desc }
+      const img = { ...d.imgOverrides }; const desc = { ...d.descOverrides }; const url = { ...d.urlOverrides }
+      delete img[art.url]; delete desc[art.url]; delete url[art.url]
+      return { ...d, imgOverrides: img, descOverrides: desc, urlOverrides: url }
     })
-  }
-
-  async function testEndpoint(which: 'personal' | 'business') {
-    const url = which === 'personal' ? draft.apiUrlPersonal : draft.apiUrlBusiness
-    if (!url) return
-    setTestStatus(s => ({ ...s, [which]: 'idle' }))
-    try {
-      const r = await fetch(url)
-      setTestStatus(s => ({ ...s, [which]: r.ok ? 'ok' : 'err' }))
-    } catch {
-      setTestStatus(s => ({ ...s, [which]: 'err' }))
-    }
-    setTimeout(() => setTestStatus(s => ({ ...s, [which]: 'idle' })), 3000)
   }
 
   const inp = 'w-full bg-[#0d1117] border border-[#30363d] rounded-[8px] px-3 py-2 font-mono text-[12px] text-[#e6edf3] placeholder-[#484f58] focus:outline-none focus:border-[#007b85] transition-colors'
@@ -425,209 +406,154 @@ function AdminDrawer({
           </button>
         </div>
 
-        {/* ── Tab bar ── */}
-        <div className="flex-shrink-0 flex px-5 pt-4 pb-0" style={{ borderBottom: '1px solid #21262d' }}>
-          {(['source', 'articles'] as const).map(t => (
-            <button
-              key={t}
-              onClick={() => setActiveTab(t)}
-              className={`px-4 pb-3 font-poppins font-semibold text-[12px] capitalize border-b-2 transition-colors ${
-                activeTab === t ? 'border-[#007b85] text-[#007b85]' : 'border-transparent text-[#484f58] hover:text-[#8b949e]'
-              }`}
-            >
-              {t === 'source' ? '⚡ Article Source' : '🖼 Articles'}
-            </button>
-          ))}
-        </div>
+        {/* ── Scrollable body (no tabs — single articles view) ── */}
+        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5" style={{ scrollbarWidth: 'thin', scrollbarColor: '#30363d #0d1117' }}>
 
-        {/* ── Scrollable body ── */}
-        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6" style={{ scrollbarWidth: 'thin', scrollbarColor: '#30363d #0d1117' }}>
-
-          {/* ══ SOURCE TAB ══ */}
-          {activeTab === 'source' && (
-            <div className="space-y-6">
-              <div>
-                <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px] mb-3">Source Mode</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {(['static', 'api'] as const).map(mode => (
-                    <button
-                      key={mode}
-                      onClick={() => setDraft(d => ({ ...d, sourceMode: mode }))}
-                      className={`py-3 px-4 rounded-[10px] border text-left transition-all ${
-                        draft.sourceMode === mode ? 'border-[#007b85] bg-[#007b85]/10' : 'border-[#30363d] bg-[#161b22] hover:border-[#484f58]'
-                      }`}
-                    >
-                      <p className={`font-poppins font-bold text-[12px] ${draft.sourceMode === mode ? 'text-[#0bb1be]' : 'text-[#8b949e]'}`}>
-                        {mode === 'static' ? '📦 Static' : '🌐 API'}
-                      </p>
-                      <p className="font-mono text-[10px] text-[#484f58] mt-0.5">
-                        {mode === 'static' ? 'Built-in data' : 'Live endpoint'}
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className={`space-y-4 transition-opacity duration-200 ${draft.sourceMode === 'api' ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
-                <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px]">API Endpoints</p>
-                {(['personal', 'business'] as const).map(which => (
-                  <div key={which}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="font-poppins text-[12px] text-[#8b949e] capitalize">{which} Articles URL</label>
-                      {testStatus[which] === 'ok'  && <span className="font-mono text-[10px] text-[#3fb950]">✓ Connected</span>}
-                      {testStatus[which] === 'err' && <span className="font-mono text-[10px] text-[#f85149]">✗ Failed</span>}
-                    </div>
-                    <div className="flex gap-2">
-                      <input
-                        type="url"
-                        placeholder={`https://api.example.com/learn/${which}`}
-                        value={which === 'personal' ? draft.apiUrlPersonal : draft.apiUrlBusiness}
-                        onChange={e => setDraft(d => ({ ...d, [which === 'personal' ? 'apiUrlPersonal' : 'apiUrlBusiness']: e.target.value }))}
-                        className={inp}
-                      />
-                      <button onClick={() => testEndpoint(which)} className="flex-shrink-0 px-3 py-2 rounded-[8px] border border-[#30363d] bg-[#161b22] font-poppins font-semibold text-[11px] text-[#8b949e] hover:border-[#007b85] hover:text-[#007b85] transition-colors">
-                        Test
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <div className="rounded-[10px] p-3" style={{ background: '#161b22', border: '1px solid #21262d' }}>
-                  <p className="font-mono text-[10px] text-[#484f58] mb-2">Expected JSON schema:</p>
-                  <pre className="font-mono text-[10px] text-[#8b949e] leading-relaxed whitespace-pre-wrap">{`{
-  "featured": [ { "title", "category", "color",
-                  "excerpt", "image", "url",
-                  "readTime" }, ... ],
-  "side":     [ ... ],
-  "bottom":   [ ... ]
-}`}</pre>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ══ ARTICLES TAB ══ */}
-          {activeTab === 'articles' && (
-            <div className="space-y-5">
-
-              {/* Personal / Business toggle */}
-              <div className="flex gap-1 p-1 rounded-[10px]" style={{ background: '#161b22', border: '1px solid #21262d' }}>
-                {(['personal', 'business'] as const).map(t => (
-                  <button
-                    key={t}
-                    onClick={() => setArtTab(t)}
-                    className={`flex-1 py-1.5 rounded-[8px] font-poppins font-semibold text-[12px] capitalize transition-all ${artTab === t ? 'bg-[#007b85] text-white shadow-sm' : 'text-[#484f58] hover:text-[#8b949e]'}`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-
-              {/* Fetch All button */}
-              <button
-                onClick={fetchAll}
-                className="w-full py-2.5 rounded-[10px] border border-[#007b85]/40 bg-[#007b85]/10 font-poppins font-semibold text-[12px] text-[#0bb1be] hover:bg-[#007b85]/20 transition-colors flex items-center justify-center gap-2"
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
-                Fetch All Images &amp; Descriptions
+          {/* Personal / Business toggle */}
+          <div className="flex gap-1 p-1 rounded-[10px]" style={{ background: '#161b22', border: '1px solid #21262d' }}>
+            {(['personal', 'business'] as const).map(t => (
+              <button key={t} onClick={() => setArtTab(t)}
+                className={`flex-1 py-1.5 rounded-[8px] font-poppins font-semibold text-[12px] capitalize transition-all ${artTab === t ? 'bg-[#007b85] text-white shadow-sm' : 'text-[#484f58] hover:text-[#8b949e]'}`}>
+                {t}
               </button>
+            ))}
+          </div>
 
-              {/* Article groups */}
-              {GROUPS[artTab].map(group => (
-                <div key={group.label}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <p className="font-poppins font-semibold text-[10px] text-[#484f58] uppercase tracking-[1.5px]">{group.label}</p>
-                    <div className="flex-1 h-px" style={{ background: '#21262d' }} />
-                  </div>
+          {/* Fetch All */}
+          <button onClick={fetchAll}
+            className="w-full py-2.5 rounded-[10px] border border-[#007b85]/40 bg-[#007b85]/10 font-poppins font-semibold text-[12px] text-[#0bb1be] hover:bg-[#007b85]/20 transition-colors flex items-center justify-center gap-2">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+            Fetch All Images &amp; Descriptions
+          </button>
 
-                  <div className="space-y-3">
-                    {group.articles.map((art, idx) => {
-                      const imgOvr  = draft.imgOverrides[art.url]  ?? ''
-                      const descOvr = draft.descOverrides[art.url] ?? ''
-                      const thumb   = imgOvr || art.image
-                      const state   = fetchState[art.url] ?? 'idle'
-                      const hasData = !!(imgOvr || descOvr)
+          {/* Article groups */}
+          {GROUPS[artTab].map(group => (
+            <div key={group.label}>
+              <div className="flex items-center gap-2 mb-3">
+                <p className="font-poppins font-semibold text-[10px] text-[#484f58] uppercase tracking-[1.5px]">{group.label}</p>
+                <div className="flex-1 h-px" style={{ background: '#21262d' }} />
+              </div>
 
-                      return (
-                        <div key={idx} className="rounded-[10px] overflow-hidden" style={{ border: `1px solid ${hasData ? '#007b85' : '#21262d'}` }}>
+              <div className="space-y-3">
+                {group.articles.map((art, idx) => {
+                  const imgOvr   = draft.imgOverrides[art.url]  ?? ''
+                  const descOvr  = draft.descOverrides[art.url] ?? ''
+                  const urlOvr   = draft.urlOverrides[art.url]  ?? ''
+                  const thumb    = imgOvr || art.image
+                  const state    = fetchState[art.url] ?? 'idle'
+                  const hasData  = !!(imgOvr || descOvr || urlOvr)
+                  const isEditing = editing[art.url] ?? false
+                  const displayUrl = urlOvr || art.url
 
-                          {/* Top row — thumbnail + title + fetch btn */}
-                          <div className="flex items-center gap-3 p-3" style={{ background: '#161b22' }}>
-                            {/* Thumbnail */}
-                            <div className="relative w-14 h-9 rounded-[6px] overflow-hidden flex-shrink-0 bg-[#21262d]">
-                              <img
-                                src={thumb}
-                                alt=""
-                                className="w-full h-full object-cover"
-                                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
-                              />
-                              {state === 'loading' && (
-                                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                                  <div className="w-3 h-3 border-2 border-[#007b85] border-t-transparent rounded-full animate-spin" />
-                                </div>
-                              )}
-                            </div>
+                  return (
+                    <div key={idx} className="rounded-[10px] overflow-hidden" style={{ border: `1px solid ${hasData ? '#007b85' : '#21262d'}` }}>
 
-                            {/* Title + domain */}
-                            <div className="flex-1 min-w-0">
-                              <p className="font-poppins text-[11px] text-[#e6edf3] leading-tight line-clamp-1">{art.title}</p>
-                              <p className="font-mono text-[9px] text-[#484f58] mt-0.5 truncate">{art.url.replace('https://', '')}</p>
-                            </div>
-
-                            {/* Fetch / status */}
-                            <button
-                              onClick={() => fetchOne(art)}
-                              disabled={state === 'loading'}
-                              className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[7px] font-poppins font-semibold text-[11px] transition-all ${
-                                state === 'ok'      ? 'bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/30' :
-                                state === 'err'     ? 'bg-[#f85149]/20 text-[#f85149] border border-[#f85149]/30' :
-                                state === 'loading' ? 'bg-[#007b85]/10 text-[#484f58] border border-[#30363d]' :
-                                'bg-[#007b85]/10 text-[#0bb1be] border border-[#007b85]/30 hover:bg-[#007b85]/20'
-                              }`}
-                            >
-                              {state === 'loading' ? 'Fetching…' :
-                               state === 'ok'      ? '✓ Done' :
-                               state === 'err'     ? '✗ Error' :
-                               <><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg>Fetch</>}
-                            </button>
-
-                            {/* Clear override */}
-                            {hasData && (
-                              <button
-                                onClick={() => clearOne(art)}
-                                title="Remove overrides"
-                                className="flex-shrink-0 w-7 h-7 rounded-[6px] flex items-center justify-center text-[#484f58] hover:text-[#f85149] hover:bg-[#f85149]/10 transition-colors"
-                              >
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                              </button>
-                            )}
-                          </div>
-
-                          {/* Fetched data preview */}
-                          {hasData && (
-                            <div className="px-3 pb-3 pt-2 space-y-2" style={{ background: '#0d1117', borderTop: '1px solid #21262d' }}>
-                              {imgOvr && (
-                                <div>
-                                  <p className="font-mono text-[9px] text-[#484f58] mb-1">OG IMAGE</p>
-                                  <p className="font-mono text-[10px] text-[#007b85] break-all line-clamp-1">{imgOvr}</p>
-                                </div>
-                              )}
-                              {descOvr && (
-                                <div>
-                                  <p className="font-mono text-[9px] text-[#484f58] mb-1">OG DESCRIPTION</p>
-                                  <p className="font-lato text-[11px] text-[#8b949e] leading-relaxed line-clamp-2">{descOvr}</p>
-                                </div>
-                              )}
+                      {/* ── Top row ── */}
+                      <div className="flex items-center gap-3 p-3" style={{ background: '#161b22' }}>
+                        {/* Thumbnail */}
+                        <div className="relative w-14 h-9 rounded-[6px] overflow-hidden flex-shrink-0 bg-[#21262d]">
+                          <img src={thumb} alt="" className="w-full h-full object-cover"
+                            onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }} />
+                          {state === 'loading' && (
+                            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                              <div className="w-3 h-3 border-2 border-[#007b85] border-t-transparent rounded-full animate-spin" />
                             </div>
                           )}
                         </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              ))}
 
+                        {/* Title + URL */}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-poppins text-[11px] text-[#e6edf3] leading-tight line-clamp-1">{art.title}</p>
+                          <p className={`font-mono text-[9px] mt-0.5 truncate ${urlOvr ? 'text-[#0bb1be]' : 'text-[#484f58]'}`}>
+                            {displayUrl.replace('https://', '')}
+                          </p>
+                        </div>
+
+                        {/* Edit button */}
+                        <button
+                          onClick={() => isEditing ? confirmEdit(art) : startEdit(art)}
+                          title={isEditing ? 'Confirm URL' : 'Edit article URL'}
+                          className={`flex-shrink-0 w-7 h-7 rounded-[6px] flex items-center justify-center transition-colors ${
+                            isEditing ? 'bg-[#007b85] text-white' : 'border border-[#30363d] text-[#484f58] hover:text-[#e6edf3] hover:border-[#484f58]'
+                          }`}
+                        >
+                          {isEditing
+                            ? <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            : <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                          }
+                        </button>
+
+                        {/* Fetch button */}
+                        <button
+                          onClick={() => fetchOne(art)}
+                          disabled={state === 'loading'}
+                          className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[7px] font-poppins font-semibold text-[11px] transition-all ${
+                            state === 'ok'      ? 'bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/30' :
+                            state === 'err'     ? 'bg-[#f85149]/20 text-[#f85149] border border-[#f85149]/30' :
+                            state === 'loading' ? 'bg-[#007b85]/10 text-[#484f58] border border-[#30363d]' :
+                            'bg-[#007b85]/10 text-[#0bb1be] border border-[#007b85]/30 hover:bg-[#007b85]/20'
+                          }`}
+                        >
+                          {state === 'loading' ? 'Fetching…' :
+                           state === 'ok'  ? '✓ Done' :
+                           state === 'err' ? '✗ Error' :
+                           <><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg>Fetch</>}
+                        </button>
+
+                        {/* Clear all */}
+                        {hasData && (
+                          <button onClick={() => clearOne(art)} title="Clear all overrides"
+                            className="flex-shrink-0 w-7 h-7 rounded-[6px] flex items-center justify-center text-[#484f58] hover:text-[#f85149] hover:bg-[#f85149]/10 transition-colors">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* ── URL edit input (shown when pencil clicked) ── */}
+                      {isEditing && (
+                        <div className="px-3 pb-3 pt-0" style={{ background: '#161b22', borderTop: '1px solid #21262d' }}>
+                          <p className="font-mono text-[9px] text-[#484f58] mt-2 mb-1.5">ARTICLE URL — used for Fetch &amp; card link</p>
+                          <div className="flex gap-2">
+                            <input
+                              type="url"
+                              value={editVal[art.url] ?? displayUrl}
+                              onChange={e => setEditVal(v => ({ ...v, [art.url]: e.target.value }))}
+                              onKeyDown={e => { if (e.key === 'Enter') confirmEdit(art); if (e.key === 'Escape') setEditing(ed => ({ ...ed, [art.url]: false })) }}
+                              autoFocus
+                              className={`${inp} text-[11px]`}
+                              placeholder="https://ctoscredit.com.my/learn/..."
+                            />
+                            <button onClick={() => confirmEdit(art)}
+                              className="flex-shrink-0 px-3 rounded-[8px] bg-[#007b85] text-white font-poppins font-semibold text-[11px] hover:bg-[#0bb1be] transition-colors">
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* ── OG data preview ── */}
+                      {hasData && !isEditing && (
+                        <div className="px-3 pb-3 pt-2 space-y-2" style={{ background: '#0d1117', borderTop: '1px solid #21262d' }}>
+                          {imgOvr && (
+                            <div>
+                              <p className="font-mono text-[9px] text-[#484f58] mb-1">OG IMAGE</p>
+                              <p className="font-mono text-[10px] text-[#007b85] break-all line-clamp-1">{imgOvr}</p>
+                            </div>
+                          )}
+                          {descOvr && (
+                            <div>
+                              <p className="font-mono text-[9px] text-[#484f58] mb-1">OG DESCRIPTION</p>
+                              <p className="font-lato text-[11px] text-[#8b949e] leading-relaxed line-clamp-2">{descOvr}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
-          )}
+          ))}
 
         </div>
 
