@@ -52,12 +52,40 @@ function parseOG(html: string): OGData {
   }
 }
 
+async function fetchWithTimeout(url: string, ms = 9000): Promise<string> {
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), ms)
+  try {
+    const res = await fetch(url, { signal: ctrl.signal })
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    return await res.text()
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 async function fetchOG(articleUrl: string): Promise<OGData> {
-  const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(articleUrl)}`
-  const res   = await fetch(proxy)
-  if (!res.ok) throw new Error(`HTTP ${res.status}`)
-  const { contents } = await res.json()
-  return parseOG(contents)
+  const enc = encodeURIComponent(articleUrl)
+
+  /* Try three proxies in sequence; return first successful OG parse */
+  const proxies = [
+    `https://corsproxy.io/?${enc}`,
+    `https://api.allorigins.win/raw?url=${enc}`,
+    `https://api.codetabs.com/v1/proxy?quest=${enc}`,
+  ]
+
+  let lastErr = ''
+  for (const proxyUrl of proxies) {
+    try {
+      const html = await fetchWithTimeout(proxyUrl)
+      const data = parseOG(html)
+      /* Accept result if at least one field was found */
+      if (data.image || data.description || data.title) return data
+    } catch (e) {
+      lastErr = String(e)
+    }
+  }
+  throw new Error(`All proxies failed — ${lastErr}`)
 }
 
 /* ─── Data ───────────────────────────────────────────────────────────────── */
