@@ -11,9 +11,36 @@ type Article = {
   readTime: string
 }
 
+/* ─── Admin types & storage ──────────────────────────────────────────────── */
+const ADMIN_KEY = 'ctos_lc_admin'
+
+type AdminSettings = {
+  sourceMode:      'static' | 'api'
+  apiUrlPersonal:  string
+  apiUrlBusiness:  string
+  imgOverrides:    Record<string, string>   // article.url → custom image URL
+}
+
+const DEFAULT_ADMIN: AdminSettings = {
+  sourceMode:     'static',
+  apiUrlPersonal: '',
+  apiUrlBusiness: '',
+  imgOverrides:   {},
+}
+
+function loadAdmin(): AdminSettings {
+  try {
+    const raw = localStorage.getItem(ADMIN_KEY)
+    return raw ? { ...DEFAULT_ADMIN, ...JSON.parse(raw) } : DEFAULT_ADMIN
+  } catch { return DEFAULT_ADMIN }
+}
+
+function saveAdmin(s: AdminSettings) {
+  localStorage.setItem(ADMIN_KEY, JSON.stringify(s))
+}
+
 /* ─── Data ───────────────────────────────────────────────────────────────── */
 
-/* — Personal — */
 const P_FEATURED: Article[] = [
   {
     title:    'How to Improve Your Credit Report in Malaysia: 7 Practical Steps',
@@ -41,7 +68,6 @@ const P_FEATURED: Article[] = [
   },
 ]
 
-/* Row 1 — right side (2 boxes) */
 const P_SIDE: Article[] = [
   {
     title:    'Signs of Identity Theft in Malaysia and How to Protect Yourself',
@@ -61,7 +87,6 @@ const P_SIDE: Article[] = [
   },
 ]
 
-/* Row 2 — bottom (4 boxes) */
 const P_BOTTOM: Article[] = [
   {
     title:    'How to Fix Wrong Information in Your Credit Report',
@@ -97,7 +122,6 @@ const P_BOTTOM: Article[] = [
   },
 ]
 
-/* — Business — */
 const B_FEATURED: Article[] = [
   {
     title:    'Manufacturing Firm Reduces Overdue Payments by 30% with CTOS Credit Manager',
@@ -179,7 +203,26 @@ const B_BOTTOM: Article[] = [
   },
 ]
 
+/* article groups used by the admin images panel */
+type ArticleGroup = { label: string; articles: Article[] }
+const GROUPS: Record<'personal' | 'business', ArticleGroup[]> = {
+  personal: [
+    { label: 'Featured Slider', articles: P_FEATURED },
+    { label: 'Side Cards',      articles: P_SIDE     },
+    { label: 'Bottom Cards',    articles: P_BOTTOM   },
+  ],
+  business: [
+    { label: 'Featured Slider', articles: B_FEATURED },
+    { label: 'Side Cards',      articles: B_SIDE     },
+    { label: 'Bottom Cards',    articles: B_BOTTOM   },
+  ],
+}
+
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
+
+function resolvedImg(src: string, overrides: Record<string, string>, articleUrl: string) {
+  return overrides[articleUrl] || src
+}
 
 function imgProps(src: string) {
   return {
@@ -192,13 +235,9 @@ function imgProps(src: string) {
   }
 }
 
-/* 3 rotating scrims for article cards */
 const CARD_SCRIMS = [
-  /* teal-green (original) */
   'linear-gradient(to top, rgb(0 123 133) 0%, #408a6e 28%, transparent 95%)',
-  /* deep navy-teal */
   'linear-gradient(to top, rgba(10,31,34,0.96) 0%, rgba(0,81,90,0.58) 38%, transparent 92%)',
-  /* warm amber */
   'linear-gradient(to top, rgba(155,70,8,0.90) 0%, rgba(212,140,30,0.52) 42%, transparent 92%)',
 ]
 
@@ -213,7 +252,6 @@ function CategoryBadge({ label, small }: { label: string; color?: string; small?
   )
 }
 
-/* Standard box card — used for row-1 side boxes and row-2 boxes */
 function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?: number }) {
   return (
     <a
@@ -222,7 +260,6 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
       rel="noopener noreferrer"
       className="group flex flex-col rounded-[14px] border border-[#eaecef] bg-white overflow-hidden hover:shadow-[0_8px_28px_rgba(0,0,0,0.10)] hover:-translate-y-0.5 transition-all duration-200 h-full"
     >
-      {/* Image */}
       <div className={`relative overflow-hidden flex-shrink-0 ${tall ? 'h-[120px]' : 'h-[100px]'}`}>
         <img
           {...imgProps(art.image)}
@@ -234,7 +271,6 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
           <CategoryBadge label={art.category} small />
         </div>
       </div>
-      {/* Text */}
       <div className="flex flex-col flex-1 px-4 py-3 gap-1.5">
         <h4 className="font-poppins font-semibold text-[14.5px] text-[#102a2e] leading-[1.42] line-clamp-2 group-hover:text-[#007b85] transition-colors">
           {art.title}
@@ -251,16 +287,330 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
   )
 }
 
+/* ─── Admin Drawer ───────────────────────────────────────────────────────── */
+
+function AdminDrawer({
+  open, onClose, settings, onSave,
+}: {
+  open: boolean
+  onClose: () => void
+  settings: AdminSettings
+  onSave: (s: AdminSettings) => void
+}) {
+  const [activeTab,    setActiveTab]    = useState<'source' | 'images'>('source')
+  const [imgTab,       setImgTab]       = useState<'personal' | 'business'>('personal')
+  const [draft,        setDraft]        = useState<AdminSettings>(settings)
+  const [saved,        setSaved]        = useState(false)
+  const [testStatus,   setTestStatus]   = useState<Record<string, 'idle' | 'ok' | 'err'>>({})
+
+  /* sync draft when settings prop changes (e.g. first open) */
+  useEffect(() => { if (open) setDraft(settings) }, [open, settings])
+
+  function handleSave() {
+    onSave(draft)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  function handleReset() {
+    setDraft(DEFAULT_ADMIN)
+    onSave(DEFAULT_ADMIN)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  function setOverride(articleUrl: string, val: string) {
+    setDraft(d => ({
+      ...d,
+      imgOverrides: { ...d.imgOverrides, [articleUrl]: val },
+    }))
+  }
+
+  function clearOverride(articleUrl: string) {
+    setDraft(d => {
+      const next = { ...d.imgOverrides }
+      delete next[articleUrl]
+      return { ...d, imgOverrides: next }
+    })
+  }
+
+  async function testEndpoint(which: 'personal' | 'business') {
+    const url = which === 'personal' ? draft.apiUrlPersonal : draft.apiUrlBusiness
+    if (!url) return
+    setTestStatus(s => ({ ...s, [which]: 'idle' }))
+    try {
+      const r = await fetch(url)
+      setTestStatus(s => ({ ...s, [which]: r.ok ? 'ok' : 'err' }))
+    } catch {
+      setTestStatus(s => ({ ...s, [which]: 'err' }))
+    }
+    setTimeout(() => setTestStatus(s => ({ ...s, [which]: 'idle' })), 3000)
+  }
+
+  /* shared input style */
+  const inp = 'w-full bg-[#0d1117] border border-[#30363d] rounded-[8px] px-3 py-2 font-mono text-[12px] text-[#e6edf3] placeholder-[#484f58] focus:outline-none focus:border-[#007b85] transition-colors'
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 z-[69] transition-all duration-300 ${open ? 'bg-black/60 backdrop-blur-[2px] pointer-events-auto' : 'bg-transparent pointer-events-none'}`}
+        onClick={onClose}
+      />
+
+      {/* Drawer */}
+      <div
+        className={`fixed left-0 top-0 bottom-0 z-[70] w-[500px] max-w-[calc(100vw-32px)] flex flex-col shadow-[8px_0_56px_rgba(0,0,0,0.5)] transition-transform duration-[380ms] ${open ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ transitionTimingFunction: 'cubic-bezier(0.32,0.72,0,1)', background: '#0d1117', pointerEvents: open ? 'auto' : 'none' }}
+      >
+
+        {/* ── Header ── */}
+        <div className="flex-shrink-0 px-5 py-4 flex items-center gap-3" style={{ background: '#010409', borderBottom: '1px solid #21262d' }}>
+          {/* lock icon */}
+          <div className="w-8 h-8 rounded-[8px] flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg,#007b85,#0bb1be)' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-poppins font-bold text-[14px] text-[#e6edf3] leading-none">Content Admin</p>
+            <p className="font-mono text-[10px] text-[#484f58] mt-0.5">Knowledge Centre</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-7 h-7 rounded-full flex items-center justify-center text-[#484f58] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors flex-shrink-0"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        {/* ── Tab bar ── */}
+        <div className="flex-shrink-0 flex gap-0 px-5 pt-4 pb-0" style={{ borderBottom: '1px solid #21262d' }}>
+          {(['source', 'images'] as const).map(t => (
+            <button
+              key={t}
+              onClick={() => setActiveTab(t)}
+              className={`px-4 pb-3 font-poppins font-semibold text-[12px] capitalize border-b-2 transition-colors ${
+                activeTab === t
+                  ? 'border-[#007b85] text-[#007b85]'
+                  : 'border-transparent text-[#484f58] hover:text-[#8b949e]'
+              }`}
+            >
+              {t === 'source' ? '⚡ Article Source' : '🖼 Images'}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Scrollable body ── */}
+        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6" style={{ scrollbarWidth: 'thin', scrollbarColor: '#30363d #0d1117' }}>
+
+          {/* ══ SOURCE TAB ══ */}
+          {activeTab === 'source' && (
+            <div className="space-y-6">
+
+              {/* Source mode */}
+              <div>
+                <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px] mb-3">Source Mode</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {(['static', 'api'] as const).map(mode => (
+                    <button
+                      key={mode}
+                      onClick={() => setDraft(d => ({ ...d, sourceMode: mode }))}
+                      className={`py-3 px-4 rounded-[10px] border text-left transition-all ${
+                        draft.sourceMode === mode
+                          ? 'border-[#007b85] bg-[#007b85]/10'
+                          : 'border-[#30363d] bg-[#161b22] hover:border-[#484f58]'
+                      }`}
+                    >
+                      <p className={`font-poppins font-bold text-[12px] ${draft.sourceMode === mode ? 'text-[#0bb1be]' : 'text-[#8b949e]'}`}>
+                        {mode === 'static' ? '📦 Static' : '🌐 API'}
+                      </p>
+                      <p className="font-mono text-[10px] text-[#484f58] mt-0.5">
+                        {mode === 'static' ? 'Built-in data' : 'Live endpoint'}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* API endpoints */}
+              <div className={`space-y-4 transition-opacity duration-200 ${draft.sourceMode === 'api' ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
+                <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px]">API Endpoints</p>
+
+                {(['personal', 'business'] as const).map(which => (
+                  <div key={which}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="font-poppins text-[12px] text-[#8b949e] capitalize">{which} Articles URL</label>
+                      {testStatus[which] === 'ok' && <span className="font-mono text-[10px] text-[#3fb950]">✓ Connected</span>}
+                      {testStatus[which] === 'err' && <span className="font-mono text-[10px] text-[#f85149]">✗ Failed</span>}
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        type="url"
+                        placeholder={`https://api.example.com/learn/${which}`}
+                        value={which === 'personal' ? draft.apiUrlPersonal : draft.apiUrlBusiness}
+                        onChange={e => setDraft(d => ({
+                          ...d,
+                          [which === 'personal' ? 'apiUrlPersonal' : 'apiUrlBusiness']: e.target.value,
+                        }))}
+                        className={inp}
+                      />
+                      <button
+                        onClick={() => testEndpoint(which)}
+                        className="flex-shrink-0 px-3 py-2 rounded-[8px] border border-[#30363d] bg-[#161b22] font-poppins font-semibold text-[11px] text-[#8b949e] hover:border-[#007b85] hover:text-[#007b85] transition-colors"
+                      >
+                        Test
+                      </button>
+                    </div>
+                  </div>
+                ))}
+
+                {/* JSON schema hint */}
+                <div className="rounded-[10px] p-3" style={{ background: '#161b22', border: '1px solid #21262d' }}>
+                  <p className="font-mono text-[10px] text-[#484f58] mb-2">Expected JSON schema:</p>
+                  <pre className="font-mono text-[10px] text-[#8b949e] leading-relaxed whitespace-pre-wrap">{`{
+  "featured": [ { "title", "category", "color",
+                  "excerpt", "image", "url",
+                  "readTime" }, ... ],
+  "side":     [ ... ],
+  "bottom":   [ ... ]
+}`}</pre>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ══ IMAGES TAB ══ */}
+          {activeTab === 'images' && (
+            <div className="space-y-5">
+
+              {/* Personal / Business sub-tabs */}
+              <div className="flex gap-1 p-1 rounded-[10px]" style={{ background: '#161b22', border: '1px solid #21262d' }}>
+                {(['personal', 'business'] as const).map(t => (
+                  <button
+                    key={t}
+                    onClick={() => setImgTab(t)}
+                    className={`flex-1 py-1.5 rounded-[8px] font-poppins font-semibold text-[12px] capitalize transition-all ${
+                      imgTab === t ? 'bg-[#007b85] text-white shadow-sm' : 'text-[#484f58] hover:text-[#8b949e]'
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+
+              {/* Article rows */}
+              {GROUPS[imgTab].map(group => (
+                <div key={group.label}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <p className="font-poppins font-semibold text-[10px] text-[#484f58] uppercase tracking-[1.5px]">{group.label}</p>
+                    <div className="flex-1 h-px" style={{ background: '#21262d' }} />
+                  </div>
+                  <div className="space-y-3">
+                    {group.articles.map((art, idx) => {
+                      const override = draft.imgOverrides[art.url] ?? ''
+                      const displayImg = override || art.image
+                      return (
+                        <div key={idx} className="rounded-[10px] p-3 space-y-2.5" style={{ background: '#161b22', border: '1px solid #21262d' }}>
+                          {/* Article meta row */}
+                          <div className="flex items-center gap-2.5">
+                            {/* Thumbnail */}
+                            <div className="w-12 h-8 rounded-[6px] overflow-hidden flex-shrink-0 bg-[#21262d]">
+                              <img
+                                src={displayImg}
+                                alt=""
+                                className="w-full h-full object-cover"
+                                onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                              />
+                            </div>
+                            {/* Title */}
+                            <p className="font-poppins text-[11px] text-[#8b949e] leading-tight line-clamp-2 flex-1 min-w-0">
+                              {art.title}
+                            </p>
+                            {/* Override indicator */}
+                            {override && (
+                              <span className="flex-shrink-0 font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#007b85]/20 text-[#0bb1be]">overridden</span>
+                            )}
+                          </div>
+                          {/* URL input */}
+                          <div className="flex gap-2">
+                            <input
+                              type="url"
+                              placeholder={art.image}
+                              value={override}
+                              onChange={e => setOverride(art.url, e.target.value)}
+                              className={`${inp} text-[11px]`}
+                            />
+                            {override && (
+                              <button
+                                onClick={() => clearOverride(art.url)}
+                                title="Remove override"
+                                className="flex-shrink-0 w-8 h-8 rounded-[8px] border border-[#30363d] bg-[#0d1117] flex items-center justify-center text-[#484f58] hover:text-[#f85149] hover:border-[#f85149]/40 transition-colors"
+                              >
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+
+        {/* ── Footer ── */}
+        <div className="flex-shrink-0 px-5 py-4 flex items-center gap-3" style={{ borderTop: '1px solid #21262d', background: '#010409' }}>
+          <button
+            onClick={handleReset}
+            className="flex-1 py-2.5 rounded-[10px] border border-[#30363d] font-poppins font-semibold text-[12px] text-[#484f58] hover:text-[#f85149] hover:border-[#f85149]/40 transition-colors"
+          >
+            Reset defaults
+          </button>
+          <button
+            onClick={handleSave}
+            className={`flex-[2] py-2.5 rounded-[10px] font-poppins font-bold text-[13px] text-white transition-all duration-200 ${
+              saved
+                ? 'bg-[#3fb950]'
+                : 'bg-[#007b85] hover:bg-[#0bb1be] shadow-[0_0_20px_rgba(0,123,133,0.3)] hover:shadow-[0_0_28px_rgba(11,177,190,0.4)]'
+            }`}
+          >
+            {saved ? '✓ Saved' : 'Save Changes'}
+          </button>
+        </div>
+
+      </div>
+    </>
+  )
+}
+
 /* ─── Main Component ─────────────────────────────────────────────────────── */
 
 export default function LearnCentre() {
-  const [tab,   setTab]   = useState<'personal' | 'business'>('personal')
-  const [slide, setSlide] = useState(0)
-  const [fade,  setFade]  = useState(true)
+  const [tab,         setTab]         = useState<'personal' | 'business'>('personal')
+  const [slide,       setSlide]       = useState(0)
+  const [fade,        setFade]        = useState(true)
+  const [adminOpen,   setAdminOpen]   = useState(false)
+  const [adminSettings, setAdminSettings] = useState<AdminSettings>(DEFAULT_ADMIN)
 
-  const featured = tab === 'personal' ? P_FEATURED : B_FEATURED
-  const side     = tab === 'personal' ? P_SIDE     : B_SIDE
-  const bottom   = tab === 'personal' ? P_BOTTOM   : B_BOTTOM
+  /* load admin settings from localStorage on mount */
+  useEffect(() => { setAdminSettings(loadAdmin()) }, [])
+
+  /* apply image overrides to an article array */
+  function withOverrides(articles: Article[]): Article[] {
+    return articles.map(a => ({
+      ...a,
+      image: resolvedImg(a.image, adminSettings.imgOverrides, a.url),
+    }))
+  }
+
+  const featured = withOverrides(tab === 'personal' ? P_FEATURED : B_FEATURED)
+  const side     = withOverrides(tab === 'personal' ? P_SIDE     : B_SIDE)
+  const bottom   = withOverrides(tab === 'personal' ? P_BOTTOM   : B_BOTTOM)
   const current  = featured[slide]
 
   const goSlide = useCallback((i: number) => {
@@ -277,24 +627,42 @@ export default function LearnCentre() {
     }, 160)
   }, [featured.length])
 
-  // Auto-advance
   useEffect(() => {
     const t = setInterval(() => advance(1), 5500)
     return () => clearInterval(t)
   }, [advance])
 
-  // Reset on tab switch
   useEffect(() => { setSlide(0); setFade(true) }, [tab])
+
+  function handleSaveAdmin(s: AdminSettings) {
+    saveAdmin(s)
+    setAdminSettings(s)
+  }
+
+  /* secret trigger — select the letter 't' inside "Centre" */
+  function checkSecretTrigger() {
+    const sel = window.getSelection()?.toString()
+    if (sel === 't') setAdminOpen(true)
+  }
 
   return (
     <section className="bg-[#f9fafb] py-16 md:py-24">
       <div className="max-w-[1280px] mx-auto px-6 xl:px-10">
 
+        {/* ── Admin drawer (Easter egg) ── */}
+        <AdminDrawer
+          open={adminOpen}
+          onClose={() => setAdminOpen(false)}
+          settings={adminSettings}
+          onSave={handleSaveAdmin}
+        />
+
         {/* ── Section header ── */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
-            <p className="font-poppins font-bold text-[12px] text-[#007b85] uppercase tracking-[2.4px] mb-3">
-              Knowledge Centre
+            <p className="font-poppins font-bold text-[12px] text-[#007b85] uppercase tracking-[2.4px] mb-3 select-text cursor-text">
+              Knowledge{' '}
+              <span onMouseUp={checkSecretTrigger}>Centre</span>
             </p>
             <h2 className="font-poppins font-bold text-[32px] md:text-[42px] leading-tight tracking-[-1px]">
               <span className="text-[#5c5c5c]">Learn & </span>
@@ -331,70 +699,44 @@ export default function LearnCentre() {
             style={{ minHeight: '320px' }}
             onClick={() => window.open(current.url, '_blank')}
           >
-            {/* Image fill */}
             <img
               key={slide + '-' + tab}
               {...imgProps(current.image)}
               alt={current.title}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 group-hover:scale-[1.02] transition-transform duration-700 ${fade ? 'opacity-100' : 'opacity-0'}`}
             />
-            {/* Gradient overlay — black scrim bottom to centre */}
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.60) 32%, transparent 72%)' }} />
 
-            {/* Prev / Next arrows */}
-            <button
-              onClick={e => { e.stopPropagation(); advance(-1) }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/60 flex items-center justify-center text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10"
-            >
+            {/* Prev / Next */}
+            <button onClick={e => { e.stopPropagation(); advance(-1) }} className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/60 flex items-center justify-center text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
-            <button
-              onClick={e => { e.stopPropagation(); advance(1) }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/60 flex items-center justify-center text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10"
-            >
+            <button onClick={e => { e.stopPropagation(); advance(1) }} className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/30 hover:bg-black/60 flex items-center justify-center text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 z-10">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
             </button>
 
-            {/* Content — pinned bottom */}
+            {/* Content pinned bottom */}
             <div className={`absolute inset-x-0 bottom-0 p-5 flex flex-col gap-2 transition-opacity duration-200 ${fade ? 'opacity-100' : 'opacity-0'}`}>
               <CategoryBadge label={current.category} color={current.color} />
-              <h3 className="font-poppins font-bold text-[18px] md:text-[20px] text-white leading-[1.3] tracking-[-0.3px] line-clamp-2">
-                {current.title}
-              </h3>
-              <p className="font-lato text-[12.5px] text-white/65 leading-relaxed line-clamp-2">
-                {current.excerpt}
-              </p>
-
-              {/* Footer row */}
+              <h3 className="font-poppins font-bold text-[18px] md:text-[20px] text-white leading-[1.3] tracking-[-0.3px] line-clamp-2">{current.title}</h3>
+              <p className="font-lato text-[12.5px] text-white/65 leading-relaxed line-clamp-2">{current.excerpt}</p>
               <div className="flex items-center justify-between pt-2 mt-1 border-t border-white/10">
                 <div className="flex items-center gap-2">
-                  {/* Dots */}
                   {featured.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={e => { e.stopPropagation(); goSlide(i) }}
-                      className={`rounded-full transition-all duration-300 ${i === slide ? 'w-5 h-[6px] bg-[#007b85]' : 'w-[6px] h-[6px] bg-white/30 hover:bg-white/60'}`}
-                    />
+                    <button key={i} onClick={e => { e.stopPropagation(); goSlide(i) }} className={`rounded-full transition-all duration-300 ${i === slide ? 'w-5 h-[6px] bg-[#007b85]' : 'w-[6px] h-[6px] bg-white/30 hover:bg-white/60'}`} />
                   ))}
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-poppins text-[11px] text-white/40">{current.readTime}</span>
-                  <a
-                    href={current.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={e => e.stopPropagation()}
-                    className="font-poppins font-semibold text-[12px] text-[#0bb1be] hover:text-white inline-flex items-center gap-1 transition-colors"
-                  >
-                    Read
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <a href={current.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="font-poppins font-semibold text-[12px] text-[#0bb1be] hover:text-white inline-flex items-center gap-1 transition-colors">
+                    Read <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </a>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Row 1 — 2 side boxes (scrims 1 & 2) */}
+          {/* Row 1 — 2 side boxes */}
           {side.map((art, i) => (
             <div key={i} style={{ minHeight: '320px' }} className="flex">
               <ArticleCard art={art} tall gi={i + 1} />
