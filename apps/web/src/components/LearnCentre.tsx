@@ -37,55 +37,70 @@ function saveAdmin(s: AdminSettings) {
   localStorage.setItem(ADMIN_KEY, JSON.stringify(s))
 }
 
-/* ─── OG fetch utility ───────────────────────────────────────────────────── */
+/* ─── Article data fetch ─────────────────────────────────────────────────── */
 type OGData = { image: string; description: string; title: string }
 
-function parseOG(html: string): OGData {
-  const doc = new DOMParser().parseFromString(html, 'text/html')
-  const m = (prop: string) =>
-    doc.querySelector(`meta[property="${prop}"]`)?.getAttribute('content') ||
-    doc.querySelector(`meta[name="${prop}"]`)?.getAttribute('content') || ''
-  return {
-    image:       m('og:image')       || m('twitter:image'),
-    description: m('og:description') || m('description'),
-    title:       m('og:title')       || doc.title,
-  }
+function decodeWPText(s: string) {
+  return (s || '')
+    .replace(/&#039;/g, "'").replace(/&amp;/g, '&')
+    .replace(/&#8211;/g, '—').replace(/&#8212;/g, '—')
+    .replace(/&#8216;|&#8217;/g, "'").replace(/&#8220;|&#8221;/g, '"')
+    .replace(/&[a-z#0-9]+;/gi, ' ').trim()
 }
 
-async function fetchWithTimeout(url: string, ms = 9000): Promise<string> {
+async function timedFetch(url: string, ms = 10000): Promise<Response> {
   const ctrl = new AbortController()
-  const timer = setTimeout(() => ctrl.abort(), ms)
-  try {
-    const res = await fetch(url, { signal: ctrl.signal })
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return await res.text()
-  } finally {
-    clearTimeout(timer)
-  }
+  const t = setTimeout(() => ctrl.abort(), ms)
+  try { return await fetch(url, { signal: ctrl.signal }) }
+  finally { clearTimeout(t) }
 }
 
 async function fetchOG(articleUrl: string): Promise<OGData> {
-  const enc = encodeURIComponent(articleUrl)
-
-  /* Try three proxies in sequence; return first successful OG parse */
-  const proxies = [
-    `https://corsproxy.io/?${enc}`,
-    `https://api.allorigins.win/raw?url=${enc}`,
-    `https://api.codetabs.com/v1/proxy?quest=${enc}`,
-  ]
-
-  let lastErr = ''
-  for (const proxyUrl of proxies) {
-    try {
-      const html = await fetchWithTimeout(proxyUrl)
-      const data = parseOG(html)
-      /* Accept result if at least one field was found */
-      if (data.image || data.description || data.title) return data
-    } catch (e) {
-      lastErr = String(e)
+  /* ── 1. WordPress REST API (no proxy needed, works for any WP site) ── */
+  try {
+    const { origin, pathname } = new URL(articleUrl)
+    const slug = pathname.replace(/\/$/, '').split('/').pop() || ''
+    if (slug) {
+      const api = `${origin}/wp-json/wp/v2/posts?slug=${slug}&_embed=wp:featuredmedia&_fields=title,excerpt,_links,_embedded`
+      const r = await timedFetch(api)
+      if (r.ok) {
+        const posts = await r.json()
+        if (Array.isArray(posts) && posts.length) {
+          const p     = posts[0]
+          const image = (p._embedded?.['wp:featuredmedia']?.[0]?.source_url as string) || ''
+          const description = decodeWPText(
+            (p.excerpt?.rendered as string || '')
+              .replace(/<[^>]+>/g, '')
+              .replace(/\[[^\]]+\]/g, '')
+              .replace(/\s+/g, ' ')
+          ).slice(0, 160)
+          const title = decodeWPText(p.title?.rendered as string)
+          if (image || description) return { image, description, title }
+        }
+      }
     }
+  } catch { /* fall through */ }
+
+  /* ── 2. OG meta scrape via proxy (fallback for non-WP sites) ── */
+  const enc = encodeURIComponent(articleUrl)
+  for (const proxy of [
+    `https://api.allorigins.win/raw?url=${enc}`,
+    `https://corsproxy.io/?${enc}`,
+  ]) {
+    try {
+      const r = await timedFetch(proxy, 12000)
+      if (!r.ok) continue
+      const doc = new DOMParser().parseFromString(await r.text(), 'text/html')
+      const m = (a: string, n: string) =>
+        doc.querySelector(`meta[${a}="${n}"]`)?.getAttribute('content') || ''
+      const image       = m('property', 'og:image') || m('name', 'twitter:image')
+      const description = m('property', 'og:description') || m('name', 'description')
+      const title       = m('property', 'og:title') || doc.title
+      if (image || description) return { image, description, title }
+    } catch { continue }
   }
-  throw new Error(`All proxies failed — ${lastErr}`)
+
+  throw new Error('Could not retrieve article data')
 }
 
 /* ─── Data ───────────────────────────────────────────────────────────────── */
