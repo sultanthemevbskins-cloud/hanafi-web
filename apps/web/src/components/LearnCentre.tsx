@@ -368,7 +368,7 @@ function AdminDrawer({
 
   useEffect(() => { if (open) setDraft(settings) }, [open, settings])
 
-  function handleSave() { onSave(draft); setSaved(true); setTimeout(() => setSaved(false), 2200) }
+  function handleSave() { onSave(draft); setSaved(true); setTimeout(() => { setSaved(false); onClose() }, 2000) }
   function handleReset() { setDraft(DEFAULT_ADMIN); onSave(DEFAULT_ADMIN); setSaved(true); setTimeout(() => setSaved(false), 2200) }
 
   /* ── URL edit helpers ── */
