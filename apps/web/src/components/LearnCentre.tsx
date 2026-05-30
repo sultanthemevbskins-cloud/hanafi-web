@@ -639,10 +639,17 @@ export default function LearnCentre() {
     setAdminSettings(s)
   }
 
-  /* secret trigger — select the letter 't' inside "Centre" */
+  /* secret trigger — select the letter 't' inside "Centre", or triple-click */
   function checkSecretTrigger() {
-    const sel = window.getSelection()?.toString()
-    if (sel === 't') setAdminOpen(true)
+    // defer one frame so the browser finalises the selection text
+    setTimeout(() => {
+      const sel = window.getSelection()?.toString()
+      if (sel && sel.toLowerCase() === 't') setAdminOpen(true)
+    }, 0)
+  }
+
+  function handleCentreClick(e: React.MouseEvent) {
+    if (e.detail >= 3) setAdminOpen(true)   // triple-click fallback
   }
 
   return (
@@ -662,7 +669,7 @@ export default function LearnCentre() {
           <div>
             <p className="font-poppins font-bold text-[12px] text-[#007b85] uppercase tracking-[2.4px] mb-3 select-text cursor-text">
               Knowledge{' '}
-              <span onMouseUp={checkSecretTrigger}>Centre</span>
+              <span onMouseUp={checkSecretTrigger} onClick={handleCentreClick} className="cursor-text select-text">Centre</span>
             </p>
             <h2 className="font-poppins font-bold text-[32px] md:text-[42px] leading-tight tracking-[-1px]">
               <span className="text-[#5c5c5c]">Learn & </span>
