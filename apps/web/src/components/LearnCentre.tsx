@@ -15,10 +15,11 @@ type Article = {
 const ADMIN_KEY = 'ctos_lc_admin'
 
 type AdminSettings = {
-  sourceMode:      'static' | 'api'
-  apiUrlPersonal:  string
-  apiUrlBusiness:  string
-  imgOverrides:    Record<string, string>   // article.url → custom image URL
+  sourceMode:     'static' | 'api'
+  apiUrlPersonal: string
+  apiUrlBusiness: string
+  imgOverrides:   Record<string, string>   // article.url → image URL
+  descOverrides:  Record<string, string>   // article.url → description
 }
 
 const DEFAULT_ADMIN: AdminSettings = {
@@ -26,6 +27,7 @@ const DEFAULT_ADMIN: AdminSettings = {
   apiUrlPersonal: '',
   apiUrlBusiness: '',
   imgOverrides:   {},
+  descOverrides:  {},
 }
 
 function loadAdmin(): AdminSettings {
@@ -37,6 +39,29 @@ function loadAdmin(): AdminSettings {
 
 function saveAdmin(s: AdminSettings) {
   localStorage.setItem(ADMIN_KEY, JSON.stringify(s))
+}
+
+/* ─── OG fetch utility ───────────────────────────────────────────────────── */
+type OGData = { image: string; description: string; title: string }
+
+function parseOG(html: string): OGData {
+  const doc = new DOMParser().parseFromString(html, 'text/html')
+  const m = (prop: string) =>
+    doc.querySelector(`meta[property="${prop}"]`)?.getAttribute('content') ||
+    doc.querySelector(`meta[name="${prop}"]`)?.getAttribute('content') || ''
+  return {
+    image:       m('og:image')       || m('twitter:image'),
+    description: m('og:description') || m('description'),
+    title:       m('og:title')       || doc.title,
+  }
+}
+
+async function fetchOG(articleUrl: string): Promise<OGData> {
+  const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(articleUrl)}`
+  const res   = await fetch(proxy)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const { contents } = await res.json()
+  return parseOG(contents)
 }
 
 /* ─── Data ───────────────────────────────────────────────────────────────── */
@@ -220,10 +245,6 @@ const GROUPS: Record<'personal' | 'business', ArticleGroup[]> = {
 
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
 
-function resolvedImg(src: string, overrides: Record<string, string>, articleUrl: string) {
-  return overrides[articleUrl] || src
-}
-
 function imgProps(src: string) {
   return {
     src,
@@ -289,48 +310,72 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
 
 /* ─── Admin Drawer ───────────────────────────────────────────────────────── */
 
+type FetchState = 'idle' | 'loading' | 'ok' | 'err'
+
 function AdminDrawer({
   open, onClose, settings, onSave,
 }: {
-  open: boolean
-  onClose: () => void
+  open:     boolean
+  onClose:  () => void
   settings: AdminSettings
-  onSave: (s: AdminSettings) => void
+  onSave:   (s: AdminSettings) => void
 }) {
-  const [activeTab,    setActiveTab]    = useState<'source' | 'images'>('source')
-  const [imgTab,       setImgTab]       = useState<'personal' | 'business'>('personal')
-  const [draft,        setDraft]        = useState<AdminSettings>(settings)
-  const [saved,        setSaved]        = useState(false)
-  const [testStatus,   setTestStatus]   = useState<Record<string, 'idle' | 'ok' | 'err'>>({})
+  const [activeTab,  setActiveTab]  = useState<'source' | 'articles'>('source')
+  const [artTab,     setArtTab]     = useState<'personal' | 'business'>('personal')
+  const [draft,      setDraft]      = useState<AdminSettings>(settings)
+  const [saved,      setSaved]      = useState(false)
+  const [fetchState, setFetchState] = useState<Record<string, FetchState>>({})
+  const [testStatus, setTestStatus] = useState<Record<string, 'idle' | 'ok' | 'err'>>({})
 
-  /* sync draft when settings prop changes (e.g. first open) */
   useEffect(() => { if (open) setDraft(settings) }, [open, settings])
 
   function handleSave() {
     onSave(draft)
     setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setTimeout(() => setSaved(false), 2200)
   }
 
   function handleReset() {
     setDraft(DEFAULT_ADMIN)
     onSave(DEFAULT_ADMIN)
     setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+    setTimeout(() => setSaved(false), 2200)
   }
 
-  function setOverride(articleUrl: string, val: string) {
-    setDraft(d => ({
-      ...d,
-      imgOverrides: { ...d.imgOverrides, [articleUrl]: val },
-    }))
+  /* ── Auto-fetch OG data for one article ── */
+  async function fetchOne(art: Article) {
+    setFetchState(s => ({ ...s, [art.url]: 'loading' }))
+    try {
+      const og = await fetchOG(art.url)
+      setDraft(d => ({
+        ...d,
+        imgOverrides:  og.image       ? { ...d.imgOverrides,  [art.url]: og.image       } : d.imgOverrides,
+        descOverrides: og.description ? { ...d.descOverrides, [art.url]: og.description } : d.descOverrides,
+      }))
+      setFetchState(s => ({ ...s, [art.url]: 'ok' }))
+    } catch {
+      setFetchState(s => ({ ...s, [art.url]: 'err' }))
+    }
+    setTimeout(() => setFetchState(s => ({ ...s, [art.url]: 'idle' })), 3000)
   }
 
-  function clearOverride(articleUrl: string) {
+  /* ── Fetch all articles in current sub-tab ── */
+  async function fetchAll() {
+    const groups = GROUPS[artTab]
+    for (const g of groups) {
+      for (const art of g.articles) {
+        await fetchOne(art)
+      }
+    }
+  }
+
+  function clearOne(art: Article) {
     setDraft(d => {
-      const next = { ...d.imgOverrides }
-      delete next[articleUrl]
-      return { ...d, imgOverrides: next }
+      const img  = { ...d.imgOverrides  }
+      const desc = { ...d.descOverrides }
+      delete img[art.url]
+      delete desc[art.url]
+      return { ...d, imgOverrides: img, descOverrides: desc }
     })
   }
 
@@ -347,7 +392,6 @@ function AdminDrawer({
     setTimeout(() => setTestStatus(s => ({ ...s, [which]: 'idle' })), 3000)
   }
 
-  /* shared input style */
   const inp = 'w-full bg-[#0d1117] border border-[#30363d] rounded-[8px] px-3 py-2 font-mono text-[12px] text-[#e6edf3] placeholder-[#484f58] focus:outline-none focus:border-[#007b85] transition-colors'
 
   return (
@@ -366,7 +410,6 @@ function AdminDrawer({
 
         {/* ── Header ── */}
         <div className="flex-shrink-0 px-5 py-4 flex items-center gap-3" style={{ background: '#010409', borderBottom: '1px solid #21262d' }}>
-          {/* lock icon */}
           <div className="w-8 h-8 rounded-[8px] flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg,#007b85,#0bb1be)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
@@ -377,27 +420,22 @@ function AdminDrawer({
             <p className="font-poppins font-bold text-[14px] text-[#e6edf3] leading-none">Content Admin</p>
             <p className="font-mono text-[10px] text-[#484f58] mt-0.5">Knowledge Centre</p>
           </div>
-          <button
-            onClick={onClose}
-            className="w-7 h-7 rounded-full flex items-center justify-center text-[#484f58] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors flex-shrink-0"
-          >
+          <button onClick={onClose} className="w-7 h-7 rounded-full flex items-center justify-center text-[#484f58] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors flex-shrink-0">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
           </button>
         </div>
 
         {/* ── Tab bar ── */}
-        <div className="flex-shrink-0 flex gap-0 px-5 pt-4 pb-0" style={{ borderBottom: '1px solid #21262d' }}>
-          {(['source', 'images'] as const).map(t => (
+        <div className="flex-shrink-0 flex px-5 pt-4 pb-0" style={{ borderBottom: '1px solid #21262d' }}>
+          {(['source', 'articles'] as const).map(t => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
               className={`px-4 pb-3 font-poppins font-semibold text-[12px] capitalize border-b-2 transition-colors ${
-                activeTab === t
-                  ? 'border-[#007b85] text-[#007b85]'
-                  : 'border-transparent text-[#484f58] hover:text-[#8b949e]'
+                activeTab === t ? 'border-[#007b85] text-[#007b85]' : 'border-transparent text-[#484f58] hover:text-[#8b949e]'
               }`}
             >
-              {t === 'source' ? '⚡ Article Source' : '🖼 Images'}
+              {t === 'source' ? '⚡ Article Source' : '🖼 Articles'}
             </button>
           ))}
         </div>
@@ -408,8 +446,6 @@ function AdminDrawer({
           {/* ══ SOURCE TAB ══ */}
           {activeTab === 'source' && (
             <div className="space-y-6">
-
-              {/* Source mode */}
               <div>
                 <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px] mb-3">Source Mode</p>
                 <div className="grid grid-cols-2 gap-2">
@@ -418,9 +454,7 @@ function AdminDrawer({
                       key={mode}
                       onClick={() => setDraft(d => ({ ...d, sourceMode: mode }))}
                       className={`py-3 px-4 rounded-[10px] border text-left transition-all ${
-                        draft.sourceMode === mode
-                          ? 'border-[#007b85] bg-[#007b85]/10'
-                          : 'border-[#30363d] bg-[#161b22] hover:border-[#484f58]'
+                        draft.sourceMode === mode ? 'border-[#007b85] bg-[#007b85]/10' : 'border-[#30363d] bg-[#161b22] hover:border-[#484f58]'
                       }`}
                     >
                       <p className={`font-poppins font-bold text-[12px] ${draft.sourceMode === mode ? 'text-[#0bb1be]' : 'text-[#8b949e]'}`}>
@@ -434,15 +468,13 @@ function AdminDrawer({
                 </div>
               </div>
 
-              {/* API endpoints */}
               <div className={`space-y-4 transition-opacity duration-200 ${draft.sourceMode === 'api' ? 'opacity-100' : 'opacity-30 pointer-events-none'}`}>
                 <p className="font-poppins font-semibold text-[11px] text-[#8b949e] uppercase tracking-[1.5px]">API Endpoints</p>
-
                 {(['personal', 'business'] as const).map(which => (
                   <div key={which}>
                     <div className="flex items-center justify-between mb-1.5">
                       <label className="font-poppins text-[12px] text-[#8b949e] capitalize">{which} Articles URL</label>
-                      {testStatus[which] === 'ok' && <span className="font-mono text-[10px] text-[#3fb950]">✓ Connected</span>}
+                      {testStatus[which] === 'ok'  && <span className="font-mono text-[10px] text-[#3fb950]">✓ Connected</span>}
                       {testStatus[which] === 'err' && <span className="font-mono text-[10px] text-[#f85149]">✗ Failed</span>}
                     </div>
                     <div className="flex gap-2">
@@ -450,23 +482,15 @@ function AdminDrawer({
                         type="url"
                         placeholder={`https://api.example.com/learn/${which}`}
                         value={which === 'personal' ? draft.apiUrlPersonal : draft.apiUrlBusiness}
-                        onChange={e => setDraft(d => ({
-                          ...d,
-                          [which === 'personal' ? 'apiUrlPersonal' : 'apiUrlBusiness']: e.target.value,
-                        }))}
+                        onChange={e => setDraft(d => ({ ...d, [which === 'personal' ? 'apiUrlPersonal' : 'apiUrlBusiness']: e.target.value }))}
                         className={inp}
                       />
-                      <button
-                        onClick={() => testEndpoint(which)}
-                        className="flex-shrink-0 px-3 py-2 rounded-[8px] border border-[#30363d] bg-[#161b22] font-poppins font-semibold text-[11px] text-[#8b949e] hover:border-[#007b85] hover:text-[#007b85] transition-colors"
-                      >
+                      <button onClick={() => testEndpoint(which)} className="flex-shrink-0 px-3 py-2 rounded-[8px] border border-[#30363d] bg-[#161b22] font-poppins font-semibold text-[11px] text-[#8b949e] hover:border-[#007b85] hover:text-[#007b85] transition-colors">
                         Test
                       </button>
                     </div>
                   </div>
                 ))}
-
-                {/* JSON schema hint */}
                 <div className="rounded-[10px] p-3" style={{ background: '#161b22', border: '1px solid #21262d' }}>
                   <p className="font-mono text-[10px] text-[#484f58] mb-2">Expected JSON schema:</p>
                   <pre className="font-mono text-[10px] text-[#8b949e] leading-relaxed whitespace-pre-wrap">{`{
@@ -481,83 +505,127 @@ function AdminDrawer({
             </div>
           )}
 
-          {/* ══ IMAGES TAB ══ */}
-          {activeTab === 'images' && (
+          {/* ══ ARTICLES TAB ══ */}
+          {activeTab === 'articles' && (
             <div className="space-y-5">
 
-              {/* Personal / Business sub-tabs */}
+              {/* Personal / Business toggle */}
               <div className="flex gap-1 p-1 rounded-[10px]" style={{ background: '#161b22', border: '1px solid #21262d' }}>
                 {(['personal', 'business'] as const).map(t => (
                   <button
                     key={t}
-                    onClick={() => setImgTab(t)}
-                    className={`flex-1 py-1.5 rounded-[8px] font-poppins font-semibold text-[12px] capitalize transition-all ${
-                      imgTab === t ? 'bg-[#007b85] text-white shadow-sm' : 'text-[#484f58] hover:text-[#8b949e]'
-                    }`}
+                    onClick={() => setArtTab(t)}
+                    className={`flex-1 py-1.5 rounded-[8px] font-poppins font-semibold text-[12px] capitalize transition-all ${artTab === t ? 'bg-[#007b85] text-white shadow-sm' : 'text-[#484f58] hover:text-[#8b949e]'}`}
                   >
                     {t}
                   </button>
                 ))}
               </div>
 
-              {/* Article rows */}
-              {GROUPS[imgTab].map(group => (
+              {/* Fetch All button */}
+              <button
+                onClick={fetchAll}
+                className="w-full py-2.5 rounded-[10px] border border-[#007b85]/40 bg-[#007b85]/10 font-poppins font-semibold text-[12px] text-[#0bb1be] hover:bg-[#007b85]/20 transition-colors flex items-center justify-center gap-2"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+                Fetch All Images &amp; Descriptions
+              </button>
+
+              {/* Article groups */}
+              {GROUPS[artTab].map(group => (
                 <div key={group.label}>
                   <div className="flex items-center gap-2 mb-3">
                     <p className="font-poppins font-semibold text-[10px] text-[#484f58] uppercase tracking-[1.5px]">{group.label}</p>
                     <div className="flex-1 h-px" style={{ background: '#21262d' }} />
                   </div>
+
                   <div className="space-y-3">
                     {group.articles.map((art, idx) => {
-                      const override = draft.imgOverrides[art.url] ?? ''
-                      const displayImg = override || art.image
+                      const imgOvr  = draft.imgOverrides[art.url]  ?? ''
+                      const descOvr = draft.descOverrides[art.url] ?? ''
+                      const thumb   = imgOvr || art.image
+                      const state   = fetchState[art.url] ?? 'idle'
+                      const hasData = !!(imgOvr || descOvr)
+
                       return (
-                        <div key={idx} className="rounded-[10px] p-3 space-y-2.5" style={{ background: '#161b22', border: '1px solid #21262d' }}>
-                          {/* Article meta row */}
-                          <div className="flex items-center gap-2.5">
+                        <div key={idx} className="rounded-[10px] overflow-hidden" style={{ border: `1px solid ${hasData ? '#007b85' : '#21262d'}` }}>
+
+                          {/* Top row — thumbnail + title + fetch btn */}
+                          <div className="flex items-center gap-3 p-3" style={{ background: '#161b22' }}>
                             {/* Thumbnail */}
-                            <div className="w-12 h-8 rounded-[6px] overflow-hidden flex-shrink-0 bg-[#21262d]">
+                            <div className="relative w-14 h-9 rounded-[6px] overflow-hidden flex-shrink-0 bg-[#21262d]">
                               <img
-                                src={displayImg}
+                                src={thumb}
                                 alt=""
                                 className="w-full h-full object-cover"
                                 onError={e => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
                               />
+                              {state === 'loading' && (
+                                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                  <div className="w-3 h-3 border-2 border-[#007b85] border-t-transparent rounded-full animate-spin" />
+                                </div>
+                              )}
                             </div>
-                            {/* Title */}
-                            <p className="font-poppins text-[11px] text-[#8b949e] leading-tight line-clamp-2 flex-1 min-w-0">
-                              {art.title}
-                            </p>
-                            {/* Override indicator */}
-                            {override && (
-                              <span className="flex-shrink-0 font-mono text-[9px] px-1.5 py-0.5 rounded bg-[#007b85]/20 text-[#0bb1be]">overridden</span>
-                            )}
-                          </div>
-                          {/* URL input */}
-                          <div className="flex gap-2">
-                            <input
-                              type="url"
-                              placeholder={art.image}
-                              value={override}
-                              onChange={e => setOverride(art.url, e.target.value)}
-                              className={`${inp} text-[11px]`}
-                            />
-                            {override && (
+
+                            {/* Title + domain */}
+                            <div className="flex-1 min-w-0">
+                              <p className="font-poppins text-[11px] text-[#e6edf3] leading-tight line-clamp-1">{art.title}</p>
+                              <p className="font-mono text-[9px] text-[#484f58] mt-0.5 truncate">{art.url.replace('https://', '')}</p>
+                            </div>
+
+                            {/* Fetch / status */}
+                            <button
+                              onClick={() => fetchOne(art)}
+                              disabled={state === 'loading'}
+                              className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-[7px] font-poppins font-semibold text-[11px] transition-all ${
+                                state === 'ok'      ? 'bg-[#3fb950]/20 text-[#3fb950] border border-[#3fb950]/30' :
+                                state === 'err'     ? 'bg-[#f85149]/20 text-[#f85149] border border-[#f85149]/30' :
+                                state === 'loading' ? 'bg-[#007b85]/10 text-[#484f58] border border-[#30363d]' :
+                                'bg-[#007b85]/10 text-[#0bb1be] border border-[#007b85]/30 hover:bg-[#007b85]/20'
+                              }`}
+                            >
+                              {state === 'loading' ? 'Fetching…' :
+                               state === 'ok'      ? '✓ Done' :
+                               state === 'err'     ? '✗ Error' :
+                               <><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/></svg>Fetch</>}
+                            </button>
+
+                            {/* Clear override */}
+                            {hasData && (
                               <button
-                                onClick={() => clearOverride(art.url)}
-                                title="Remove override"
-                                className="flex-shrink-0 w-8 h-8 rounded-[8px] border border-[#30363d] bg-[#0d1117] flex items-center justify-center text-[#484f58] hover:text-[#f85149] hover:border-[#f85149]/40 transition-colors"
+                                onClick={() => clearOne(art)}
+                                title="Remove overrides"
+                                className="flex-shrink-0 w-7 h-7 rounded-[6px] flex items-center justify-center text-[#484f58] hover:text-[#f85149] hover:bg-[#f85149]/10 transition-colors"
                               >
                                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
                               </button>
                             )}
                           </div>
+
+                          {/* Fetched data preview */}
+                          {hasData && (
+                            <div className="px-3 pb-3 pt-2 space-y-2" style={{ background: '#0d1117', borderTop: '1px solid #21262d' }}>
+                              {imgOvr && (
+                                <div>
+                                  <p className="font-mono text-[9px] text-[#484f58] mb-1">OG IMAGE</p>
+                                  <p className="font-mono text-[10px] text-[#007b85] break-all line-clamp-1">{imgOvr}</p>
+                                </div>
+                              )}
+                              {descOvr && (
+                                <div>
+                                  <p className="font-mono text-[9px] text-[#484f58] mb-1">OG DESCRIPTION</p>
+                                  <p className="font-lato text-[11px] text-[#8b949e] leading-relaxed line-clamp-2">{descOvr}</p>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )
                     })}
                   </div>
                 </div>
               ))}
+
             </div>
           )}
 
@@ -574,9 +642,7 @@ function AdminDrawer({
           <button
             onClick={handleSave}
             className={`flex-[2] py-2.5 rounded-[10px] font-poppins font-bold text-[13px] text-white transition-all duration-200 ${
-              saved
-                ? 'bg-[#3fb950]'
-                : 'bg-[#007b85] hover:bg-[#0bb1be] shadow-[0_0_20px_rgba(0,123,133,0.3)] hover:shadow-[0_0_28px_rgba(11,177,190,0.4)]'
+              saved ? 'bg-[#3fb950]' : 'bg-[#007b85] hover:bg-[#0bb1be] shadow-[0_0_20px_rgba(0,123,133,0.3)]'
             }`}
           >
             {saved ? '✓ Saved' : 'Save Changes'}
@@ -600,11 +666,12 @@ export default function LearnCentre() {
   /* load admin settings from localStorage on mount */
   useEffect(() => { setAdminSettings(loadAdmin()) }, [])
 
-  /* apply image overrides to an article array */
+  /* apply image + description overrides to an article array */
   function withOverrides(articles: Article[]): Article[] {
     return articles.map(a => ({
       ...a,
-      image: resolvedImg(a.image, adminSettings.imgOverrides, a.url),
+      image:   adminSettings.imgOverrides[a.url]  || a.image,
+      excerpt: adminSettings.descOverrides[a.url] || a.excerpt,
     }))
   }
 
