@@ -730,20 +730,16 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-app-qr-text strong { font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 600; color: #fff; display: block; margin-bottom: 4px; }
 .ctos-app-qr-text p { font-family: 'Poppins',sans-serif; font-size: 13px; color: rgba(255,255,255,0.7); margin: 0; }
 
-/* Footer nav — move into the links column via JS */
-.ctos-ft-nav-block {
+/* Footer nav links — inside column 2 (General) */
+.ctos-footer-nav-links.wp-block-navigation {
   width: 100% !important;
 }
-.ctos-ft-nav-block.wp-block-navigation {
-  display: none; /* hidden until moved by JS */
-}
-.ctos-ft-nav-wrap .wp-block-navigation { display: block !important; }
-.ctos-ft-nav-wrap .wp-block-navigation__container {
+.ctos-footer-nav-links .wp-block-navigation__container {
   flex-wrap: wrap !important;
   gap: 0.875rem 2rem !important;
 }
-.ctos-ft-nav-wrap .wp-block-navigation-item a,
-.ctos-ft-nav-wrap .wp-block-navigation-item__content {
+.ctos-footer-nav-links .wp-block-navigation-item a,
+.ctos-footer-nav-links .wp-block-navigation-item__content {
   font-family: 'Poppins', sans-serif !important;
   font-size: 14px !important;
   color: rgba(255,255,255,0.85) !important;
@@ -751,7 +747,13 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
   padding: 0 !important;
   background: transparent !important;
 }
-.ctos-ft-nav-wrap .wp-block-navigation-item a:hover { color: #fff !important; }
+.ctos-footer-nav-links .wp-block-navigation-item a:hover { color: #fff !important; }
+/* Footer columns layout */
+.ctos-footer .wp-block-columns { max-width: 100% !important; }
+.ctos-footer .wp-block-separator { background-color: rgba(255,255,255,0.18) !important; height: 1px !important; border: none !important; }
+.ctos-footer .wp-block-heading { font-family: 'Poppins',sans-serif !important; color: #fff !important; }
+.ctos-footer .wp-block-paragraph { font-family: 'Poppins',sans-serif; color: rgba(255,255,255,0.85); }
+.ctos-footer .wp-block-image img { background: #fff; padding: 4px; border-radius: 4px; }
 
 /* ── Pricing cards (Consumer + Commercial) ────────────────── */
 .ctos-pricing-section {
@@ -825,7 +827,51 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-btn-link { font-family:'Poppins',sans-serif; font-size:13px; font-weight:600; color:#007b85; text-decoration:none; padding-top:0.625rem; }
 .ctos-btn-link:hover { color:#0bb1be; }
 
-/* ── App Promo ────────────────────────────────────────────── */
+/* ── App Promo — light gradient bg, phone mockup left, QR cards right ── */
+.ctos-app-promo-section {
+  background: linear-gradient(135deg, #d4eeef 0%, #e8f6f7 40%, #f0f9fa 70%, #ffffff 100%) !important;
+  padding: 3.5rem 0;
+  min-height: 500px;
+  overflow: hidden;
+}
+/* Phone mockup wrapper */
+.ctos-app-phone-wrap.wp-block-image { display: flex !important; align-items: center !important; justify-content: center !important; }
+.ctos-app-phone-wrap img {
+  width: clamp(240px, 35vw, 368px) !important;
+  height: auto !important;
+  border-radius: 36px !important;
+  background: #0a0a0a !important;
+  padding: 8px !important;
+  box-shadow: -5px -15px 30px white, 0px 30px 80px rgba(0,0,0,0.45) !important;
+}
+/* App heading gradient */
+.ctos-app-heading.wp-block-heading { font-family: 'Poppins', sans-serif !important; }
+/* QR store cards */
+.wp-block-column.ctos-qr-card {
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  gap: 0.75rem !important; padding: 1rem !important;
+  background: rgba(255,255,255,0.8) !important;
+  border: 1px solid rgba(15,33,35,0.07) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  backdrop-filter: blur(4px) !important;
+}
+.wp-block-column.ctos-qr-card:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(0,0,0,0.10) !important; }
+.ctos-qr-badge {
+  display: flex !important; align-items: center !important; gap: 6px !important;
+  padding: 4px 10px !important; border-radius: 100px !important; width: fit-content !important;
+}
+.wp-block-column.ctos-qr-card .wp-block-image { margin: 0 !important; }
+.wp-block-column.ctos-qr-card .ctos-qr-img img {
+  width: 80px !important; height: 80px !important;
+  background: #fff !important; border-radius: 10px !important;
+  padding: 6px !important; box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+  display: block !important;
+}
+.wp-block-column.ctos-qr-card p { font-family: 'Poppins',sans-serif !important; text-align: center !important; }
+
+/* ── App Promo (old teal version) ────────────────────────────────────────── */
 .ctos-app-section {
   background: linear-gradient(135deg, #007b85 0%, #0bb1be 100%);
   padding: 5rem 0;
