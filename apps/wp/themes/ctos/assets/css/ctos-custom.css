@@ -5,18 +5,21 @@
 /* ── Base reset + WordPress gap fixes ─────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0 !important; padding: 0 !important; }
-/* Body background matches original Vercel site (teal fills gaps between sections) */
+/* html dark bg — any gap above sticky header shows dark not teal */
+html { background: #061a1b !important; }
+/* Body teal fills gaps between white sections */
 body { background: #007b85; font-family: 'Lato', sans-serif; color: #102a2e; }
 a { text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* Remove WordPress block theme default gaps between sections */
+/* Remove WordPress block theme default gaps */
 .wp-site-blocks { padding-block-start: 0 !important; padding-block-end: 0 !important; }
 .wp-site-blocks > * { margin-block-start: 0 !important; }
 .wp-block-group { --wp--style--block-gap: 0 !important; }
-/* Prevent any gap after header */
+/* Header has zero top/bottom margin */
+header.ctos-header,
+.wp-block-template-part > header.ctos-header { margin-top: 0 !important; margin-bottom: 0 !important; }
 .ctos-header + *,
-.ctos-header + .wp-block-template-part + *,
 header + section,
 header + div { margin-top: 0 !important; padding-top: 0 !important; }
 
@@ -1091,11 +1094,14 @@ span.ctos-grad-text,
 
 /* ── Footer ───────────────────────────────────────────────── */
 .ctos-footer,
-footer.ctos-footer { background: #0f7a82 !important; }
-.ctos-footer .wp-block-group__inner-container { background: transparent !important; }
+footer.ctos-footer { background: #0f7a82 !important; padding: 0 !important; }
+.ctos-footer .wp-block-group__inner-container,
+.ctos-footer > .wp-block-group__inner-container { background: transparent !important; max-width: 100% !important; padding: 0 !important; }
 
-/* Footer layout */
+/* Footer layout — max-width 1280px matching other sections */
 .ctos-ft-wrap { max-width: 1280px; margin: 0 auto; padding: 2.3125rem 2.5rem 1.75rem; }
+/* Footer logo */
+.ctos-ft-logo { width: 50% !important; height: auto !important; display: block !important; margin-bottom: 1.5rem !important; }
 .ctos-ft-grid {
   display: grid;
   grid-template-columns: 1.4fr 1.2fr 1.6fr;
