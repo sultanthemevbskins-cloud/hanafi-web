@@ -599,6 +599,36 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 /* ── Welcome segment cards ────────────────────────────────── */
 .ctos-welcome-section { background: #fff; padding: 4rem 0; }
 .ctos-welcome-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+/* ── Gradient/gray spans — work inside any wp:heading block ── */
+span.grad,
+.wp-block-heading span.grad {
+  background: linear-gradient(90deg, #007b85 0%, #f2b530 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
+  padding-bottom: 0.125rem;
+}
+span.gray,
+.wp-block-heading span.gray {
+  color: #5c5c5c !important;
+  -webkit-text-fill-color: #5c5c5c !important;
+}
+/* Hero slide gradient — orange-to-cyan */
+span.ctos-grad-text,
+.wp-block-heading span.ctos-grad-text {
+  background: linear-gradient(90deg, #ffc28e 0%, #1feeff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
+  padding-bottom: 0.125rem;
+}
+/* App promo heading */
+.ctos-app-heading span {
+  display: inline-block;
+}
+
 .ctos-section-label {
   font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 2.4px; color: #007b85;
@@ -904,6 +934,22 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-app-qr-text { font-family: 'Poppins', sans-serif; }
 .ctos-app-qr-text strong { font-size: 14px; font-weight: 600; color: #fff; display: block; margin-bottom: 4px; }
 .ctos-app-qr-text span { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+/* ── App promo QR card styles ─────────────────────────────── */
+.ctos-qr-card {
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  gap: 0.75rem !important; padding: 1rem !important;
+  background: rgba(255,255,255,0.8) !important;
+  border: 1px solid rgba(15,33,35,0.07) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.ctos-qr-card:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(0,0,0,0.10) !important; }
+.ctos-qr-badge { display: flex !important; align-items: center !important; gap: 6px !important; padding: 4px 10px !important; border-radius: 100px !important; }
+.ctos-qr-img { background: #fff; border-radius: 10px; padding: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.ctos-qr-img img { display: block !important; width: 80px !important; height: 80px !important; }
+.ctos-qr-store-name { font-family: 'Poppins',sans-serif !important; font-size: 11px !important; color: rgba(15,33,35,0.5) !important; text-align: center !important; }
 
 /* ── Knowledge centre ─────────────────────────────────────── */
 .ctos-learn-section { background: #f9fafb; padding: 5rem 0; }
