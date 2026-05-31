@@ -89,9 +89,19 @@ add_action( 'init', function () {
     if ( ! get_option( 'ctos_pattern_ids' ) ) ctos_ensure_synced_patterns();
 } );
 
-/* ── Block pattern category + patterns ───────────────────────────────────── */
+/* ── Block pattern category + assign wp_block posts ─────────────────────── */
 add_action( 'init', function () {
     register_block_pattern_category( 'ctos', [ 'label' => __( 'CTOS', 'ctos' ) ] );
+
+    /* Ensure all synced wp_block patterns have the ctos category assigned */
+    if ( taxonomy_exists( 'wp_pattern_category' ) ) {
+        $blocks = get_posts( [ 'post_type' => 'wp_block', 'post_status' => 'publish', 'numberposts' => -1 ] );
+        foreach ( $blocks as $b ) {
+            if ( ! has_term( 'ctos', 'wp_pattern_category', $b->ID ) ) {
+                wp_set_object_terms( $b->ID, 'ctos', 'wp_pattern_category', true );
+            }
+        }
+    }
 
     $patterns = [ 'hero', 'welcome', 'consumer-products', 'commercial-products', 'app-promo', 'knowledge-centre' ];
     foreach ( $patterns as $slug ) {
