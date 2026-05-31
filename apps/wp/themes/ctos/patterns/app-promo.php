@@ -22,8 +22,8 @@ $appScreen  = 'https://ctos-web.vercel.app/assets/ctos-app-screen-SJy2DDmM.png';
 <div class="wp-block-columns">
 
   <!-- LEFT: Phone mockup image -->
-  <!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
-  <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
+  <!-- wp:column {"verticalAlignment":"center"} -->
+  <div class="wp-block-column is-vertically-aligned-center">
   <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"ctos-app-phone-wrap"} -->
   <figure class="wp-block-image size-full ctos-app-phone-wrap">
     <img src="<?php echo esc_url($appScreen); ?>" alt="CTOS App Screenshot" />
@@ -33,8 +33,8 @@ $appScreen  = 'https://ctos-web.vercel.app/assets/ctos-app-screen-SJy2DDmM.png';
   <!-- /wp:column -->
 
   <!-- RIGHT: Copy + QR cards -->
-  <!-- wp:column {"verticalAlignment":"center","width":"50%"} -->
-  <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:50%">
+  <!-- wp:column {"verticalAlignment":"center"} -->
+  <div class="wp-block-column is-vertically-aligned-center">
 
   <!-- wp:heading {"level":2,"className":"ctos-app-heading","style":{"typography":{"fontSize":"clamp(2rem,4vw,3rem)","fontWeight":"800","lineHeight":"1.1","letterSpacing":"-1.2px"},"spacing":{"margin":{"bottom":"1.25rem"}}}} -->
   <h2 class="wp-block-heading ctos-app-heading" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-1.2px;margin-bottom:1.25rem"><span style="color:#5c5c5c">Your credit,</span><br><span style="background:linear-gradient(90deg,#39a7b1 0%,#007b85 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block">in your pocket.</span></h2>
