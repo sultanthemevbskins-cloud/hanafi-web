@@ -351,7 +351,7 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
 
 /* PIN is stored as a simple base64 token — change the string to update the PIN.
    Default PIN: ctos@2026  (base64: Y3RvectAMjAyNg==)                         */
-const _AP = 'Y3RvZXNAMjAyNg=='   // ← change this to update PIN (btoa of new pin)
+const _AP = 'Y3Rvc0AyMDI2'        // ← change this to update PIN (btoa of new pin)
 
 function verifyPin(input: string): boolean {
   try { return btoa(unescape(encodeURIComponent(input.trim()))) === _AP } catch { return false }
