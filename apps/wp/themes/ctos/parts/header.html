@@ -1,24 +1,77 @@
-<!-- wp:group {"tagName":"header","className":"ctos-header","layout":{"type":"constrained"}} -->
-<header class="wp-block-group ctos-header">
-
-  <!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"},"className":"ctos-header-inner"} -->
-  <div class="wp-block-group ctos-header-inner" style="max-width:1280px;margin:0 auto;padding:0 2.5rem;width:100%;display:flex;align-items:center;min-height:64px;gap:2rem">
+<!-- wp:html -->
+<header class="ctos-header" role="banner">
+  <div class="ctos-header-wrap">
 
     <!-- Logo -->
-    <!-- wp:site-logo {"width":52,"shouldSyncIcon":false,"style":{"border":{"radius":"50%"}}} /-->
+    <a href="/" class="ctos-logo-link" aria-label="CTOS Home">
+      <img src="https://ctoscredit.com.my/wp-content/uploads/2023/05/CTOS-Logo.png"
+           alt="CTOS Digital"
+           class="ctos-logo-img"
+           onerror="this.style.display='none'" />
+    </a>
 
-    <!-- Navigation -->
-    <!-- wp:navigation {"ref":null,"menuSlug":"primary-navigation","overlayMenu":"mobile","style":{"typography":{"fontFamily":"var(--wp--preset--font-family--poppins)","fontWeight":"600"}},"textColor":"ctos-light","fontSize":"sm","layout":{"type":"flex","justifyContent":"left"},"__unstableLocation":"header"} /-->
+    <!-- Desktop nav — mega menu wired by ctos-mega-menu.js -->
+    <nav class="ctos-nav wp-block-navigation" role="navigation" aria-label="Primary">
+      <ul class="wp-block-navigation__container ctos-nav-list">
 
-    <!-- Sign In button -->
-    <!-- wp:html -->
-    <div style="margin-left:auto;flex-shrink:0">
-      <a href="#signin" class="ctos-header-btn">Sign in</a>
-    </div>
-    <!-- /wp:html -->
+        <li class="wp-block-navigation-item has-child ctos-nav-item" tabindex="0">
+          <button class="wp-block-navigation-item__content ctos-nav-btn" aria-expanded="false">Consumer <span class="ctos-nav-arrow">&#8964;</span></button>
+          <ul class="wp-block-navigation__submenu-container" aria-hidden="true">
+            <li><a href="#pricing">Credit Report</a></li>
+            <li><a href="#pricing">SecureID</a></li>
+            <li><a href="#pricing">Credit Finder</a></li>
+          </ul>
+        </li>
+
+        <li class="wp-block-navigation-item has-child ctos-nav-item" tabindex="0">
+          <button class="wp-block-navigation-item__content ctos-nav-btn" aria-expanded="false">Commercial <span class="ctos-nav-arrow">&#8964;</span></button>
+          <ul class="wp-block-navigation__submenu-container" aria-hidden="true">
+            <li><a href="#commercial">Credit Manager</a></li>
+            <li><a href="#commercial">Single Report</a></li>
+            <li><a href="#commercial">CTOS BizSecure</a></li>
+            <li><a href="#commercial">CreditSCAN Quick Score</a></li>
+            <li><a href="#commercial">CTOS Verified</a></li>
+            <li><a href="#commercial">Business Loan</a></li>
+          </ul>
+        </li>
+
+        <li class="wp-block-navigation-item has-child ctos-nav-item" tabindex="0">
+          <button class="wp-block-navigation-item__content ctos-nav-btn" aria-expanded="false">Corporate &amp; FI <span class="ctos-nav-arrow">&#8964;</span></button>
+          <ul class="wp-block-navigation__submenu-container" aria-hidden="true">
+            <li><a href="#">CTOS eKYC</a></li>
+            <li><a href="#">Application &amp; Decisioning</a></li>
+            <li><a href="#">RAM Rating Rationale Report</a></li>
+          </ul>
+        </li>
+
+        <li class="wp-block-navigation-item has-child ctos-nav-item" tabindex="0">
+          <button class="wp-block-navigation-item__content ctos-nav-btn" aria-expanded="false">International <span class="ctos-nav-arrow">&#8964;</span></button>
+          <ul class="wp-block-navigation__submenu-container" aria-hidden="true">
+            <li><a href="#">Singapore Report</a></li>
+            <li><a href="#">International Report</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Sign in -->
+    <a href="#signin" class="ctos-header-btn">Sign in</a>
+
+    <!-- Mobile burger -->
+    <button class="ctos-burger" aria-label="Open menu" onclick="this.closest('.ctos-header').classList.toggle('mobile-open')">
+      <span></span><span></span><span></span>
+    </button>
 
   </div>
-  <!-- /wp:group -->
+
+  <!-- Mobile nav panel -->
+  <div class="ctos-mobile-nav">
+    <a href="#pricing" style="display:block;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.85);font-family:Poppins,sans-serif;font-size:15px">Consumer</a>
+    <a href="#commercial" style="display:block;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.85);font-family:Poppins,sans-serif;font-size:15px">Commercial</a>
+    <a href="#" style="display:block;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.85);font-family:Poppins,sans-serif;font-size:15px">Corporate &amp; FI</a>
+    <a href="#" style="display:block;padding:0.75rem 1.5rem;color:rgba(255,255,255,0.85);font-family:Poppins,sans-serif;font-size:15px">International</a>
+  </div>
 
 </header>
-<!-- /wp:group -->
+<!-- /wp:html -->

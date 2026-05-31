@@ -2,62 +2,87 @@
    CTOS WordPress Theme — Matches https://ctos-web.vercel.app/
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Base reset ───────────────────────────────────────────── */
+/* ── Base reset + WordPress gap fixes ─────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; background: #fff; font-family: 'Lato', sans-serif; color: #102a2e; }
+html, body { margin: 0 !important; padding: 0 !important; }
+body { background: #fff; font-family: 'Lato', sans-serif; color: #102a2e; }
 a { text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
+/* Remove WordPress block theme default gaps between sections */
+.wp-site-blocks { padding-block-start: 0 !important; padding-block-end: 0 !important; }
+.wp-site-blocks > * { margin-block-start: 0 !important; }
+.wp-block-group { --wp--style--block-gap: 0 !important; }
+/* Prevent any gap after header */
+.ctos-header + *,
+.ctos-header + .wp-block-template-part + *,
+header + section,
+header + div { margin-top: 0 !important; padding-top: 0 !important; }
+
 /* ── Dark glass header ────────────────────────────────────── */
-.ctos-header,
-header.ctos-header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 100 !important;
-  background: rgba(6,26,27,0.80) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-  padding: 0 !important;
+.ctos-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6,26,27,0.80);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0;
+  margin: 0 !important;
 }
-.ctos-header .wp-block-group__inner-container,
-.ctos-header > .wp-block-group__inner-container {
-  max-width: 1280px !important;
-  margin: 0 auto !important;
-  padding: 0 2.5rem !important;
-  display: flex !important;
-  align-items: center !important;
-  min-height: 64px !important;
-  gap: 2rem !important;
-  width: 100% !important;
+.ctos-header-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  gap: 2rem;
 }
-/* Logo circle */
-.ctos-header .wp-block-site-logo a,
-.ctos-header .wp-block-site-logo img {
-  width: 52px !important;
-  height: 52px !important;
-  border-radius: 50% !important;
-  overflow: hidden !important;
+/* Logo */
+.ctos-logo-link { flex-shrink: 0; display: flex; align-items: center; }
+.ctos-logo-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: box-shadow 0.2s;
 }
-/* Nav links */
-.ctos-header .wp-block-navigation__container > .wp-block-navigation-item > a,
-.ctos-header .wp-block-navigation__container > .wp-block-navigation-item > button {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #cfd6d8 !important;
-  padding: 0.625rem 1rem !important;
-  border-radius: 6px !important;
-  transition: background 0.15s, color 0.15s !important;
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer !important;
+.ctos-logo-link:hover .ctos-logo-img { box-shadow: 0 0 0 2px rgba(255,255,255,0.4); }
+
+/* Nav list */
+.ctos-nav { flex: 1; }
+.ctos-nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
 }
-.ctos-header .wp-block-navigation__container > .wp-block-navigation-item > a:hover,
-.ctos-header .wp-block-navigation__container > .wp-block-navigation-item > button:hover {
-  background: rgba(255,255,255,0.06) !important;
-  color: #fff !important;
+.ctos-nav-item { position: relative; }
+.ctos-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #cfd6d8;
+  padding: 0.625rem 1rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
 }
+.ctos-nav-btn:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.ctos-nav-arrow { font-size: 10px; opacity: 0.7; }
+/* Default WP submenu — hidden, mega menu JS takes over */
+.ctos-nav-item .wp-block-navigation__submenu-container { display: none !important; }
+
 /* Sign In button */
 .ctos-header-btn {
   font-family: 'Poppins', sans-serif;
@@ -71,14 +96,36 @@ header.ctos-header {
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
   white-space: nowrap;
-  display: inline-block;
-  margin-left: auto;
   flex-shrink: 0;
 }
-.ctos-header-btn:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.6);
-  color: #fff !important;
+.ctos-header-btn:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.6); color: #fff !important; }
+
+/* Mobile burger */
+.ctos-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ctos-burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; }
+.ctos-mobile-nav {
+  display: none;
+  background: #061a1b;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.ctos-header.mobile-open .ctos-mobile-nav { display: block; }
+
+@media (max-width: 768px) {
+  .ctos-nav { display: none; }
+  .ctos-header-btn { display: none; }
+  .ctos-burger { display: flex; }
 }
 
 /* ── Mega menu ────────────────────────────────────────────── */

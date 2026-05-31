@@ -97,14 +97,15 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var nav = document.querySelector('.ctos-header .wp-block-navigation');
-    if (!nav) return;
-
-    var topItems = nav.querySelectorAll('.wp-block-navigation-item.has-child');
+    var topItems = document.querySelectorAll('.ctos-nav-item.has-child, .ctos-header .wp-block-navigation-item.has-child');
     topItems.forEach(function (item) {
-      var link = item.querySelector(':scope > a, :scope > button');
+      var link = item.querySelector(':scope > a, :scope > button, :scope > .wp-block-navigation-item__content');
       if (!link) return;
-      var label = (link.textContent || link.innerText || '').trim();
+      /* Strip the arrow span text to get just the label */
+      var labelEl = link.cloneNode(true);
+      var arrow = labelEl.querySelector('.ctos-nav-arrow');
+      if (arrow) arrow.remove();
+      var label = (labelEl.textContent || labelEl.innerText || '').trim();
       var products = NAV_DATA[label];
       if (!products) return;
 
