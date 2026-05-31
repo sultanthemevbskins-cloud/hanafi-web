@@ -4,9 +4,9 @@
 
 /* ── Base reset + WordPress gap fixes ─────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0 !important; padding: 0 !important; }
-/* html dark bg — any gap above sticky header shows dark not teal */
-html { background: #061a1b !important; }
+body { margin: 0 !important; padding: 0 !important; }
+/* html background = teal to seamlessly blend with the admin bar gap */
+html { background: #007b85; }
 /* Body teal fills gaps between white sections */
 body { background: #007b85; font-family: 'Lato', sans-serif; color: #102a2e; }
 a { text-decoration: none; }
@@ -16,18 +16,23 @@ img { max-width: 100%; height: auto; display: block; }
 .wp-site-blocks { padding-block-start: 0 !important; padding-block-end: 0 !important; }
 .wp-site-blocks > * { margin-block-start: 0 !important; }
 .wp-block-group { --wp--style--block-gap: 0 !important; }
-/* Header has zero top/bottom margin */
-header.ctos-header,
-.wp-block-template-part > header.ctos-header { margin-top: 0 !important; margin-bottom: 0 !important; }
-.ctos-header + *,
-header + section,
-header + div { margin-top: 0 !important; padding-top: 0 !important; }
+
+/* ── Sticky header — accounts for WP admin bar ────────────── */
+/* No admin bar (frontend visitors, not logged in) */
+header.ctos-header { top: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; }
+/* Admin bar present (32px desktop, 46px mobile) */
+.admin-bar header.ctos-header { top: 32px !important; }
+@media screen and (max-width: 782px) {
+  .admin-bar header.ctos-header { top: 46px !important; }
+}
+/* Prevent any gap after header */
+.ctos-header + *, header + section, header + div { margin-top: 0 !important; padding-top: 0 !important; }
 
 /* ── Dark glass header (WP Group block based) ─────────────── */
 header.ctos-header,
 .wp-block-template-part > header.ctos-header {
   position: sticky !important;
-  top: 0 !important;
+  top: 0; /* overridden by .admin-bar rule below */
   z-index: 100 !important;
   background: rgba(6,26,27,0.82) !important;
   backdrop-filter: blur(24px) !important;
