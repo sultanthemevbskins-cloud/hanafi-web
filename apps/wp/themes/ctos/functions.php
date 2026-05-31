@@ -49,6 +49,46 @@ add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/ctos-custom.css' );
 } );
 
+/* ── Synced block patterns (wp_block posts — editable in Site Editor) ────── */
+function ctos_ensure_synced_patterns() {
+    $pattern_files = [
+        'ctos-hero'                => [ 'CTOS Hero Slider',         'hero'                ],
+        'ctos-welcome'             => [ 'CTOS Welcome Section',     'welcome'             ],
+        'ctos-consumer-products'   => [ 'CTOS Consumer Products',   'consumer-products'   ],
+        'ctos-commercial-products' => [ 'CTOS Commercial Products', 'commercial-products' ],
+        'ctos-app-promo'           => [ 'CTOS App Promo',           'app-promo'           ],
+        'ctos-knowledge-centre'    => [ 'CTOS Knowledge Centre',    'knowledge-centre'    ],
+    ];
+
+    $ids = [];
+    foreach ( $pattern_files as $slug => [ $title, $file ] ) {
+        $existing = get_posts( [ 'post_type' => 'wp_block', 'post_status' => 'publish', 'name' => $slug, 'numberposts' => 1 ] );
+        if ( $existing ) {
+            $ids[ $slug ] = $existing[0]->ID;
+            continue;
+        }
+        // Capture pattern PHP output
+        ob_start();
+        include get_template_directory() . "/patterns/{$file}.php";
+        $content = ob_get_clean();
+
+        $id = wp_insert_post( [
+            'post_title'   => $title,
+            'post_name'    => $slug,
+            'post_type'    => 'wp_block',
+            'post_status'  => 'publish',
+            'post_content' => $content,
+        ] );
+        $ids[ $slug ] = $id;
+    }
+    update_option( 'ctos_pattern_ids', $ids );
+    return $ids;
+}
+add_action( 'after_switch_theme', 'ctos_ensure_synced_patterns' );
+add_action( 'init', function () {
+    if ( ! get_option( 'ctos_pattern_ids' ) ) ctos_ensure_synced_patterns();
+} );
+
 /* ── Block pattern category + patterns ───────────────────────────────────── */
 add_action( 'init', function () {
     register_block_pattern_category( 'ctos', [ 'label' => __( 'CTOS', 'ctos' ) ] );

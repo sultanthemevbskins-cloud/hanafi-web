@@ -1,59 +1,197 @@
 /**
  * CTOS Mega Menu
- * Replaces the default WordPress navigation dropdown with
- * the two-column mega menu matching the Vercel production design.
+ * Two-column panel: left = product list, right = feature detail
+ * Matches the original React mega menu in the Vercel production site.
  */
 (function () {
   'use strict';
 
   var NAV_DATA = {
     'Consumer': [
-      { name: 'Credit Report',   tagline: 'Your full credit picture in one place.',        note: 'RM27.90 / report',      url: '#consumer-credit-report',  color: '#0bb1be' },
-      { name: 'SecureID',        tagline: '24/7 identity protection, always on.',           note: 'From RM9.90 / month',    url: '#consumer-secureid',       color: '#007b85' },
-      { name: 'Credit Finder',   tagline: 'Match to the best loan for your profile.',       note: 'Free to use',            url: '#consumer-credit-finder',  color: '#f2b530' },
+      {
+        name:     'Credit Report',
+        tagline:  'Your full credit picture in one place.',
+        desc:     'Get your CTOS Score plus CCRIS records from Bank Negara. See exactly what lenders see.',
+        features: ['CTOS Score with full breakdown','CCRIS records from Bank Negara Malaysia','Litigation & bankruptcy history','Business directorship & SSM data'],
+        note:     'RM27.90 / report',
+        url:      '#pricing',
+        color:    '#0bb1be',
+        cta:      'Learn More',
+      },
+      {
+        name:     'SecureID',
+        tagline:  '24/7 identity protection, always on.',
+        desc:     'Real-time credit monitoring, dark web scanning, and Takaful fraud coverage, one plan watches everything.',
+        features: ['Real-time credit monitoring alerts','Dark web & data breach scanning','4 MyCTOS Score reports yearly','Takaful fraud coverage up to RM20,000'],
+        note:     'From RM9.90 / month',
+        url:      '#pricing',
+        color:    '#007b85',
+        cta:      'Learn More',
+      },
+      {
+        name:     'Credit Finder',
+        tagline:  'Match to the best loan for your profile.',
+        desc:     'Compare personalised loan and credit card offers from 50+ banks, matched to your credit score in seconds.',
+        features: ['Personalised loan & card matching','Compare rates from 50+ banks','Zero impact on your credit score','Instant eligibility check'],
+        note:     'Free to use',
+        url:      '#pricing',
+        color:    '#f2b530',
+        cta:      'Learn More',
+      },
     ],
     'Commercial': [
-      { name: 'Credit Manager',         tagline: "Malaysia's No.1 credit management solution.", note: 'Subscription plan',       url: '#commercial-credit-manager',  color: '#0bb1be' },
-      { name: 'Single Report',          tagline: 'One-off business credit report, on demand.',  note: 'Pay per report',          url: '#commercial-single-report',    color: '#f15d22' },
-      { name: 'CTOS BizSecure',         tagline: '24/7 managed cybersecurity for SMEs.',        note: 'From RM100/device/mo',    url: '#commercial-bizsecure',        color: '#007b85' },
-      { name: 'CreditSCAN Quick Score', tagline: 'Instant RAM-powered business risk score.',    note: 'Pay per report',          url: '#commercial-creditscan',       color: '#6366f1' },
-      { name: 'CTOS Verified',          tagline: 'Boost your company credibility.',             note: 'Business certification',  url: '#commercial-verified',         color: '#059669' },
-      { name: 'Business Loan',          tagline: 'Find the right financing for your business.', note: 'Free to use',             url: '#commercial-loan',             color: '#f2b530' },
+      {
+        name:     'Credit Manager',
+        tagline:  "Malaysia's No.1 credit management solution.",
+        desc:     'Evaluate, monitor, and manage business credit risk on one interactive platform. Powered by FICO scoring.',
+        features: ['Comprehensive client credit reports','Automated monitoring & profile alerts','FICO-powered business credit scoring','CTOS eTR electronic trade reference'],
+        note:     'Subscription plan',
+        url:      '#commercial',
+        color:    '#0bb1be',
+        cta:      'Learn More',
+      },
+      {
+        name:     'Single Report',
+        tagline:  'One-off business credit report, on demand.',
+        desc:     'Buy a single comprehensive business credit report for any Malaysian company. No subscription required.',
+        features: ['SSM filings & company CCRIS data','Litigation & bankruptcy records','Directorship & ownership links','Pay per report, no commitment'],
+        note:     'Pay per report',
+        url:      '#commercial',
+        color:    '#f15d22',
+        cta:      'Learn More',
+      },
+      {
+        name:     'CTOS BizSecure',
+        tagline:  '24/7 managed cybersecurity for SMEs.',
+        desc:     'Always-on threat detection and rapid expert response, no in-house security team required.',
+        features: ['24/7 monitoring & threat detection','Expert-led rapid incident response','Ransomware & data breach protection','PDPA & Cyber Act 2024 compliant'],
+        note:     'From RM100/device/mo',
+        url:      '#commercial',
+        color:    '#007b85',
+        cta:      'Learn More',
+      },
+      {
+        name:     'CreditSCAN Quick Score',
+        tagline:  'Instant RAM-powered business risk score.',
+        desc:     'Get a fast credit score for any Malaysian company. Instant risk grading backed by RAM Rating methodology.',
+        features: ['RAM-powered credit scoring model','Instant company risk grade','Credit limit recommendation','Pay per report, no subscription'],
+        note:     'Pay per report',
+        url:      '#commercial',
+        color:    '#6366f1',
+        cta:      'Learn More',
+      },
+      {
+        name:     'CTOS Verified',
+        tagline:  'Boost your company credibility with a trusted seal.',
+        desc:     'Get the CTOS Verified seal to win instant customer trust, stand out from competitors, and close deals faster.',
+        features: ['Official CTOS Verified business seal','Win trust & close deals faster','Exclusive networking & training perks','Up to RM7,828 in added value'],
+        note:     'Business certification',
+        url:      '#commercial',
+        color:    '#059669',
+        cta:      'Get Verified',
+      },
+      {
+        name:     'Business Loan',
+        tagline:  'Find the right financing for your business.',
+        desc:     'Match your business profile against multiple loan options from banks and financiers across Malaysia.',
+        features: ['Compare rates & eligibility instantly','SME & commercial financing options','Free to search, no commitment'],
+        note:     'Free to use',
+        url:      '#commercial',
+        color:    '#f2b530',
+        cta:      'Find a Loan',
+      },
     ],
     'Corporate & FI': [
-      { name: 'CTOS eKYC',                    tagline: 'AI-enhanced digital identity verification.',  note: 'Enterprise',      url: '#fi-ekyc',         color: '#0bb1be' },
-      { name: 'Application & Decisioning',    tagline: 'Automate credit approvals, reduce manual work.', note: 'Enterprise',   url: '#fi-decisioning',  color: '#6366f1' },
-      { name: 'RAM Rating Rationale Report',  tagline: 'Official RAM credit ratings, fully explained.', note: 'Pay per report', url: '#fi-ram',          color: '#f15d22' },
+      {
+        name:     'CTOS eKYC',
+        tagline:  'AI-enhanced digital identity verification.',
+        desc:     'Verify customer identities remotely with 4-layer AI authentication. BNM sandbox-tested and fully compliant.',
+        features: ['ID document & facial recognition','Bureau file & knowledge-based checks','AI hologram & liveness detection','BNM-compliant digital onboarding'],
+        note:     'Enterprise',
+        url:      '#',
+        color:    '#0bb1be',
+        cta:      'Learn More',
+      },
+      {
+        name:     'Application & Decisioning',
+        tagline:  'Automate credit approvals, reduce manual work.',
+        desc:     'Streamline credit application workflows with real-time bureau data and fully customisable decisioning rules.',
+        features: ['Automated credit decisioning engine','Customisable rule-based scoring','Real-time CTOS & CCRIS data pull','Seamless API integration'],
+        note:     'Enterprise',
+        url:      '#',
+        color:    '#6366f1',
+        cta:      'Learn More',
+      },
+      {
+        name:     'RAM Rating Rationale Report',
+        tagline:  'Official RAM credit ratings, fully explained.',
+        desc:     "Access RAM's rating rationale reports for publicly rated Malaysian entities, bonds, and sukuk.",
+        features: ['Official RAM credit rating reports','Detailed rating rationale & outlook','Sector & peer comparison data','Timely updates on rating changes'],
+        note:     'Pay per report',
+        url:      '#',
+        color:    '#f15d22',
+        cta:      'Learn More',
+      },
     ],
     'International': [
-      { name: 'Singapore Report',    tagline: 'Business credit reports for Singapore companies.', note: 'Pay per report',  url: '#intl-sg',    color: '#e53e3e' },
-      { name: 'International Report',tagline: 'Credit reports on companies in 200+ countries.',   note: 'Pay per report',  url: '#intl-world', color: '#6366f1' },
+      {
+        name:     'Singapore Report',
+        tagline:  'Business credit reports for Singapore companies.',
+        desc:     'Access comprehensive credit profiles for Singapore-registered companies via our ctosbasis.com/sg portal.',
+        features: ['Singapore company UEN & ACRA data','Financial health indicators','Directorship & ownership records','Cross-border due diligence'],
+        note:     'Pay per report',
+        url:      '#',
+        color:    '#e53e3e',
+        cta:      'Learn More',
+      },
+      {
+        name:     'International Report',
+        tagline:  'Credit reports on companies in 200+ countries.',
+        desc:     'Know your international partners before you transact. Cross-border credit assessment for global due diligence.',
+        features: ['200+ countries covered','Company financials & ownership data','Trade reference & payment history','AML & compliance screening'],
+        note:     'Pay per report',
+        url:      '#',
+        color:    '#6366f1',
+        cta:      'Learn More',
+      },
     ],
   };
 
+  /* ── Build mega panel ── */
   function buildPanel(products) {
     var panel = document.createElement('div');
     panel.className = 'ctos-mega-panel';
 
+    /* Left: product list */
     var left = document.createElement('div');
     left.className = 'ctos-mega-left';
-
     var lbl = document.createElement('p');
     lbl.className = 'ctos-mega-label';
     lbl.textContent = 'Products';
     left.appendChild(lbl);
 
+    /* Right: detail pane */
     var right = document.createElement('div');
     right.className = 'ctos-mega-right';
 
     function setRight(p) {
+      var featureHTML = p.features.map(function (f) {
+        return '<li><svg width="16" height="16" viewBox="0 0 16 16" fill="none">' +
+          '<circle cx="8" cy="8" r="7" fill="' + p.color + '18"/>' +
+          '<path d="M5 8l2 2 4-4" stroke="' + p.color + '" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg><span>' + f + '</span></li>';
+      }).join('');
+
       right.innerHTML =
         '<div class="ctos-mega-badge" style="background:' + p.color + '18;color:' + p.color + '">' +
           '<span class="ctos-mega-dot" style="background:' + p.color + '"></span>' + p.name +
         '</div>' +
         '<h3 class="ctos-mega-title">' + p.tagline + '</h3>' +
+        '<p class="ctos-mega-desc">' + p.desc + '</p>' +
+        '<ul class="ctos-mega-features">' + featureHTML + '</ul>' +
         '<div class="ctos-mega-actions">' +
-          '<a href="' + p.url + '" class="ctos-mega-cta" style="background:' + p.color + '">Learn More' +
+          '<a href="' + p.url + '" class="ctos-mega-cta" style="background:' + p.color + '">' +
+            p.cta +
             '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
           '</a>' +
           '<span class="ctos-mega-note">' + p.note + '</span>' +
@@ -68,25 +206,16 @@
         '<div class="ctos-mega-item-icon" style="background:' + p.color + '18;color:' + p.color + '">' +
           '<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="14" height="16" rx="2"/><path d="M7 7h6M7 10h6M7 13h4"/></svg>' +
         '</div>' +
-        '<div class="ctos-mega-item-body"><span class="ctos-mega-item-name">' + p.name + '</span>' +
-          '<span class="ctos-mega-item-note">' + p.note + '</span></div>' +
-        (i === 0 ? '<svg class="ctos-mega-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M7 3l4 4-4 4"/></svg>' : '');
+        '<div class="ctos-mega-item-body">' +
+          '<span class="ctos-mega-item-name">' + p.name + '</span>' +
+          '<span class="ctos-mega-item-note">' + p.note + '</span>' +
+        '</div>';
 
       row.addEventListener('mouseenter', function () {
-        left.querySelectorAll('.ctos-mega-item').forEach(function (el) {
-          el.classList.remove('is-active');
-          el.querySelector('.ctos-mega-arrow') && (el.querySelector('.ctos-mega-arrow').style.display = 'none');
-        });
+        left.querySelectorAll('.ctos-mega-item').forEach(function (el) { el.classList.remove('is-active'); });
         row.classList.add('is-active');
-        if (!row.querySelector('.ctos-mega-arrow')) {
-          var arr = document.createElement('span');
-          arr.className = 'ctos-mega-arrow';
-          arr.innerHTML = '<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M7 3l4 4-4 4"/></svg>';
-          row.appendChild(arr);
-        }
         setRight(p);
       });
-
       left.appendChild(row);
     });
 
@@ -96,26 +225,26 @@
     return panel;
   }
 
+  /* ── Wire up nav items ── */
   document.addEventListener('DOMContentLoaded', function () {
-    var topItems = document.querySelectorAll('header.ctos-header .wp-block-navigation-item.has-child');
-    topItems.forEach(function (item) {
-      var link = item.querySelector(':scope > a, :scope > button, :scope > .wp-block-navigation-item__content');
-      if (!link) return;
-      /* Strip the arrow span text to get just the label */
-      var labelEl = link.cloneNode(true);
-      var arrow = labelEl.querySelector('.ctos-nav-arrow');
+    var items = document.querySelectorAll('header.ctos-header .wp-block-navigation-item.has-child');
+    items.forEach(function (item) {
+      var btn = item.querySelector(':scope > a, :scope > button, :scope > .wp-block-navigation-item__content');
+      if (!btn) return;
+      var clone = btn.cloneNode(true);
+      var arrow = clone.querySelector('.ctos-nav-arrow, .wp-block-navigation__submenu-icon');
       if (arrow) arrow.remove();
-      var label = (labelEl.textContent || labelEl.innerText || '').trim();
+      var label = (clone.textContent || '').replace(/\s+/g, ' ').trim();
       var products = NAV_DATA[label];
       if (!products) return;
 
-      /* hide the default WP submenu */
+      /* Hide default WP submenu */
       var sub = item.querySelector('.wp-block-navigation__submenu-container');
       if (sub) sub.style.cssText = 'display:none!important';
 
       var panel = buildPanel(products);
-      item.appendChild(panel);
       item.style.position = 'relative';
+      item.appendChild(panel);
 
       var timer;
       function show() { clearTimeout(timer); panel.classList.add('is-visible'); }
