@@ -12,27 +12,46 @@ body { background: #007b85; font-family: 'Lato', sans-serif; color: #102a2e; }
 a { text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
-/* Remove WordPress block theme default gaps */
-.wp-site-blocks { padding-block-start: 0 !important; padding-block-end: 0 !important; }
-.wp-site-blocks > * { margin-block-start: 0 !important; }
-.wp-block-group { --wp--style--block-gap: 0 !important; }
-
-/* ── Sticky header — accounts for WP admin bar ────────────── */
-/* No admin bar (frontend visitors, not logged in) */
-header.ctos-header { top: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; }
-/* Admin bar present (32px desktop, 46px mobile) */
-.admin-bar header.ctos-header { top: 32px !important; }
-@media screen and (max-width: 782px) {
-  .admin-bar header.ctos-header { top: 46px !important; }
+/* ── Kill ALL block spacing above the header ──────────────── */
+/* Override the spacing variable ONLY on the site-blocks container */
+.wp-site-blocks {
+  --wp--preset--spacing--60: 0px;
+  --wp--style--block-gap: 0px;
 }
-/* Prevent any gap after header */
-.ctos-header + *, header + section, header + div { margin-top: 0 !important; padding-top: 0 !important; }
+/* Belt-and-braces: zero every possible spacing source */
+.wp-site-blocks,
+.wp-site-blocks > *,
+:where(.wp-site-blocks) > *,
+:where(.wp-site-blocks) > :first-child,
+:root :where(.is-layout-flow) > :first-child,
+:root :where(.is-layout-constrained) > :first-child {
+  margin-block-start: 0 !important;
+  margin-top: 0 !important;
+}
+.wp-site-blocks { padding-block-start: 0 !important; padding-block-end: 0 !important; }
+/* Header template-part wrapper (outer <header>) + group block (inner) */
+header.ctos-header,
+header.wp-block-template-part,
+.ctos-header.wp-block-template-part {
+  margin: 0 !important;
+  padding-top: 0 !important;
+}
+/* Sticky: admin bar hidden so top:0 always */
+header.ctos-header { top: 0 !important; }
+/* If user re-enables admin bar: */
+.admin-bar header.ctos-header { top: 32px !important; }
+@media screen and (max-width: 782px) { .admin-bar header.ctos-header { top: 46px !important; } }
+/* No gap after header */
+.ctos-header + *, header + section, header + div { margin-top: 0 !important; }
 
-/* ── Dark glass header (WP Group block based) ─────────────── */
+/* ── Dark glass header — FIXED positioning eliminates gap ──── */
+/* sticky top:0 still has document-flow gap; fixed guarantees viewport top */
 header.ctos-header,
 .wp-block-template-part > header.ctos-header {
-  position: sticky !important;
-  top: 0; /* overridden by .admin-bar rule below */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   z-index: 100 !important;
   background: rgba(6,26,27,0.70) !important; /* Vercel: bg-[#061a1b]/70 */
   backdrop-filter: blur(24px) !important;
@@ -329,6 +348,10 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 }
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
+
+/* Compensate for fixed header (64px) — push hero + all first sections down */
+.wp-site-blocks > :nth-child(2),
+.ctos-hero-slider { margin-top: 64px; }
 
 /* ── Hero Slider — TEAL radial gradient, fixed height, translateX ── */
 .ctos-hero-slider {
