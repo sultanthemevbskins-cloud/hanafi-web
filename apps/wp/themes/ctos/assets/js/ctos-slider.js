@@ -1,97 +1,145 @@
 /**
- * CTOS Hero Slider
- * Features: auto-rotate, dot nav, keyboard, touch/swipe, pause on hover
- * Speed: set data-speed="5500" (ms) on the .ctos-hero-slider element
+ * CTOS Hero Slider — exact match to Vercel production
+ *
+ * Uses translateX horizontal sliding with clone-based infinite loop:
+ *   [clone-last | slide-1 | slide-2 | slide-3 | clone-first]
+ * index 0 = clone-last, 1..3 = real slides, 4 = clone-first
+ * On transitionend: if we landed on a clone, silently snap to the real slide.
+ *
+ * Auto-advance every 5 000 ms. Pause on hover/touch.
+ * Touch/swipe: 50 px threshold, vertical scroll not hijacked.
+ * Keyboard: ArrowLeft/ArrowRight when slider is focused.
  */
 (function () {
   'use strict';
 
-  var SWIPE_THRESHOLD = 50; // px — minimum swipe distance
+  var SLIDE_COUNT   = 3;
+  var AUTO_DELAY    = 5000;
+  var SWIPE_MIN     = 50;
+  var PAUSE_AFTER   = 3000;  // resume auto after manual interaction
 
   function initSlider(slider) {
-    var slides  = slider.querySelectorAll('.ctos-hero-slide');
-    var dots    = slider.querySelectorAll('.ctos-dot');
-    var speed   = parseInt(slider.getAttribute('data-speed') || '5500', 10);
-    var current = 0;
+    var track  = slider.querySelector('.ctos-hero-track');
+    var dots   = slider.querySelectorAll('.ctos-dot');
+    if (!track) return;
+
+    var index   = 1;  // start on real slide 1
+    var paused  = false;
     var timer;
-    var touchStartX = 0;
-    var touchStartY = 0;
-    var isDragging  = false;
+    var touchX0 = 0, touchY0 = 0, dragging = false;
 
-    if (!slides.length) return;
+    /* ── helpers ── */
+    function activeDot() { return (index - 1 + SLIDE_COUNT) % SLIDE_COUNT; }
 
-    /* ── Core navigation ── */
-    function goTo(index) {
-      slides[current].classList.remove('is-active');
-      if (dots[current]) dots[current].classList.remove('is-active');
-      current = (index + slides.length) % slides.length;
-      slides[current].classList.add('is-active');
-      if (dots[current]) dots[current].classList.add('is-active');
+    function updateDots() {
+      var ad = activeDot();
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === ad);
+      });
     }
 
+    function moveTo(i, animate) {
+      if (!animate) track.classList.add('no-transition');
+      index = i;
+      track.style.transform = 'translateX(-' + (index * (100 / (SLIDE_COUNT + 2))) + '%)';
+      if (!animate) {
+        // force reflow then re-enable transition
+        track.offsetHeight; // eslint-disable-line
+        track.classList.remove('no-transition');
+      }
+      updateDots();
+    }
+
+    /* ── Set initial track width: (SLIDE_COUNT + 2) slides side-by-side ── */
+    track.style.width = (SLIDE_COUNT + 2) * 100 + '%';
+    var slides = track.children;
+    for (var s = 0; s < slides.length; s++) {
+      slides[s].style.width = (100 / (SLIDE_COUNT + 2)) + '%';
+    }
+
+    /* ── Init position without animation ── */
+    moveTo(1, false);
+    updateDots();
+
+    /* ── Infinite loop on transitionend ── */
+    track.addEventListener('transitionend', function () {
+      if (index === 0) {
+        moveTo(SLIDE_COUNT, false);
+      } else if (index === SLIDE_COUNT + 1) {
+        moveTo(1, false);
+      }
+    });
+
+    /* ── Navigation ── */
+    function goNext() { moveTo(index + 1, true); }
+    function goPrev() { moveTo(index - 1, true); }
+
+    function goTo(realIndex) {  // 1-based real index
+      moveTo(realIndex, true);
+    }
+
+    /* ── Auto advance ── */
     function startAuto() {
       clearInterval(timer);
-      timer = setInterval(function () { goTo(current + 1); }, speed);
+      if (!paused) timer = setInterval(goNext, AUTO_DELAY);
     }
-
-    function advance(dir) {
+    function stopAutoTemporarily(ms) {
       clearInterval(timer);
-      goTo(current + dir);
-      startAuto();
+      paused = true;
+      setTimeout(function () { paused = false; startAuto(); }, ms);
     }
 
-    /* ── Init ── */
-    slides[0].classList.add('is-active');
-    if (dots[0]) dots[0].classList.add('is-active');
     startAuto();
 
     /* ── Dot clicks ── */
     dots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () { clearInterval(timer); goTo(i); startAuto(); });
+      dot.addEventListener('click', function () {
+        goTo(i + 1);
+        stopAutoTemporarily(PAUSE_AFTER);
+      });
     });
 
-    /* ── Pause on mouse hover ── */
+    /* ── Hover pause ── */
     slider.addEventListener('mouseenter', function () { clearInterval(timer); });
-    slider.addEventListener('mouseleave', startAuto);
+    slider.addEventListener('mouseleave', function () { if (!paused) startAuto(); });
 
-    /* ── Keyboard (when slider focused) ── */
+    /* ── Keyboard ── */
     slider.setAttribute('tabindex', '0');
     slider.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft')  advance(-1);
-      if (e.key === 'ArrowRight') advance(1);
+      if (e.key === 'ArrowLeft')  { goPrev(); stopAutoTemporarily(PAUSE_AFTER); }
+      if (e.key === 'ArrowRight') { goNext(); stopAutoTemporarily(PAUSE_AFTER); }
     });
 
-    /* ── Touch / swipe ── */
-    slider.addEventListener('touchstart', function (e) {
-      var t = e.changedTouches[0];
-      touchStartX = t.clientX;
-      touchStartY = t.clientY;
-      isDragging  = true;
+    /* ── Touch / pointer swipe ── */
+    var el = track;
+
+    el.addEventListener('pointerdown', function (e) {
+      touchX0  = e.clientX;
+      touchY0  = e.clientY;
+      dragging = true;
+      el.setPointerCapture(e.pointerId);
       clearInterval(timer);
-    }, { passive: true });
+    });
 
-    slider.addEventListener('touchmove', function (e) {
-      if (!isDragging) return;
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      var dy = e.changedTouches[0].clientY - touchStartY;
-      /* Cancel swipe if vertical scroll is dominant */
-      if (Math.abs(dy) > Math.abs(dx)) { isDragging = false; }
-    }, { passive: true });
-
-    slider.addEventListener('touchend', function (e) {
-      if (!isDragging) { startAuto(); return; }
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      isDragging = false;
-      if (Math.abs(dx) >= SWIPE_THRESHOLD) {
-        goTo(dx < 0 ? current + 1 : current - 1);
+    el.addEventListener('pointerup', function (e) {
+      if (!dragging) return;
+      dragging = false;
+      var dx = touchX0 - e.clientX;
+      var dy = touchY0 - e.clientY;
+      if (Math.abs(dx) > SWIPE_MIN && Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0) goNext(); else goPrev();
       }
-      startAuto();
-    }, { passive: true });
+      stopAutoTemporarily(PAUSE_AFTER);
+    });
 
-    slider.addEventListener('touchcancel', function () {
-      isDragging = false;
-      startAuto();
-    }, { passive: true });
+    el.addEventListener('pointercancel', function () {
+      dragging = false;
+      stopAutoTemporarily(PAUSE_AFTER);
+    });
+
+    /* Prevent text selection during drag */
+    el.style.userSelect = 'none';
+    el.style.touchAction = 'pan-y';
   }
 
   document.addEventListener('DOMContentLoaded', function () {

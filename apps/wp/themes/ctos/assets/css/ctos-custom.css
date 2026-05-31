@@ -310,64 +310,110 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
 
-/* ── Hero Slider — dark background matching Vercel production ── */
+/* ── Hero Slider — TEAL radial gradient, fixed height, translateX ── */
 .ctos-hero-slider {
   position: relative;
-  /* Radial teal glow from right-centre (where the white card sits) + dark base */
-  background:
-    radial-gradient(ellipse at 72% 55%, rgba(0,123,133,0.13) 0%, transparent 55%),
-    radial-gradient(ellipse at 15% 80%, rgba(0,123,133,0.06) 0%, transparent 40%),
-    #061a1b;
   overflow: hidden;
-  min-height: calc(100vh - 64px);
+  height: 335px;   /* mobile */
+  /* Exact original: radial-gradient teal, no dark bg */
+  background: radial-gradient(ellipse at 30% 50%, #007b85 0%, #055157 99%);
 }
-.ctos-hero-slide {
+.ctos-hero-slider::after {
+  /* Secondary accent */
+  content: '';
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-start;
-  opacity: 0;
-  transition: opacity 0.65s ease;
+  background: radial-gradient(ellipse at 10% 90%, rgba(11,177,190,0.25) 0%, rgba(11,177,190,0) 45%);
   pointer-events: none;
 }
-.ctos-hero-slide.is-active {
-  opacity: 1;
-  position: relative;
-  min-height: calc(100vh - 64px);
-  pointer-events: auto;
+@media (min-width: 768px) {
+  .ctos-hero-slider { height: 600px; }
 }
+
+/* Slide track — flex row, translateX driven */
+.ctos-hero-track {
+  display: flex;
+  height: 100%;
+  transition: transform 500ms ease-in-out;
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+.ctos-hero-track.no-transition { transition: none; }
+
+/* Each slide */
+.ctos-hero-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+  cursor: grab;
+}
+.ctos-hero-slide:active { cursor: grabbing; }
 .ctos-hero-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 4rem 2.5rem 3rem;
+  padding: 0.75rem 1.5rem 0;   /* matches pt-3 md:pt-[65px] px-6 md:px-10 */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: flex-start;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
   width: 100%;
+  height: 100%;
 }
-.ctos-hero-left { display: flex; flex-direction: column; gap: 1.125rem; }
+@media (min-width: 768px) {
+  .ctos-hero-inner {
+    padding: 4.0625rem 2.5rem 0;  /* pt-[65px] */
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+}
+@media (min-width: 1024px) {
+  .ctos-hero-inner { gap: 4.0625rem; }
+}
+.ctos-hero-left { display: flex; flex-direction: column; gap: 0.75rem; }
+@media (min-width: 768px) { .ctos-hero-left { gap: 1.25rem; } }
 
-/* Eyebrow */
+/* Eyebrow — #1 badge */
 .ctos-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 9px;
   letter-spacing: 0.48px;
   color: rgba(255,255,255,0.85);
 }
-.ctos-hero-eyebrow strong,
-.ctos-hero-eyebrow b { font-weight: 700; color: #fff; }
+@media (min-width: 768px) { .ctos-hero-eyebrow { font-size: 12px; } }
+.ctos-hero-eyebrow strong { font-weight: 700; color: #fff; }
 
-/* Title */
+/* Title — 30px mobile, 26px md, 58px lg (slide 1&2) */
 .ctos-hero-title {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.875rem, 4.5vw, 3.625rem);
+  font-size: 1.875rem;   /* 30px mobile */
   font-weight: 700;
-  line-height: 1.055;
-  letter-spacing: -2px;
+  line-height: 1.25;
+  letter-spacing: -0.8px;
+}
+@media (min-width: 768px) {
+  .ctos-hero-title {
+    font-size: 1.625rem;  /* 26px md */
+    line-height: 1.25;
+    letter-spacing: -1px;
+  }
+}
+@media (min-width: 1024px) {
+  .ctos-hero-title {
+    font-size: 3.625rem;  /* 58px lg */
+    line-height: 1.055;
+    letter-spacing: -2.03px;
+  }
 }
 .ctos-hero-title p { margin: 0; }
+
+/* Gradient text — ffc28e → 1feeff */
 .ctos-grad-text {
   background: linear-gradient(90deg, #ffc28e 0%, #1feeff 100%);
   -webkit-background-clip: text;
@@ -380,11 +426,12 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 /* Description */
 .ctos-hero-desc {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(13px, 1.5vw, 15px);
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.615;
   color: rgba(255,255,255,0.78);
   max-width: 460px;
 }
+@media (min-width: 1024px) { .ctos-hero-desc { font-size: 15px; } }
 
 /* Hero CTA button — WHITE with orange text, matches original btn-hero */
 .ctos-btn-hero {
@@ -415,25 +462,35 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 }
 .ctos-btn-hero svg { animation: ctos-arrow-loop 2.4s ease-in-out infinite; }
 
-/* Stats */
-.ctos-hero-stats { display: flex; gap: 2rem 3rem; flex-wrap: wrap; margin-top: 1.25rem; }
+/* Stats — hidden mobile, flex md+ */
+.ctos-hero-stats { display: none; }
+@media (min-width: 768px) {
+  .ctos-hero-stats { display: flex; align-items: flex-start; gap: 2rem 3rem; flex-wrap: wrap; padding-top: 1.25rem; }
+}
+@media (min-width: 1024px) { .ctos-hero-stats { gap: 3rem; } }
 .ctos-stat-n {
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-size: 1.375rem;
   font-weight: 700;
   color: #fff;
   letter-spacing: -0.5px;
 }
+@media (min-width: 1024px) { .ctos-stat-n { font-size: 1.625rem; } }
 .ctos-stat-plus { color: #2de1ea; }
-.ctos-stat-l { display: block; font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+.ctos-stat-l { display: block; font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+@media (min-width: 768px) { .ctos-stat-l { font-size: 12px; } }
 
-/* Right: white card */
+/* Right: white card — hidden mobile, visible md+ */
 .ctos-hero-right {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding-top: 1rem;
+  display: none;
+}
+@media (min-width: 768px) {
+  .ctos-hero-right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
 }
 .ctos-hero-card-white {
   width: 100%;
@@ -497,19 +554,35 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 }
 .ctos-loan-item:last-child { border-bottom: none; }
 
-/* Dots */
+/* Dots — exact original: wide cyan pill active, white/50 inactive */
 .ctos-hero-dots {
-  position: absolute; bottom: 1.75rem; left: 50%;
-  transform: translateX(-50%);
-  display: flex; gap: 0.5rem; z-index: 10;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  z-index: 20;
 }
 .ctos-dot {
-  width: 6px; height: 6px; border-radius: 100px;
-  background: rgba(255,255,255,0.3); border: none;
-  cursor: pointer; padding: 0;
-  transition: width 0.3s, background 0.3s;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 300ms ease-in-out;
 }
-.ctos-dot.is-active { width: 20px; background: #007b85; }
+.ctos-dot:hover { background: rgba(255,255,255,0.8); }
+.ctos-dot.is-active {
+  width: 40px;
+  height: 10px;
+  background: #2de1ea;
+  box-shadow: 0 0 10px rgba(45,225,234,0.7);
+}
 
 /* ── Welcome segment cards ────────────────────────────────── */
 .ctos-welcome-section { background: #fff; padding: 4rem 0; }
