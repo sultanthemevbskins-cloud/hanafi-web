@@ -347,6 +347,25 @@ function ArticleCard({ art, tall, gi = 0 }: { art: Article; tall?: boolean; gi?:
   )
 }
 
+/* ─── Admin security helpers ─────────────────────────────────────────────── */
+
+/* PIN is stored as a simple base64 token — change the string to update the PIN.
+   Default PIN: ctos@2026  (base64: Y3RvectAMjAyNg==)                         */
+const _AP = 'Y3RvZXNAMjAyNg=='   // ← change this to update PIN (btoa of new pin)
+
+function verifyPin(input: string): boolean {
+  try { return btoa(unescape(encodeURIComponent(input.trim()))) === _AP } catch { return false }
+}
+
+const ALLOWED_DOMAIN = 'ctoscredit.com.my'
+
+function isCtosUrl(url: string): boolean {
+  try {
+    const h = new URL(url).hostname.toLowerCase()
+    return h === ALLOWED_DOMAIN || h.endsWith('.' + ALLOWED_DOMAIN)
+  } catch { return false }
+}
+
 /* ─── Admin Drawer ───────────────────────────────────────────────────────── */
 
 type FetchState = 'idle' | 'loading' | 'ok' | 'err'
@@ -359,14 +378,32 @@ function AdminDrawer({
   settings: AdminSettings
   onSave:   (s: AdminSettings) => void
 }) {
-  const [artTab,     setArtTab]     = useState<'personal' | 'business'>('personal')
-  const [draft,      setDraft]      = useState<AdminSettings>(settings)
-  const [saved,      setSaved]      = useState(false)
-  const [fetchState, setFetchState] = useState<Record<string, FetchState>>({})
-  const [editing,    setEditing]    = useState<Record<string, boolean>>({})   // url → show edit input
-  const [editVal,    setEditVal]    = useState<Record<string, string>>({})    // url → current input value
+  const [pinVerified, setPinVerified] = useState(false)
+  const [pinInput,    setPinInput]    = useState('')
+  const [pinError,    setPinError]    = useState(false)
+  const [artTab,      setArtTab]      = useState<'personal' | 'business'>('personal')
+  const [draft,       setDraft]       = useState<AdminSettings>(settings)
+  const [saved,       setSaved]       = useState(false)
+  const [fetchState,  setFetchState]  = useState<Record<string, FetchState>>({})
+  const [editing,     setEditing]     = useState<Record<string, boolean>>({})
+  const [editVal,     setEditVal]     = useState<Record<string, string>>({})
+
+  /* Reset PIN when drawer closes */
+  useEffect(() => {
+    if (!open) { setPinVerified(false); setPinInput(''); setPinError(false) }
+  }, [open])
 
   useEffect(() => { if (open) setDraft(settings) }, [open, settings])
+
+  function submitPin() {
+    if (verifyPin(pinInput)) {
+      setPinVerified(true)
+    } else {
+      setPinError(true)
+      setPinInput('')
+      setTimeout(() => setPinError(false), 2500)
+    }
+  }
 
   function handleSave() { onSave(draft); setSaved(true); setTimeout(() => { setSaved(false); onClose() }, 2000) }
   function handleReset() { setDraft(DEFAULT_ADMIN); onSave(DEFAULT_ADMIN); setSaved(true); setTimeout(() => setSaved(false), 2200) }
@@ -379,6 +416,7 @@ function AdminDrawer({
   function confirmEdit(art: Article) {
     const newUrl = (editVal[art.url] ?? '').trim()
     if (newUrl && newUrl !== art.url) {
+      if (!isCtosUrl(newUrl)) return  // silently block non-CTOS domains
       setDraft(d => ({ ...d, urlOverrides: { ...d.urlOverrides, [art.url]: newUrl } }))
     } else if (!newUrl || newUrl === art.url) {
       setDraft(d => { const u = { ...d.urlOverrides }; delete u[art.url]; return { ...d, urlOverrides: u } })
@@ -449,8 +487,62 @@ function AdminDrawer({
           </button>
         </div>
 
-        {/* ── Scrollable body (no tabs — single articles view) ── */}
+        {/* ══ PIN GATE — shown until verified ══ */}
+        {!pinVerified && (
+          <div className="flex-1 flex flex-col items-center justify-center px-8 gap-5">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-1" style={{ background: 'linear-gradient(135deg,#007b85,#0bb1be)' }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div className="text-center">
+              <p className="font-poppins font-bold text-[16px] text-[#e6edf3]">Admin Access</p>
+              <p className="font-mono text-[11px] text-[#484f58] mt-1">Enter PIN to continue</p>
+            </div>
+            <div className="w-full max-w-[260px] space-y-3">
+              <input
+                type="password"
+                value={pinInput}
+                onChange={e => setPinInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && submitPin()}
+                placeholder="••••••••"
+                autoFocus
+                className={`w-full bg-[#161b22] border rounded-[10px] px-4 py-3 font-mono text-[14px] text-center text-[#e6edf3] placeholder-[#30363d] focus:outline-none transition-colors ${
+                  pinError ? 'border-[#f85149] animate-pulse' : 'border-[#30363d] focus:border-[#007b85]'
+                }`}
+              />
+              {pinError && (
+                <p className="font-poppins text-[11px] text-[#f85149] text-center">Incorrect PIN. Access denied.</p>
+              )}
+              <button
+                onClick={submitPin}
+                className="w-full py-3 rounded-[10px] bg-[#007b85] hover:bg-[#0bb1be] font-poppins font-bold text-[13px] text-white transition-colors shadow-[0_0_20px_rgba(0,123,133,0.3)]"
+              >
+                Unlock
+              </button>
+            </div>
+            <p className="font-mono text-[9px] text-[#30363d] text-center mt-4 max-w-[220px]">
+              Unauthorised access is prohibited.<br/>This interface is restricted to authorised personnel only.
+            </p>
+          </div>
+        )}
+
+        {/* ══ ADMIN CONTENT — only shown after PIN verified ══ */}
+        {pinVerified && (
         <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5" style={{ scrollbarWidth: 'thin', scrollbarColor: '#30363d #0d1117' }}>
+
+          {/* Domain restriction notice */}
+          <div className="rounded-[10px] px-4 py-3 flex gap-3 items-start" style={{ background: 'rgba(247,184,42,0.08)', border: '1px solid rgba(247,184,42,0.25)' }}>
+            <svg className="flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f7b82a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <p className="font-poppins font-bold text-[11px] text-[#f7b82a] uppercase tracking-[1px]">Domain Restricted</p>
+              <p className="font-mono text-[10px] text-[#8b949e] mt-0.5 leading-relaxed">
+                Only <span className="text-[#0bb1be]">ctoscredit.com.my</span> URLs are permitted.<br/>
+                All other domains are blocked and will not be saved.
+              </p>
+            </div>
+          </div>
 
           {/* Personal / Business toggle */}
           <div className="flex gap-1 p-1 rounded-[10px]" style={{ background: '#161b22', border: '1px solid #21262d' }}>
@@ -553,26 +645,40 @@ function AdminDrawer({
                       </div>
 
                       {/* ── URL edit input (shown when pencil clicked) ── */}
-                      {isEditing && (
-                        <div className="px-3 pb-3 pt-0" style={{ background: '#161b22', borderTop: '1px solid #21262d' }}>
-                          <p className="font-mono text-[9px] text-[#484f58] mt-2 mb-1.5">ARTICLE URL — used for Fetch &amp; card link</p>
-                          <div className="flex gap-2">
-                            <input
-                              type="url"
-                              value={editVal[art.url] ?? displayUrl}
-                              onChange={e => setEditVal(v => ({ ...v, [art.url]: e.target.value }))}
-                              onKeyDown={e => { if (e.key === 'Enter') confirmEdit(art); if (e.key === 'Escape') setEditing(ed => ({ ...ed, [art.url]: false })) }}
-                              autoFocus
-                              className={`${inp} text-[11px]`}
-                              placeholder="https://ctoscredit.com.my/learn/..."
-                            />
-                            <button onClick={() => confirmEdit(art)}
-                              className="flex-shrink-0 px-3 rounded-[8px] bg-[#007b85] text-white font-poppins font-semibold text-[11px] hover:bg-[#0bb1be] transition-colors">
-                              Save
-                            </button>
+                      {isEditing && (() => {
+                        const val = editVal[art.url] ?? displayUrl
+                        const invalid = val.length > 8 && !isCtosUrl(val)
+                        return (
+                          <div className="px-3 pb-3 pt-0" style={{ background: '#161b22', borderTop: '1px solid #21262d' }}>
+                            <p className="font-mono text-[9px] text-[#484f58] mt-2 mb-1.5">
+                              ARTICLE URL — must be <span className="text-[#0bb1be]">ctoscredit.com.my</span>
+                            </p>
+                            <div className="flex gap-2">
+                              <input
+                                type="url"
+                                value={val}
+                                onChange={e => setEditVal(v => ({ ...v, [art.url]: e.target.value }))}
+                                onKeyDown={e => { if (e.key === 'Enter') confirmEdit(art); if (e.key === 'Escape') setEditing(ed => ({ ...ed, [art.url]: false })) }}
+                                autoFocus
+                                className={`${inp} text-[11px] ${invalid ? 'border-[#f85149] focus:border-[#f85149]' : ''}`}
+                                placeholder="https://ctoscredit.com.my/learn/..."
+                              />
+                              <button
+                                onClick={() => confirmEdit(art)}
+                                disabled={invalid}
+                                className={`flex-shrink-0 px-3 rounded-[8px] font-poppins font-semibold text-[11px] transition-colors ${invalid ? 'bg-[#21262d] text-[#484f58] cursor-not-allowed' : 'bg-[#007b85] text-white hover:bg-[#0bb1be]'}`}
+                              >
+                                Save
+                              </button>
+                            </div>
+                            {invalid && (
+                              <p className="font-mono text-[9px] text-[#f85149] mt-1.5">
+                                ⚠ Only ctoscredit.com.my URLs are allowed
+                              </p>
+                            )}
                           </div>
-                        </div>
-                      )}
+                        )
+                      })()}
 
                       {/* ── OG data preview ── */}
                       {hasData && !isEditing && (
@@ -599,8 +705,10 @@ function AdminDrawer({
           ))}
 
         </div>
+        )} {/* end pinVerified */}
 
-        {/* ── Footer ── */}
+        {/* ── Footer — only shown after PIN verified ── */}
+        {pinVerified && (
         <div className="flex-shrink-0 px-5 py-4 flex items-center gap-3" style={{ borderTop: '1px solid #21262d', background: '#010409' }}>
           <button
             onClick={handleReset}
@@ -617,6 +725,7 @@ function AdminDrawer({
             {saved ? '✓ Saved' : 'Save Changes'}
           </button>
         </div>
+        )} {/* end pinVerified footer */}
 
       </div>
     </>
