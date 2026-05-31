@@ -35,12 +35,24 @@ header.ctos-header,
   max-width: 100% !important;
   width: 100% !important;
 }
-/* Inner flex row — constrained width */
+/* Inner flex row — constrained to 1280px, same as Vercel production */
 header.ctos-header > .wp-block-group__inner-container,
 header.ctos-header.wp-block-group {
-  max-width: 1280px;
-  margin: 0 auto !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2.5rem !important;   /* px-10 on desktop = 40px */
+  padding-right: 2.5rem !important;
   min-height: 64px;
+  box-sizing: border-box !important;
+}
+@media (max-width: 768px) {
+  header.ctos-header > .wp-block-group__inner-container,
+  header.ctos-header.wp-block-group {
+    padding-left: 1.5rem !important;  /* px-6 on mobile */
+    padding-right: 1.5rem !important;
+  }
 }
 
 /* Logo circle */

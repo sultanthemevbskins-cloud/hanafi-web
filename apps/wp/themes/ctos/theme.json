@@ -224,7 +224,13 @@
   ],
 
   "templateParts": [
-    { "name": "header", "title": "Header", "area": "header" },
-    { "name": "footer", "title": "Footer", "area": "footer" }
+    { "name": "header",                       "title": "Header",                  "area": "header"        },
+    { "name": "footer",                       "title": "Footer",                  "area": "footer"        },
+    { "name": "section-hero",                 "title": "CTOS Hero",               "area": "uncategorized" },
+    { "name": "section-welcome",              "title": "CTOS Welcome",            "area": "uncategorized" },
+    { "name": "section-consumer-products",    "title": "CTOS Consumer Products",  "area": "uncategorized" },
+    { "name": "section-commercial-products",  "title": "CTOS Commercial",         "area": "uncategorized" },
+    { "name": "section-app-promo",            "title": "CTOS App Promo",          "area": "uncategorized" },
+    { "name": "section-knowledge-centre",     "title": "CTOS Knowledge Centre",   "area": "uncategorized" }
   ]
 }
