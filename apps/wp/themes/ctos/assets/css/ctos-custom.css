@@ -64,14 +64,14 @@ header.ctos-header.wp-block-group {
   max-width: 1280px !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding: 0 2.5rem !important;
-  min-height: 64px !important;
+  padding: 0.875rem 2.5rem !important; /* Vercel: py-3.5 px-10 = 14px vertical, 40px sides */
+  min-height: 84px !important;         /* Vercel: 14px + 56px logo + 14px = 84px */
   display: flex !important;
   align-items: center !important;
   box-sizing: border-box !important;
 }
 @media (max-width: 768px) {
-  header.ctos-header.wp-block-group { padding: 0 1.5rem !important; }
+  header.ctos-header.wp-block-group { padding: 0.875rem 1.5rem !important; } /* px-6 mobile */
 }
 
 /* Logo circle */
@@ -341,8 +341,8 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
 
-/* Compensate for fixed header (64px) — only on the hero slider itself */
-.ctos-hero-slider { margin-top: 64px; }
+/* Compensate for fixed header (84px = 14px padding + 56px logo + 14px padding) */
+.ctos-hero-slider { margin-top: 84px; }
 
 /* ── Hero Slider — TEAL radial gradient, fixed height, translateX ── */
 .ctos-hero-slider {
