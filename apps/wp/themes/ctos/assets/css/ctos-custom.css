@@ -643,6 +643,58 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-segment-desc { font-family: 'Lato', sans-serif; font-size: 13px; color: #374151; line-height: 1.55; flex: 1; margin-bottom: 1rem; }
 .ctos-segment-cta { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600; color: #007b85; display: inline-flex; align-items: center; gap: 4px; }
 
+/* ── Block-based list checkmarks ─────────────────────────── */
+.ctos-pricing-features.wp-block-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1.25rem 0 0 !important;
+  width: 100% !important;
+}
+.ctos-pricing-features.wp-block-list li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  padding: 5px 0 !important;
+  font-size: 14px !important;
+  color: #374151 !important;
+  font-family: 'Lato', sans-serif !important;
+}
+.ctos-pricing-features.wp-block-list li::before {
+  content: "" !important;
+  display: inline-flex !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23007b8518'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23007b85' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+  margin-top: 2px !important;
+  flex-shrink: 0 !important;
+}
+/* Block-based segment card fix */
+.ctos-segment-card.wp-block-group {
+  border: 1px solid #eaecef !important;
+  cursor: pointer !important;
+}
+.ctos-segment-card .ctos-segment-img.wp-block-image { margin: 0 !important; }
+.ctos-segment-card .ctos-segment-img.wp-block-image img { border-radius: 14px 14px 0 0 !important; height: 160px !important; object-fit: cover !important; width: 100% !important; }
+.ctos-segment-name.wp-block-heading { font-family: 'Poppins',sans-serif !important; font-size: 18px !important; font-weight: 700 !important; color: #102a2e !important; line-height: 1.55 !important; letter-spacing: -0.3px !important; margin-bottom: 0.75rem !important; }
+.ctos-segment-cta a { font-family: 'Poppins',sans-serif !important; font-size: 13px !important; font-weight: 600 !important; color: #007b85 !important; text-decoration: none !important; }
+/* Block-based pricing card fix */
+.ctos-pricing-card.wp-block-group { width: 100% !important; }
+.ctos-pricing-footer.wp-block-group { width: 100% !important; }
+/* App promo store buttons */
+.ctos-store-btn .wp-block-button__link {
+  background: rgba(255,255,255,0.15) !important;
+  border: 1.5px solid rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+  font-family: 'Poppins',sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+.ctos-store-btn .wp-block-button__link:hover { background: rgba(255,255,255,0.25) !important; }
+
 /* ── Pricing cards (Consumer + Commercial) ────────────────── */
 .ctos-pricing-section {
   padding: 4rem 0;
