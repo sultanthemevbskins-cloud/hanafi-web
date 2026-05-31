@@ -1094,14 +1094,14 @@ span.ctos-grad-text,
 
 /* ── Footer ───────────────────────────────────────────────── */
 .ctos-footer,
-footer.ctos-footer { background: #0f7a82 !important; padding: 0 !important; }
+footer.ctos-footer { background: #0f7a82 !important; }
+/* Inner container — transparent bg, padding already set on the group */
 .ctos-footer .wp-block-group__inner-container,
-.ctos-footer > .wp-block-group__inner-container { background: transparent !important; max-width: 100% !important; padding: 0 !important; }
-
-/* Footer layout — max-width 1280px matching other sections */
+.ctos-footer > .wp-block-group__inner-container { background: transparent !important; }
+/* Constrained layout inner: keep padding from group attributes */
+.ctos-footer .wp-block-columns { max-width: 100% !important; }
+/* Footer old HTML layout (fallback) */
 .ctos-ft-wrap { max-width: 1280px; margin: 0 auto; padding: 2.3125rem 2.5rem 1.75rem; }
-/* Footer logo */
-.ctos-ft-logo { width: 50% !important; height: auto !important; display: block !important; margin-bottom: 1.5rem !important; }
 .ctos-ft-grid {
   display: grid;
   grid-template-columns: 1.4fr 1.2fr 1.6fr;
