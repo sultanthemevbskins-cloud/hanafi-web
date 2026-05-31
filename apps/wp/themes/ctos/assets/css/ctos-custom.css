@@ -133,6 +133,19 @@ header.ctos-header .wp-block-navigation__submenu-container a:hover { background:
 /* Hide WP default submenu — mega menu JS replaces it */
 header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__submenu-container { display: none !important; }
 
+/* Nav dropdown arrows — small inline chevron matching Vercel */
+header.ctos-header .wp-block-navigation__submenu-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-left: 3px !important;
+  width: 10px !important; height: 10px !important;
+  flex-shrink: 0 !important; opacity: 0.6 !important;
+}
+header.ctos-header .wp-block-navigation__submenu-icon svg {
+  width: 10px !important; height: 10px !important;
+  stroke: #cfd6d8 !important; fill: none !important;
+}
+
 /* Sign In button — spinning conic gradient border, dark inner, matches original btn-border-spin */
 @property --ctos-border-angle {
   syntax: '<angle>';
@@ -341,8 +354,10 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
 
-/* Compensate for fixed header (84px = 14px padding + 56px logo + 14px padding) */
-.ctos-hero-slider { margin-top: 84px; }
+/* Push ALL page content below fixed header — cleaner than per-section margin */
+.wp-site-blocks { padding-top: 84px !important; padding-block-start: 84px !important; }
+/* Remove per-slider margin now that wp-site-blocks handles the offset */
+.ctos-hero-slider { margin-top: 0 !important; }
 
 /* ── Hero Slider — TEAL radial gradient, fixed height, translateX ── */
 .ctos-hero-slider {
