@@ -49,9 +49,23 @@ add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/ctos-custom.css' );
 } );
 
-/* ── Block pattern category ──────────────────────────────────────────────── */
+/* ── Block pattern category + patterns ───────────────────────────────────── */
 add_action( 'init', function () {
     register_block_pattern_category( 'ctos', [ 'label' => __( 'CTOS', 'ctos' ) ] );
+
+    $patterns = [ 'hero', 'welcome', 'consumer-products', 'commercial-products', 'app-promo', 'knowledge-centre' ];
+    foreach ( $patterns as $slug ) {
+        $file = get_template_directory() . "/patterns/{$slug}.php";
+        if ( ! file_exists( $file ) ) continue;
+        ob_start();
+        include $file;
+        $content = ob_get_clean();
+        register_block_pattern( "ctos/{$slug}", [
+            'title'      => ucwords( str_replace( '-', ' ', $slug ) ),
+            'categories' => [ 'ctos' ],
+            'content'    => $content,
+        ] );
+    }
 } );
 
 remove_theme_support( 'core-block-patterns' );
