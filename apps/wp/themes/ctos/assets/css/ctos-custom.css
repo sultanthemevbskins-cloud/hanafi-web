@@ -846,7 +846,7 @@ span.ctos-grad-text,
 }
 .ctos-footer-nav-links .wp-block-navigation-item a:hover { color: #fff !important; }
 /* Footer columns layout */
-.ctos-footer .wp-block-columns { max-width: 100% !important; }
+/* footer columns: let constrained layout handle max-width:1280px */
 .ctos-footer .wp-block-separator { background-color: rgba(255,255,255,0.18) !important; height: 1px !important; border: none !important; }
 .ctos-footer .wp-block-heading { font-family: 'Poppins',sans-serif !important; color: #fff !important; }
 .ctos-footer .wp-block-paragraph { font-family: 'Poppins',sans-serif; color: rgba(255,255,255,0.85); }
@@ -1099,7 +1099,7 @@ footer.ctos-footer { background: #0f7a82 !important; }
 .ctos-footer .wp-block-group__inner-container,
 .ctos-footer > .wp-block-group__inner-container { background: transparent !important; }
 /* Constrained layout inner: keep padding from group attributes */
-.ctos-footer .wp-block-columns { max-width: 100% !important; }
+/* footer columns: let constrained layout handle max-width:1280px */
 /* Footer old HTML layout (fallback) */
 .ctos-ft-wrap { max-width: 1280px; margin: 0 auto; padding: 2.3125rem 2.5rem 1.75rem; }
 .ctos-ft-grid {
