@@ -279,10 +279,14 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
 
-/* ── Hero Slider — NO background images, pure #061a1b dark ── */
+/* ── Hero Slider — dark background matching Vercel production ── */
 .ctos-hero-slider {
   position: relative;
-  background: #061a1b;
+  /* Radial teal glow from right-centre (where the white card sits) + dark base */
+  background:
+    radial-gradient(ellipse at 72% 55%, rgba(0,123,133,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 80%, rgba(0,123,133,0.06) 0%, transparent 40%),
+    #061a1b;
   overflow: hidden;
   min-height: calc(100vh - 64px);
 }
