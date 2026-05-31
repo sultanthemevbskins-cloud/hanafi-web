@@ -15,7 +15,7 @@ Figma Page 1 — "CTOS web"          ← source of design intent
        ▼
 design-tokens.json                  ← SINGLE SOURCE OF TRUTH (edit values here)
        │
-       │ STEP 1 — npm run sync (in hanafi-claude-shop)
+       │ STEP 1 — npm run sync (in ctos-web)
        ▼
 tokens.js + tokens.css              ← auto-generated, do not edit manually
        │

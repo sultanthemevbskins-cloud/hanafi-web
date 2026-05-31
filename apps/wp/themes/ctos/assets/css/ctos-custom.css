@@ -5,8 +5,8 @@
 /* ── Base reset + WordPress gap fixes ─────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0 !important; padding: 0 !important; }
-/* html background = teal to seamlessly blend with the admin bar gap */
-html { background: #007b85; }
+/* html background = dark to match header — admin bar hidden on frontend */
+html { background: #061a1b; }
 /* Body teal fills gaps between white sections */
 body { background: #007b85; font-family: 'Lato', sans-serif; color: #102a2e; }
 a { text-decoration: none; }
@@ -34,7 +34,7 @@ header.ctos-header,
   position: sticky !important;
   top: 0; /* overridden by .admin-bar rule below */
   z-index: 100 !important;
-  background: rgba(6,26,27,0.82) !important;
+  background: rgba(6,26,27,0.70) !important; /* Vercel: bg-[#061a1b]/70 */
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
   border-bottom: 1px solid rgba(255,255,255,0.08) !important;

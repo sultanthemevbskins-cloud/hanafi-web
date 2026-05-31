@@ -120,7 +120,7 @@ export default function ConsumerProducts({ onSubscribe, onGetCreditReport }: { o
                 <span className="font-extrabold text-[22px] leading-[34.1px] text-[#102a2e] font-jakarta">{yearly ? 'RM8.25' : 'RM9.90'}</span>
                 <span className="font-semibold text-[14px] leading-[21.7px] text-[#6b7280] font-jakarta">/ month</span>
               </div>
-              <p className="text-[12px] text-[#6b7280] font-manrope text-center">3-month lock-in for monthly. Inclusive of SST.</p>
+              <p className="text-[12px] text-[#6b7280] font-manrope text-center">{yearly ? 'Billed Annually. Total may differ. Inclusive SST.' : '3-month lock-in for monthly. Inclusive of SST.'}</p>
               <Button variant="primary" className="w-full py-3.5 btn-cta-pricing" onClick={() => onSubscribe?.(yearly ? 'yearly' : 'monthly')}>Subscribe now</Button>
               <Button variant="link" as="a" href="#" className="pt-2.5">Learn More</Button>
             </div>

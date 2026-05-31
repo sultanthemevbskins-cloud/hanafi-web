@@ -1,5 +1,45 @@
 # CTOS Web — Claude Code Instructions
 
+---
+
+## 🚨 MANDATORY VISUAL FIX RULE — NO EXCEPTIONS
+
+**Before saying "fixed" / "done" for ANY visual change:**
+
+1. Screenshot `http://localhost:8080`
+2. Screenshot `https://ctos-web.vercel.app` (source of truth)
+3. Compare them side by side
+4. Fix remaining differences
+5. Repeat until matching
+6. **Only then write "done"**
+
+> ❌ Writing code ≠ fixed. The fix is not done until screenshots match.
+> This rule was violated 3× on the header gap, 3× on the footer, 3× on App Promo.
+
+### Known traps — never repeat these
+
+| Trap | Consequence |
+|---|---|
+| Not reading React source CSS first | Built dark hero — original is TEAL gradient |
+| `wp:image {"width":"50%"}` | Block validator fails → white box |
+| `margin-top: auto` in wp:buttons JSON | "Attempt recovery" block error |
+| `wp:columns` inside `wp:column` | Block validator fails |
+| `max-width: 100% !important` on footer columns | Overrides WP constrained 1280px |
+| `html, body { margin: 0 !important }` | Fights WP admin bar `margin-top: 32px` |
+| PHP named functions in pattern files | "Cannot redeclare" on second include |
+| Saying "done" without screenshotting | Same bug reported 3-4× in a row |
+
+### Read source before fixing any section
+
+```
+apps/web/src/components/Hero.tsx          ← teal gradient, h-[600px], translateX slider
+apps/web/src/components/Header.tsx        ← rgba(6,26,27,0.70) backdrop-blur-xl
+apps/web/src/components/AppPromo.tsx      ← light gradient bg, phone left, 3 QR cards
+apps/web/src/index.css                    ← btn-hero (white+orange), btn-border-spin
+```
+
+---
+
 ## Design Token Rule (CRITICAL)
 **Never use raw hex values, hardcoded font sizes, or magic numbers.**
 Every colour, spacing value, radius, shadow, z-index and duration must map to a named token from `design-tokens.json`.

@@ -6,6 +6,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/* ── Hide admin bar on frontend — eliminates 32px gap above header ── */
+add_filter( 'show_admin_bar', '__return_false' );
+
 /* ── Theme setup ─────────────────────────────────────────────────────────── */
 function ctos_setup() {
     load_theme_textdomain( 'ctos', get_template_directory() . '/languages' );
