@@ -738,8 +738,21 @@ span.ctos-grad-text,
   object-fit: cover !important; object-position: center !important;
   display: block !important; border-radius: 14px 14px 0 0 !important;
 }
-/* Body: px-5 py-5 */
+/* Body: px-5 py-5 — applies to direct children since we removed the inner group */
 .wp-block-column.ctos-segment-card .wp-block-group { padding: 1.25rem !important; flex: 1 !important; display: flex !important; flex-direction: column !important; gap: 0 !important; }
+/* When no inner group: pad heading + paragraphs directly */
+.wp-block-column.ctos-segment-card > .wp-block-heading {
+  padding: 1.25rem 1.25rem 0 !important;
+  margin-top: 0 !important;
+}
+.wp-block-column.ctos-segment-card > .wp-block-paragraph {
+  padding: 0 1.25rem !important;
+  margin-top: 0 !important;
+}
+.wp-block-column.ctos-segment-card > .wp-block-paragraph:last-child {
+  padding-bottom: 1.25rem !important;
+  margin-top: auto !important;
+}
 /* Title: font-poppins bold 18px #102a2e leading-[28px] tracking-[-0.3px] mb-3 */
 .wp-block-column.ctos-segment-card .wp-block-heading {
   font-family: 'Poppins', sans-serif !important;
