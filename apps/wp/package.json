@@ -1,0 +1,17 @@
+{
+  "name": "@ctos/wp",
+  "version": "0.0.0",
+  "private": true,
+  "description": "CTOS WordPress block theme edition",
+  "scripts": {
+    "start":   "wp-env start",
+    "stop":    "wp-env stop",
+    "destroy": "wp-env destroy",
+    "logs":    "wp-env logs",
+    "clean":   "wp-env clean all",
+    "shell":   "wp-env run cli bash"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.0.0"
+  }
+}
