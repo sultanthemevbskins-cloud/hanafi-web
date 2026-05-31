@@ -70,7 +70,60 @@ add_action( 'init', function () {
 
 remove_theme_support( 'core-block-patterns' );
 
-/* ── Navigation menu setup ───────────────────────────────────────────────── */
+/* ── wp_navigation — direct DB write (bypasses & sanitization) ───────────── */
+function ctos_ensure_navigation() {
+    global $wpdb;
+    // Check if a clean navigation already exists
+    $existing = $wpdb->get_var(
+        "SELECT ID FROM {$wpdb->posts}
+         WHERE post_type='wp_navigation' AND post_status='publish'
+           AND post_name='primary-navigation'
+         LIMIT 1"
+    );
+    if ( $existing ) return (int) $existing;
+
+    $nav = '';
+    $sections = [
+        ['Consumer', '#', [
+            ['Credit Report','#pricing'],['SecureID','#pricing'],['Credit Finder','#pricing'],
+        ]],
+        ['Commercial', '#', [
+            ['Credit Manager','#commercial'],['Single Report','#commercial'],
+            ['CTOS BizSecure','#commercial'],['CreditSCAN Quick Score','#commercial'],
+            ['CTOS Verified','#commercial'],['Business Loan','#commercial'],
+        ]],
+        ['Corporate & FI', '#', [
+            ['CTOS eKYC','#'],['Application & Decisioning','#'],['RAM Rating Rationale Report','#'],
+        ]],
+        ['International', '#', [
+            ['Singapore Report','#'],['International Report','#'],
+        ]],
+    ];
+    foreach ( $sections as [$label, $url, $children] ) {
+        $nav .= '<!-- wp:navigation-submenu {"label":"' . $label . '","url":"' . $url . '"} -->' . "\n";
+        foreach ( $children as [$cl, $cu] ) {
+            $nav .= '<!-- wp:navigation-link {"label":"' . $cl . '","url":"' . $cu . '"} /-->' . "\n";
+        }
+        $nav .= '<!-- /wp:navigation-submenu -->' . "\n";
+    }
+
+    $now = current_time('mysql');
+    $wpdb->insert( $wpdb->posts, [
+        'post_author'    => 1, 'post_date' => $now, 'post_date_gmt' => current_time('mysql',1),
+        'post_content'   => $nav, 'post_title' => 'Primary Navigation',
+        'post_status'    => 'publish', 'post_name' => 'primary-navigation',
+        'post_type'      => 'wp_navigation', 'comment_status' => 'closed',
+        'ping_status'    => 'closed', 'post_modified' => $now,
+        'post_modified_gmt' => current_time('mysql',1),
+    ]);
+    $id = (int) $wpdb->insert_id;
+    $wpdb->update( $wpdb->posts, [ 'guid' => home_url('/?p='.$id) ], ['ID'=>$id] );
+    clean_post_cache( $id );
+    return $id;
+}
+add_action( 'init', 'ctos_ensure_navigation', 5 );
+
+/* ── Classic nav menu setup (for legacy/fallback) ────────────────────────── */
 function ctos_create_nav_menus() {
     /* ── PRIMARY NAV ── */
     if ( ! wp_get_nav_menu_object( 'Primary Navigation' ) ) {

@@ -97,7 +97,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    var topItems = document.querySelectorAll('.ctos-nav-item.has-child, .ctos-header .wp-block-navigation-item.has-child');
+    var topItems = document.querySelectorAll('header.ctos-header .wp-block-navigation-item.has-child');
     topItems.forEach(function (item) {
       var link = item.querySelector(':scope > a, :scope > button, :scope > .wp-block-navigation-item__content');
       if (!link) return;
