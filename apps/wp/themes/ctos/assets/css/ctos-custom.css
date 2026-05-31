@@ -354,9 +354,8 @@ header.ctos-header .wp-block-navigation__submenu-icon svg {
 .ctos-mega-cta:hover { opacity: 0.85; }
 .ctos-mega-note { font-size: 11.5px; color: #9ca3af; }
 
-/* Push ALL page content below fixed header — cleaner than per-section margin */
-.wp-site-blocks { padding-top: 84px !important; padding-block-start: 84px !important; }
-/* Remove per-slider margin now that wp-site-blocks handles the offset */
+/* Push ALL page content below fixed header */
+.wp-site-blocks { padding-top: 59px !important; padding-block-start: 59px !important; }
 .ctos-hero-slider { margin-top: 0 !important; }
 
 /* ── Hero Slider — TEAL radial gradient, fixed height, translateX ── */
