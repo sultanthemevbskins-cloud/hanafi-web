@@ -39,6 +39,8 @@ function ctos_assets() {
     wp_enqueue_style( 'ctos-custom', get_template_directory_uri() . '/assets/css/ctos-custom.css', ['ctos-style'], wp_get_theme()->get('Version') );
     // Slider JS
     wp_enqueue_script( 'ctos-slider', get_template_directory_uri() . '/assets/js/ctos-slider.js', [], wp_get_theme()->get('Version'), true );
+    // Mega menu JS
+    wp_enqueue_script( 'ctos-mega-menu', get_template_directory_uri() . '/assets/js/ctos-mega-menu.js', [], wp_get_theme()->get('Version'), true );
 }
 add_action( 'wp_enqueue_scripts', 'ctos_assets' );
 

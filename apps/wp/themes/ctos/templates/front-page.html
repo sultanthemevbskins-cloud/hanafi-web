@@ -1,480 +1,460 @@
 <!-- wp:template-part {"slug":"header","tagName":"header","className":"ctos-header"} /-->
 
-<!-- ═══════════════════════════════════════════════════════════
-     HERO SLIDER
-     Site Editor: click any slide to edit title / description / buttons
-     Speed: edit data-speed value in the Custom HTML block
-     ═══════════════════════════════════════════════════════════ -->
-
+<!-- ═══════════════════════ HERO SLIDER ═══════════════════════
+  Site Editor: open this Custom HTML block to edit slide content.
+  Change data-speed="5500" to adjust auto-rotate speed (ms).
+ ════════════════════════════════════════════════════════════ -->
 <!-- wp:html -->
-<section class="ctos-hero-slider" data-speed="5500" aria-label="Hero slider" tabindex="0">
+<section class="ctos-hero-slider" data-speed="5500" role="region" aria-label="Hero" tabindex="0">
 
-  <!-- Slider speed config — click this block in Site Editor to change speed (ms) -->
-  <!-- Change data-speed="5500" to your preferred interval in milliseconds -->
-
-  <!-- ── SLIDE 1: Credit Score ── -->
+  <!-- ── Slide 1: Credit Score ── -->
   <div class="ctos-hero-slide">
-    <div class="ctos-hero-slide-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-6-1200x480.png')"></div>
-    <div class="ctos-hero-slide-overlay"></div>
-    <div class="ctos-hero-slide-content">
-      <p class="ctos-hero-eyebrow">Malaysia's Leading Credit Reporting Agency</p>
-      <h1 class="ctos-hero-title">Your CTOS Score.<br>Your Financial Future.</h1>
-      <p class="ctos-hero-desc">Get your full credit picture — CTOS Score plus CCRIS records from Bank Negara. See exactly what lenders see before you apply.</p>
-      <div class="ctos-hero-actions">
-        <a href="#consumer-credit-report" class="ctos-btn-primary">Get My Credit Report →</a>
-        <a href="#consumer-secureid" class="ctos-btn-outline">Explore SecureID</a>
+    <div class="ctos-hero-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-6-1200x480.png')"></div>
+    <div class="ctos-hero-overlay"></div>
+    <div class="ctos-hero-inner">
+      <div class="ctos-hero-left">
+        <p class="ctos-eyebrow-hero">Malaysia's Leading Credit Reporting Agency</p>
+        <h1 class="ctos-hero-title">Your CTOS Score.<br>Your Financial Future.</h1>
+        <p class="ctos-hero-desc">Get your full credit picture — CTOS Score plus CCRIS records from Bank Negara. See exactly what lenders see before you apply.</p>
+        <div class="ctos-hero-btns">
+          <a href="#pricing" class="ctos-btn-teal">Get My Credit Report →</a>
+          <a href="#consumer-secureid" class="ctos-btn-ghost">Explore SecureID</a>
+        </div>
+        <div class="ctos-hero-stats">
+          <div><div class="ctos-stat-val">5M</div><div class="ctos-stat-lbl">Consumer Profiles</div></div>
+          <div><div class="ctos-stat-val">1K</div><div class="ctos-stat-lbl">Partner Institutions</div></div>
+          <div><div class="ctos-stat-val">30</div><div class="ctos-stat-lbl">Years of Data</div></div>
+        </div>
       </div>
-      <div style="display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap;">
-        <div><div class="ctos-stat-value">5M</div><div class="ctos-stat-label">Consumer Profiles</div></div>
-        <div><div class="ctos-stat-value">1K</div><div class="ctos-stat-label">Partner Institutions</div></div>
-        <div><div class="ctos-stat-value">30</div><div class="ctos-stat-label">Years of Data</div></div>
+      <div class="ctos-hero-right">
+        <div class="ctos-hero-card">
+          <div style="font-family:Poppins,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:rgba(255,255,255,0.5);margin-bottom:0.75rem">CTOS Score</div>
+          <div style="font-family:Poppins,sans-serif;font-size:3.5rem;font-weight:800;color:#fff;line-height:1;margin-bottom:0.25rem">735</div>
+          <div style="font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#3fa84a;margin-bottom:1.5rem">● Very Good</div>
+          <div style="display:flex;flex-direction:column;gap:0.625rem">
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px"><span>Payment history</span><span style="color:#f2a0a0">Missed: 4</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px"><div style="width:32%;height:100%;background:#f2a0a0;border-radius:3px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px"><span>Amount of debt</span><span style="color:#f2a0a0">Util: 90%</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px"><div style="width:90%;height:100%;background:#f2a0a0;border-radius:3px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px"><span>Credit history length</span><span style="color:#e8c547">Avg: 2 yrs</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px"><div style="width:45%;height:100%;background:#e8c547;border-radius:3px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px"><span>Credit mix</span><span style="color:#2d9f4e">4 accounts</span></div><div style="height:6px;background:rgba(255,255,255,0.1);border-radius:3px"><div style="width:88%;height:100%;background:#2d9f4e;border-radius:3px"></div></div></div>
+          </div>
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;color:rgba(255,255,255,0.4)">95% of Malaysian Banks use CTOS</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ── SLIDE 2: SecureID ── -->
+  <!-- ── Slide 2: SecureID ── -->
   <div class="ctos-hero-slide">
-    <div class="ctos-hero-slide-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/04/why-loan-got-rejected-in-malaysia-2-1200x480.png')"></div>
-    <div class="ctos-hero-slide-overlay"></div>
-    <div class="ctos-hero-slide-content">
-      <p class="ctos-hero-eyebrow">24/7 Identity Protection</p>
-      <h1 class="ctos-hero-title">Protect Your Identity<br>Before It's Too Late.</h1>
-      <p class="ctos-hero-desc">Real-time credit monitoring, dark web scanning, and Takaful fraud coverage — one plan watches everything, so you don't have to.</p>
-      <div class="ctos-hero-actions">
-        <a href="#consumer-secureid" class="ctos-btn-primary">Explore SecureID →</a>
-        <a href="#consumer-credit-report" class="ctos-btn-outline">View Plans</a>
+    <div class="ctos-hero-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/04/why-loan-got-rejected-in-malaysia-2-1200x480.png')"></div>
+    <div class="ctos-hero-overlay"></div>
+    <div class="ctos-hero-inner">
+      <div class="ctos-hero-left">
+        <p class="ctos-eyebrow-hero">24/7 Identity Protection</p>
+        <h1 class="ctos-hero-title">Protect Your Identity<br>Before It's Too Late.</h1>
+        <p class="ctos-hero-desc">Real-time credit monitoring, dark web scanning, and Takaful fraud coverage — one plan watches everything, so you don't have to.</p>
+        <div class="ctos-hero-btns">
+          <a href="#consumer-secureid" class="ctos-btn-teal">Explore SecureID →</a>
+          <a href="#pricing" class="ctos-btn-ghost">View Plans</a>
+        </div>
+        <div class="ctos-hero-stats">
+          <div><div class="ctos-stat-val">RM20K</div><div class="ctos-stat-lbl">Takaful Coverage</div></div>
+          <div><div class="ctos-stat-val">24/7</div><div class="ctos-stat-lbl">Always-on Monitoring</div></div>
+          <div><div class="ctos-stat-val">4x</div><div class="ctos-stat-lbl">Credit Reports / Year</div></div>
+        </div>
       </div>
-      <div style="display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;">
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">Dark Web Scanning</div>
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">Up to RM20k Takaful</div>
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">Real-time Alerts</div>
+      <div class="ctos-hero-right">
+        <div class="ctos-hero-card">
+          <div style="font-family:Poppins,sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1rem">SecureID Protection</div>
+          <div style="display:flex;flex-direction:column;gap:0.875rem">
+            <div style="background:rgba(0,123,133,0.2);border:1px solid rgba(0,123,133,0.3);border-radius:10px;padding:0.875rem;display:flex;align-items:center;gap:0.75rem"><span style="font-size:1.25rem">🔐</span><div><div style="font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">Credit Monitoring</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Real-time alerts active</div></div><span style="margin-left:auto;font-size:10px;background:#3fa84a;color:#fff;padding:2px 8px;border-radius:100px;font-family:Poppins,sans-serif;font-weight:600">ON</span></div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.875rem;display:flex;align-items:center;gap:0.75rem"><span style="font-size:1.25rem">🌐</span><div><div style="font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">Dark Web Scan</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">No breaches found</div></div><span style="margin-left:auto;font-size:10px;background:#3fa84a;color:#fff;padding:2px 8px;border-radius:100px;font-family:Poppins,sans-serif;font-weight:600">SAFE</span></div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:0.875rem;display:flex;align-items:center;gap:0.75rem"><span style="font-size:1.25rem">🛡️</span><div><div style="font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">Takaful Coverage</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">Up to RM20,000</div></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ── SLIDE 3: Business ── -->
+  <!-- ── Slide 3: Business ── -->
   <div class="ctos-hero-slide">
-    <div class="ctos-hero-slide-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/04/ctos-vs-crris.jpg')"></div>
-    <div class="ctos-hero-slide-overlay"></div>
-    <div class="ctos-hero-slide-content">
-      <p class="ctos-hero-eyebrow">Business Credit Intelligence</p>
-      <h1 class="ctos-hero-title">Power Your Business<br>Decisions with CTOS.</h1>
-      <p class="ctos-hero-desc">Malaysia's No.1 credit management platform. Evaluate, monitor, and manage business credit risk with FICO-powered scoring.</p>
-      <div class="ctos-hero-actions">
-        <a href="#commercial-credit-manager" class="ctos-btn-primary">Explore Credit Manager →</a>
-        <a href="#commercial-verified" class="ctos-btn-outline">Get CTOS Verified</a>
+    <div class="ctos-hero-bg" style="background-image:url('https://ctoscredit.com.my/wp-content/uploads/2026/04/ctos-vs-crris.jpg')"></div>
+    <div class="ctos-hero-overlay"></div>
+    <div class="ctos-hero-inner">
+      <div class="ctos-hero-left">
+        <p class="ctos-eyebrow-hero">Business Credit Intelligence</p>
+        <h1 class="ctos-hero-title">Power Your Business<br>Decisions with CTOS.</h1>
+        <p class="ctos-hero-desc">Malaysia's No.1 credit management platform. Evaluate, monitor, and manage business credit risk with FICO-powered scoring.</p>
+        <div class="ctos-hero-btns">
+          <a href="#commercial" class="ctos-btn-teal">Explore Credit Manager →</a>
+          <a href="#commercial-verified" class="ctos-btn-ghost">Get CTOS Verified</a>
+        </div>
+        <div class="ctos-hero-stats">
+          <div><div class="ctos-stat-val">1.3M+</div><div class="ctos-stat-lbl">Companies in DB</div></div>
+          <div><div class="ctos-stat-val">200+</div><div class="ctos-stat-lbl">Countries</div></div>
+          <div><div class="ctos-stat-val">FICO</div><div class="ctos-stat-lbl">Powered Scoring</div></div>
+        </div>
       </div>
-      <div style="display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;">
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">FICO-Powered Scoring</div>
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">6 Business Solutions</div>
-        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:0.75rem 1.25rem;font-family:Poppins,sans-serif;font-size:13px;font-weight:600;color:#fff">200+ Countries</div>
+      <div class="ctos-hero-right">
+        <div class="ctos-hero-card">
+          <div style="font-family:Poppins,sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1rem">Business Solutions</div>
+          <div style="display:flex;flex-direction:column;gap:0.625rem">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.75rem;font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">📈 Credit Manager — Subscription plan</div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.75rem;font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">📄 Single Report — Pay per report</div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.75rem;font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#fff">🔐 BizSecure — From RM100/device/mo</div>
+            <div style="background:rgba(0,123,133,0.2);border:1px solid rgba(0,123,133,0.4);border-radius:8px;padding:0.75rem;font-family:Poppins,sans-serif;font-size:12px;font-weight:600;color:#0bb1be">✅ CTOS Verified — Get certified today</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Slider dot navigation -->
-  <div class="ctos-hero-dots" role="tablist" aria-label="Slide navigation">
-    <button class="ctos-dot" role="tab" aria-label="Slide 1"></button>
-    <button class="ctos-dot" role="tab" aria-label="Slide 2"></button>
-    <button class="ctos-dot" role="tab" aria-label="Slide 3"></button>
+  <!-- Dots -->
+  <div class="ctos-hero-dots" role="tablist">
+    <button class="ctos-dot" aria-label="Slide 1"></button>
+    <button class="ctos-dot" aria-label="Slide 2"></button>
+    <button class="ctos-dot" aria-label="Slide 3"></button>
   </div>
 
 </section>
 <!-- /wp:html -->
 
 
-<!-- ═══════════════════════════════════════════════════════════
-     WELCOME / BRAND SECTION
-     Site Editor: click any text block to edit
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════ WELCOME SECTION ═══════════════════
+  "Trusted Intelligence" — 5 segment cards
+  Site Editor: click any card to edit name/description/CTA
+ ════════════════════════════════════════════════════════════ -->
+<!-- wp:html -->
+<section class="ctos-welcome-section">
+  <div class="ctos-welcome-inner">
+    <p class="ctos-section-label">Trusted Intelligence</p>
+    <h2 class="ctos-section-h2"><span class="gray">Welcome to </span><span class="grad">CTOS Digital.</span></h2>
+    <p class="ctos-section-body">Whether you're an everyday consumer or part of a large financial institution, CTOS provides credit insights designed to support every level of decision-making. Take a moment to check your credit health today!</p>
 
-<!-- wp:group {"tagName":"section","className":"ctos-welcome","layout":{"type":"constrained"}} -->
-<section class="wp-block-group ctos-welcome">
-  <!-- wp:group {"className":"ctos-welcome-inner","layout":{"type":"flex","flexDirection":"row","justifyContent":"space-between","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"3rem"}}} -->
-  <div class="wp-block-group ctos-welcome-inner">
-    <!-- wp:group {"layout":{"type":"flex","flexDirection":"column"},"style":{"spacing":{"blockGap":"1rem"},"layout":{"selfStretch":"fill","flexSize":null}}} -->
-    <div class="wp-block-group">
-      <!-- wp:paragraph {"style":{"typography":{"fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.2em"},"color":{"text":"#f2b530"}},"fontSize":"xs"} -->
-      <p class="has-text-color" style="color:#f2b530;font-family:Poppins,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;font-size:11px">Established 1990 · Credit Reporting Agency Act 2010</p>
-      <!-- /wp:paragraph -->
-      <!-- wp:heading {"level":2,"style":{"typography":{"fontWeight":"800","lineHeight":"1.1","letterSpacing":"-1.5px"},"color":{"text":"#ffffff"}},"fontSize":"2xl"} -->
-      <h2 class="wp-block-heading has-text-color" style="color:#fff;font-weight:800;line-height:1.1;letter-spacing:-1.5px">Malaysia trusts CTOS.<br><span style="color:#0bb1be">5 million</span> profiles. 30 years of data.</h2>
-      <!-- /wp:heading -->
-      <!-- wp:paragraph {"style":{"color":{"text":"rgba(255,255,255,0.7)"},"typography":{"lineHeight":"1.7"}},"fontSize":"base"} -->
-      <p class="has-text-color" style="color:rgba(255,255,255,0.7);line-height:1.7">Established in 1990, CTOS is Malaysia's leading Credit Reporting Agency (CRA) under the ambit of the Credit Reporting Agencies Act 2010. We facilitate credit extensions by empowering individuals and businesses with access to crucial information at greater ease and speed.</p>
-      <!-- /wp:paragraph -->
-      <!-- wp:html -->
-      <div class="ctos-trust-badges">
-        <div class="ctos-trust-badge">🏦 95% of Malaysian Banks</div>
-        <div class="ctos-trust-badge">📊 2M+ Loan Checks / Month</div>
-        <div class="ctos-trust-badge">🔒 BNM Regulated CRA</div>
-        <div class="ctos-trust-badge">⭐ 30+ Years of Data</div>
-      </div>
-      <!-- /wp:html -->
-    </div>
-    <!-- /wp:group -->
-  </div>
-  <!-- /wp:group -->
-</section>
-<!-- /wp:group -->
+    <div class="ctos-segment-grid">
 
-
-<!-- ═══════════════════════════════════════════════════════════
-     CONSUMER PRODUCTS
-     Site Editor: click on any card name/description/button to edit
-     ═══════════════════════════════════════════════════════════ -->
-
-<!-- wp:group {"tagName":"section","id":"consumer-products","className":"ctos-section","style":{"color":{"background":"#ffffff"}},"layout":{"type":"constrained"}} -->
-<section id="consumer-products" class="wp-block-group ctos-section" style="background:#fff">
-  <!-- wp:group {"className":"ctos-section-inner","layout":{"type":"constrained"}} -->
-  <div class="wp-block-group ctos-section-inner">
-    <!-- wp:paragraph {"className":"ctos-eyebrow"} --><p class="ctos-eyebrow">For Individuals</p><!-- /wp:paragraph -->
-    <!-- wp:heading {"level":2,"className":"ctos-section-title","style":{"typography":{"letterSpacing":"-1px"}}} -->
-    <h2 class="wp-block-heading ctos-section-title">Consumer <span class="accent">Products</span></h2>
-    <!-- /wp:heading -->
-    <!-- wp:paragraph {"className":"ctos-section-subtitle"} --><p class="ctos-section-subtitle">Take control of your credit health. Access your score, protect your identity, and find the right loan in minutes.</p><!-- /wp:paragraph -->
-
-    <!-- wp:html -->
-    <div class="ctos-cards-grid">
-
-      <!-- Card: Credit Report -->
-      <div class="ctos-card" id="consumer-credit-report">
-        <div class="ctos-card-icon" style="background:rgba(11,177,190,0.12);color:#0bb1be">📋</div>
-        <div class="ctos-card-name">Credit Report</div>
-        <div class="ctos-card-tagline">Your full credit picture in one place.</div>
-        <div class="ctos-card-desc">Get your CTOS Score plus CCRIS records from Bank Negara. See exactly what lenders see.</div>
-        <ul class="ctos-card-features">
-          <li>CTOS Score with full breakdown</li>
-          <li>CCRIS records from Bank Negara Malaysia</li>
-          <li>Litigation &amp; bankruptcy history</li>
-          <li>Business directorship &amp; SSM data</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#0bb1be">Learn More →</a>
-          <span class="ctos-card-note">RM27.90 / report</span>
+      <a href="#pricing" class="ctos-segment-card">
+        <div class="ctos-segment-img">
+          <img src="https://ctos-web.vercel.app/assets/welcome-consumer-XSMZaki3.png" alt="Consumer" loading="lazy" />
+          <div class="ctos-segment-overlay" style="background:linear-gradient(144deg,#e5deff 0%,#d2efe0 100%)"></div>
         </div>
-      </div>
-
-      <!-- Card: SecureID -->
-      <div class="ctos-card" id="consumer-secureid">
-        <div class="ctos-card-icon" style="background:rgba(0,123,133,0.12);color:#007b85">🛡️</div>
-        <div class="ctos-card-name">SecureID</div>
-        <div class="ctos-card-tagline">24/7 identity protection, always on.</div>
-        <div class="ctos-card-desc">Real-time credit monitoring, dark web scanning, and Takaful fraud coverage — one plan watches everything.</div>
-        <ul class="ctos-card-features">
-          <li>Real-time credit monitoring alerts</li>
-          <li>Dark web &amp; data breach scanning</li>
-          <li>4 MyCTOS Score reports yearly</li>
-          <li>Takaful fraud coverage up to RM20,000</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#007b85">Learn More →</a>
-          <span class="ctos-card-note">From RM9.90 / month</span>
+        <div class="ctos-segment-body">
+          <h3 class="ctos-segment-name">Consumer</h3>
+          <p class="ctos-segment-desc">Check your CTOS Score, monitor identity theft, compare matched loans, and dispute errors on your credit record.</p>
+          <span class="ctos-segment-cta">Get free report <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
+      </a>
 
-      <!-- Card: Credit Finder -->
-      <div class="ctos-card" id="consumer-credit-finder">
-        <div class="ctos-card-icon" style="background:rgba(242,181,48,0.12);color:#f2b530">🔍</div>
-        <div class="ctos-card-name">Credit Finder</div>
-        <div class="ctos-card-tagline">Match to the best loan for your profile.</div>
-        <div class="ctos-card-desc">Compare personalised loan and credit card offers from 50+ banks, matched to your credit score in seconds.</div>
-        <ul class="ctos-card-features">
-          <li>Personalised loan &amp; card matching</li>
-          <li>Compare rates from 50+ banks</li>
-          <li>Zero impact on your credit score</li>
-          <li>Instant eligibility check</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#f2b530;color:#102a2e">Learn More →</a>
-          <span class="ctos-card-note">Free to use</span>
+      <a href="#commercial" class="ctos-segment-card">
+        <div class="ctos-segment-img">
+          <img src="https://ctos-web.vercel.app/assets/welcome-commercial-CTH91lQu.png" alt="Commercial" loading="lazy" />
+          <div class="ctos-segment-overlay" style="background:linear-gradient(144deg,#ffe9d0 0%,#fcd0ab 100%)"></div>
         </div>
-      </div>
-
-    </div>
-    <!-- /wp:html -->
-  </div>
-  <!-- /wp:group -->
-</section>
-<!-- /wp:group -->
-
-
-<!-- ═══════════════════════════════════════════════════════════
-     COMMERCIAL PRODUCTS
-     Site Editor: click on any card to edit content
-     ═══════════════════════════════════════════════════════════ -->
-
-<!-- wp:group {"tagName":"section","id":"commercial-products","className":"ctos-section","style":{"color":{"background":"#f9fafb"}},"layout":{"type":"constrained"}} -->
-<section id="commercial-products" class="wp-block-group ctos-section" style="background:#f9fafb">
-  <div class="wp-block-group ctos-section-inner">
-    <!-- wp:paragraph {"className":"ctos-eyebrow"} --><p class="ctos-eyebrow">For Businesses</p><!-- /wp:paragraph -->
-    <!-- wp:heading {"level":2,"className":"ctos-section-title"} -->
-    <h2 class="wp-block-heading ctos-section-title">Commercial <span class="accent">Solutions</span></h2>
-    <!-- /wp:heading -->
-    <!-- wp:paragraph {"className":"ctos-section-subtitle"} --><p class="ctos-section-subtitle">From startup to enterprise — CTOS has the data intelligence tools to grow and protect your business.</p><!-- /wp:paragraph -->
-
-    <!-- wp:html -->
-    <div class="ctos-cards-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
-
-      <div class="ctos-card" id="commercial-credit-manager">
-        <div class="ctos-card-icon" style="background:rgba(11,177,190,0.12);color:#0bb1be">📈</div>
-        <div class="ctos-card-name">Credit Manager</div>
-        <div class="ctos-card-tagline">Malaysia's No.1 credit management solution.</div>
-        <div class="ctos-card-desc">Evaluate, monitor, and manage business credit risk on one interactive platform. Powered by FICO scoring.</div>
-        <ul class="ctos-card-features">
-          <li>Comprehensive client credit reports</li>
-          <li>Automated monitoring &amp; profile alerts</li>
-          <li>FICO-powered business credit scoring</li>
-          <li>CTOS eTR electronic trade reference</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#0bb1be">Learn More →</a>
-          <span class="ctos-card-note">Subscription plan</span>
+        <div class="ctos-segment-body">
+          <h3 class="ctos-segment-name">Commercial</h3>
+          <p class="ctos-segment-desc">SMEs and traders, search 1.3M+ companies, run litigation checks, and screen partners for compliance risk.</p>
+          <span class="ctos-segment-cta">Search companies <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
+      </a>
 
-      <div class="ctos-card" id="commercial-single-report">
-        <div class="ctos-card-icon" style="background:rgba(241,93,34,0.12);color:#f15d22">📄</div>
-        <div class="ctos-card-name">Single Report</div>
-        <div class="ctos-card-tagline">One-off business credit report, on demand.</div>
-        <div class="ctos-card-desc">Buy a single comprehensive business credit report for any Malaysian company. No subscription required.</div>
-        <ul class="ctos-card-features">
-          <li>SSM filings &amp; company CCRIS data</li>
-          <li>Litigation &amp; bankruptcy records</li>
-          <li>Directorship &amp; ownership links</li>
-          <li>Pay per report, no commitment</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#f15d22">Learn More →</a>
-          <span class="ctos-card-note">Pay per report</span>
+      <a href="#" class="ctos-segment-card">
+        <div class="ctos-segment-img">
+          <img src="https://ctos-web.vercel.app/assets/welcome-corporate-D-Pd1Tu4.png" alt="Corporate" loading="lazy" />
+          <div class="ctos-segment-overlay" style="background:linear-gradient(144deg,#e5deff 0%,#d6ccfa 100%)"></div>
         </div>
-      </div>
-
-      <div class="ctos-card" id="commercial-bizsecure">
-        <div class="ctos-card-icon" style="background:rgba(0,123,133,0.12);color:#007b85">🔐</div>
-        <div class="ctos-card-name">CTOS BizSecure</div>
-        <div class="ctos-card-tagline">24/7 managed cybersecurity for SMEs.</div>
-        <div class="ctos-card-desc">Always-on threat detection and rapid expert response — no in-house security team required.</div>
-        <ul class="ctos-card-features">
-          <li>24/7 monitoring &amp; threat detection</li>
-          <li>Expert-led rapid incident response</li>
-          <li>Ransomware &amp; data breach protection</li>
-          <li>PDPA &amp; Cyber Act 2024 compliant</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#007b85">Learn More →</a>
-          <span class="ctos-card-note">From RM100/device/mo</span>
+        <div class="ctos-segment-body">
+          <h3 class="ctos-segment-name">Corporate</h3>
+          <p class="ctos-segment-desc">Bulk credit decisioning, KYC, AML screening, and portfolio monitoring for large enterprises and conglomerates.</p>
+          <span class="ctos-segment-cta">Talk to sales <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
+      </a>
 
-      <div class="ctos-card" id="commercial-creditscan">
-        <div class="ctos-card-icon" style="background:rgba(99,102,241,0.12);color:#6366f1">⚡</div>
-        <div class="ctos-card-name">CreditSCAN Quick Score</div>
-        <div class="ctos-card-tagline">Instant RAM-powered business risk score.</div>
-        <div class="ctos-card-desc">Get a fast credit score for any Malaysian company. Instant risk grading backed by RAM Rating methodology.</div>
-        <ul class="ctos-card-features">
-          <li>RAM-powered credit scoring model</li>
-          <li>Instant company risk grade</li>
-          <li>Credit limit recommendation</li>
-          <li>Pay per report, no subscription</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#6366f1">Learn More →</a>
-          <span class="ctos-card-note">Pay per report</span>
+      <a href="#" class="ctos-segment-card">
+        <div class="ctos-segment-img">
+          <img src="https://ctos-web.vercel.app/assets/welcome-fibanks-Ci6Muxg6.png" alt="FI Banks" loading="lazy" />
+          <div class="ctos-segment-overlay" style="background:linear-gradient(144deg,#eaecef 0%,#c8d5f8 100%)"></div>
         </div>
-      </div>
-
-      <div class="ctos-card" id="commercial-verified">
-        <div class="ctos-card-icon" style="background:rgba(5,150,105,0.12);color:#059669">✅</div>
-        <div class="ctos-card-name">CTOS Verified</div>
-        <div class="ctos-card-tagline">Boost your company credibility with a trusted seal.</div>
-        <div class="ctos-card-desc">Get the CTOS Verified seal to win instant customer trust, stand out from competitors, and close deals faster.</div>
-        <ul class="ctos-card-features">
-          <li>Official CTOS Verified business seal</li>
-          <li>Win trust &amp; close deals faster</li>
-          <li>Exclusive networking &amp; training perks</li>
-          <li>Up to RM7,828 in added value</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#059669">Get Verified →</a>
-          <span class="ctos-card-note">Business certification</span>
+        <div class="ctos-segment-body">
+          <h3 class="ctos-segment-name">FI / Banks</h3>
+          <p class="ctos-segment-desc">CCRIS integration, real-time API data services, score analytics, and end-to-end loan origination workflows.</p>
+          <span class="ctos-segment-cta">Request a demo <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
-      </div>
+      </a>
 
-      <div class="ctos-card" id="commercial-loan">
-        <div class="ctos-card-icon" style="background:rgba(242,181,48,0.12);color:#f2b530">💼</div>
-        <div class="ctos-card-name">Business Loan</div>
-        <div class="ctos-card-tagline">Find the right financing for your business.</div>
-        <div class="ctos-card-desc">Match your business profile against multiple loan options from banks and financiers across Malaysia.</div>
-        <ul class="ctos-card-features">
-          <li>Compare rates &amp; eligibility instantly</li>
-          <li>SME &amp; commercial financing options</li>
-          <li>Free to search, no commitment</li>
-        </ul>
-        <div class="ctos-card-footer">
-          <a href="#" class="ctos-card-cta" style="background:#f2b530;color:#102a2e">Find a Loan →</a>
-          <span class="ctos-card-note">Free to use</span>
+      <a href="#" class="ctos-segment-card">
+        <div class="ctos-segment-img">
+          <img src="https://ctos-web.vercel.app/assets/welcome-global-BpJX6odz.png" alt="Global" loading="lazy" />
+          <div class="ctos-segment-overlay" style="background:linear-gradient(144deg,#d7efe2 0%,#bce3ce 100%)"></div>
         </div>
-      </div>
+        <div class="ctos-segment-body">
+          <h3 class="ctos-segment-name">Global</h3>
+          <p class="ctos-segment-desc">Cross-border credit intelligence across ASEAN, sanctions, PEP screening, and international business reports.</p>
+          <span class="ctos-segment-cta">Explore markets <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
 
-    </div>
-    <!-- /wp:html -->
-  </div>
-</section>
-<!-- /wp:group -->
-
-
-<!-- ═══════════════════════════════════════════════════════════
-     APP PROMO SECTION
-     Site Editor: click text or buttons to edit
-     ═══════════════════════════════════════════════════════════ -->
-
-<!-- wp:group {"tagName":"section","className":"ctos-app-promo","layout":{"type":"constrained"}} -->
-<section class="wp-block-group ctos-app-promo">
-  <!-- wp:html -->
-  <div class="ctos-app-promo-inner">
-    <div style="max-width:560px">
-      <h2 style="font-family:Poppins,sans-serif;font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;color:#fff;letter-spacing:-1px;margin:0 0 0.75rem">Download the CTOS App!</h2>
-      <p style="font-size:16px;color:rgba(255,255,255,0.8);line-height:1.65;margin:0 0 1.5rem">View your credit details, track score changes, and manage your CTOS account on mobile. Available on iOS and Android.</p>
-      <div class="ctos-app-stores">
-        <a href="https://apps.ctos.com.my" class="ctos-store-btn">
-          🍎 App Store
-        </a>
-        <a href="https://apps.ctos.com.my" class="ctos-store-btn">
-          🤖 Google Play
-        </a>
-      </div>
-    </div>
-    <div style="background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.25);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:1rem">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https%3A%2F%2Fapps.ctos.com.my&margin=8&format=png" alt="QR code to download CTOS app" style="width:80px;height:80px;border-radius:8px;background:#fff;padding:4px" />
-      <div>
-        <p style="font-family:Poppins,sans-serif;font-weight:600;color:#fff;font-size:14px;margin:0 0 4px">Scan to Download</p>
-        <p style="color:rgba(255,255,255,0.7);font-size:13px;margin:0">Point your camera at the QR code to install the CTOS app</p>
-      </div>
     </div>
   </div>
-  <!-- /wp:html -->
 </section>
-<!-- /wp:group -->
+<!-- /wp:html -->
 
 
-<!-- ═══════════════════════════════════════════════════════════
-     KNOWLEDGE CENTRE
-     Site Editor: click article blocks to edit images/titles/links
-     ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════ CONSUMER PRODUCTS ═════════════════
+  3 pricing cards matching the exact Vercel design
+  Site Editor: click any card element to edit
+ ════════════════════════════════════════════════════════════ -->
+<!-- wp:html -->
+<section id="pricing" class="ctos-pricing-section">
+  <div class="ctos-pricing-inner">
+    <h2 class="ctos-section-h2"><span class="grad">For Consumers. </span><span class="gray">Check. Protect. Find.</span></h2>
+    <p class="ctos-section-body" style="margin-bottom:0">Get your full CTOS Score report, safeguard your identity around the clock with SecureID, and discover the best loan matched to your profile — three ways to take control of your financial health.</p>
 
-<!-- wp:group {"tagName":"section","className":"ctos-learn","layout":{"type":"constrained"}} -->
-<section class="wp-block-group ctos-learn">
-  <div class="ctos-learn-inner">
-    <!-- wp:paragraph {"className":"ctos-eyebrow"} --><p class="ctos-eyebrow">Knowledge Centre</p><!-- /wp:paragraph -->
-    <!-- wp:heading {"level":2,"className":"ctos-section-title"} -->
-    <h2 class="wp-block-heading ctos-section-title">Learn &amp; <span class="accent">Stay Informed</span></h2>
-    <!-- /wp:heading -->
+    <div class="ctos-pricing-grid">
 
-    <!-- wp:html -->
-    <div class="ctos-article-grid" style="grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto">
-
-      <!-- Featured article (large) -->
-      <div style="grid-row:span 2">
-        <a href="https://ctoscredit.com.my/learn/why-your-loan-got-rejected-in-malaysia-and-what-to-check-first/" class="ctos-article-card" style="height:100%" target="_blank" rel="noopener">
-          <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/04/why-loan-got-rejected-in-malaysia-2.png" alt="Why Your Loan Got Rejected" style="height:220px">
-          <div class="ctos-article-body" style="padding:1.5rem">
-            <span class="ctos-article-cat">Loans</span>
-            <div class="ctos-article-title" style="font-size:1.25rem;-webkit-line-clamp:3">Why Your Loan Got Rejected in Malaysia — and What to Check First</div>
-            <p style="font-size:13px;color:#6b7280;margin-top:0.75rem;line-height:1.6">A rejection does not happen for no reason. Most rejections stem from issues in your financial profile that lenders can clearly see.</p>
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;padding-top:1rem;border-top:1px solid #eaecef">
-              <span style="font-size:10.5px;color:#9ca3af">5 min read</span>
-              <a href="https://ctoscredit.com.my/learn/why-your-loan-got-rejected-in-malaysia-and-what-to-check-first/" style="font-family:Poppins,sans-serif;font-weight:600;font-size:12px;color:#007b85" target="_blank">Read →</a>
-            </div>
+      <!-- Card 1: Credit Report (#0bb1be) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#0bb1be"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#0bb1be"></div>
+        </div>
+        <h3 class="ctos-pricing-name">Credit Report</h3>
+        <p class="ctos-pricing-desc">Credit report and score with CCRIS records, your complete credit snapshot for one adult.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CTOS Score</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CCRIS Records (BNM)</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Everything in MyCTOS Basic Report</li>
+        </ul>
+        <a href="#" style="font-family:Poppins,sans-serif;font-size:12px;color:#007b85;text-decoration:underline;margin-top:0.75rem;display:block">View Sample Report</a>
+        <div class="ctos-pricing-footer">
+          <div class="ctos-pricing-price">
+            <span class="ctos-pricing-amount">RM27.90</span>
+            <span class="ctos-pricing-period">/ report</span>
           </div>
-        </a>
+          <p class="ctos-pricing-fine">All prices are inclusive of SST.</p>
+          <a href="#" class="ctos-btn-primary-full">Get it now</a>
+          <a href="#" class="ctos-btn-link">Learn More</a>
+        </div>
       </div>
 
-      <!-- Side articles -->
+      <!-- Card 2: SecureID (#f15d22) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#f15d22"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#f15d22"></div>
+        </div>
+        <h3 class="ctos-pricing-name">SecureID</h3>
+        <p class="ctos-pricing-desc">Real-time fraud alerts, dark web monitoring &amp; takaful coverage for one adult.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Credit Monitoring alerts</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dark web &amp; data breach monitoring</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>4 MyCTOS Score reports yearly</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fraud &amp; Takaful Coverage</li>
+        </ul>
+        <div class="ctos-pricing-footer">
+          <div class="ctos-pricing-price">
+            <span class="ctos-pricing-amount">RM9.90</span>
+            <span class="ctos-pricing-period">/ month</span>
+          </div>
+          <p class="ctos-pricing-fine">3-month lock-in for monthly. Inclusive of SST.</p>
+          <a href="#" class="ctos-btn-primary-full">Subscribe now</a>
+          <a href="#" class="ctos-btn-link">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Free Basic Report (#f2b530) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#f2b530"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#f2b530"></div>
+        </div>
+        <h3 class="ctos-pricing-name">Free Basic Report</h3>
+        <p class="ctos-pricing-desc">Free essential credit and identity report, without CCRIS &amp; Score.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Personal Info (NRD)</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Business and Directorship (SSM)</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Litigation &amp; Bankruptcy records</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Non Banking (eTR)</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2 Free MyCTOS Basic Reports a year</li>
+        </ul>
+        <div class="ctos-pricing-footer">
+          <a href="#" class="ctos-btn-primary-full">Sign up now</a>
+          <a href="#" class="ctos-btn-link">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- /wp:html -->
+
+
+<!-- ═══════════════════════ COMMERCIAL PRODUCTS ═══════════════
+  3 product cards matching the Vercel design
+ ════════════════════════════════════════════════════════════ -->
+<!-- wp:html -->
+<section id="commercial" class="ctos-pricing-section mirror">
+  <div class="ctos-pricing-inner">
+    <h2 class="ctos-section-h2"><span class="grad">For Business. </span><span class="gray">Evaluate. Monitor. Protect.</span></h2>
+    <p class="ctos-section-body" style="margin-bottom:0">Manage business credit risk, run instant company checks, and secure your operations — three essential tools for every Malaysian business.</p>
+
+    <div class="ctos-pricing-grid">
+
+      <!-- Card 1: Credit Manager (#0bb1be) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#0bb1be"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#0bb1be"></div>
+        </div>
+        <h3 class="ctos-pricing-name">Credit Manager</h3>
+        <p class="ctos-pricing-desc">Evaluate, monitor, and manage business credit risk on one interactive platform.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Comprehensive client credit reports</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automated monitoring &amp; profile alerts</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Advanced business credit scoring</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CTOS eTR electronic trade reference</li>
+        </ul>
+        <div class="ctos-pricing-footer">
+          <a href="#" class="ctos-btn-primary-full">Learn More</a>
+          <a href="#" class="ctos-btn-link">View Plans</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Single Report (#f15d22) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#f15d22"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#f15d22"></div>
+        </div>
+        <h3 class="ctos-pricing-name">Single Report</h3>
+        <p class="ctos-pricing-desc">Buy a single comprehensive business credit report for any Malaysian company.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>SSM filings &amp; company CCRIS data</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Litigation &amp; bankruptcy records</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Directorship &amp; ownership links</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Pay per report, no commitment</li>
+        </ul>
+        <div class="ctos-pricing-footer">
+          <a href="#" class="ctos-btn-primary-full">Buy Report</a>
+          <a href="#" class="ctos-btn-link">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Card 3: CTOS BizSecure (#007b85) -->
+      <div class="ctos-pricing-card">
+        <div class="ctos-pricing-bar">
+          <div class="ctos-pricing-bar-bg" style="background:#007b85"></div>
+          <div class="ctos-pricing-bar-fill" style="background:#007b85"></div>
+        </div>
+        <h3 class="ctos-pricing-name">CTOS BizSecure</h3>
+        <p class="ctos-pricing-desc">Always-on threat detection and rapid expert response — no in-house security team required.</p>
+        <ul class="ctos-pricing-features">
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>24/7 monitoring &amp; threat detection</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Expert-led rapid incident response</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ransomware &amp; data breach protection</li>
+          <li><span class="ctos-pricing-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#007b8518"/><path d="M5 8l2 2 4-4" stroke="#007b85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>PDPA &amp; Cyber Act 2024 compliant</li>
+        </ul>
+        <div class="ctos-pricing-footer">
+          <p class="ctos-pricing-fine" style="margin-bottom:0.5rem">From RM100 / device / month</p>
+          <a href="#" class="ctos-btn-primary-full">Learn More</a>
+          <a href="#" class="ctos-btn-link">Get a Quote</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- /wp:html -->
+
+
+<!-- ═══════════════════════ APP PROMO ═════════════════════════ -->
+<!-- wp:html -->
+<section class="ctos-app-section">
+  <div class="ctos-app-inner">
+    <div class="ctos-app-text" style="max-width:520px">
+      <h2>Download the CTOS App!</h2>
+      <p>View your credit details, track score changes and manage your CTOS account on mobile. Available on iOS and Android.</p>
+      <div class="ctos-app-stores">
+        <a href="https://apps.ctos.com.my" class="ctos-store-btn" target="_blank" rel="noopener">🍎 App Store</a>
+        <a href="https://apps.ctos.com.my" class="ctos-store-btn" target="_blank" rel="noopener">🤖 Google Play</a>
+      </div>
+    </div>
+    <div class="ctos-app-qr">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=156x156&data=https%3A%2F%2Fapps.ctos.com.my&margin=10&format=png" alt="QR code" />
+      <div class="ctos-app-qr-text">
+        <strong>Scan to Download</strong>
+        <span>Point your camera at the QR code to install the CTOS app instantly.</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /wp:html -->
+
+
+<!-- ═══════════════════════ KNOWLEDGE CENTRE ═════════════════ -->
+<!-- wp:html -->
+<section class="ctos-learn-section">
+  <div class="ctos-learn-inner">
+    <p class="ctos-section-label">Knowledge Centre</p>
+    <h2 class="ctos-section-h2"><span class="gray">Learn &amp; </span><span class="grad">Stay Informed</span></h2>
+
+    <div class="ctos-learn-grid">
+
+      <a href="https://ctoscredit.com.my/learn/why-your-loan-got-rejected-in-malaysia-and-what-to-check-first/" class="ctos-article-card featured" target="_blank" rel="noopener">
+        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/04/why-loan-got-rejected-in-malaysia-2.png" alt="Why Your Loan Got Rejected" loading="lazy" />
+        <div class="ctos-article-body">
+          <span class="ctos-article-cat">Loans</span>
+          <div class="ctos-article-title">Why Your Loan Got Rejected in Malaysia — and What to Check First</div>
+          <p style="font-size:13px;color:#6b7280;margin-top:0.5rem;line-height:1.6;flex:1">A rejection does not happen for no reason. Most rejections stem from issues in your financial profile that lenders can clearly see.</p>
+          <div class="ctos-article-meta">
+            <span class="ctos-article-time">5 min read</span>
+            <span class="ctos-article-read">Read →</span>
+          </div>
+        </div>
+      </a>
+
       <a href="https://ctoscredit.com.my/learn/how-to-improve-your-credit-report-in-malaysia-7-practical-steps-that-actually-help/" class="ctos-article-card" target="_blank" rel="noopener">
-        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-6-1200x480.png" alt="Improve Credit Report">
+        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-6-1200x480.png" alt="Improve Credit Report" loading="lazy" />
         <div class="ctos-article-body">
           <span class="ctos-article-cat">Credit Report</span>
           <div class="ctos-article-title">How to Improve Your Credit Report in Malaysia: 7 Practical Steps</div>
+          <div class="ctos-article-meta"><span class="ctos-article-time">6 min read</span><span class="ctos-article-read">Read →</span></div>
         </div>
       </a>
+
       <a href="https://ctoscredit.com.my/learn/ctos-vs-ccris-whats-the-difference-and-why-it-matters-in-malaysia/" class="ctos-article-card" target="_blank" rel="noopener">
-        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/04/ctos-vs-crris.jpg" alt="CTOS vs CCRIS">
+        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/04/ctos-vs-crris.jpg" alt="CTOS vs CCRIS" loading="lazy" />
         <div class="ctos-article-body">
           <span class="ctos-article-cat">Financial Literacy</span>
           <div class="ctos-article-title">CTOS vs CCRIS: What's the Difference and Why It Matters</div>
+          <div class="ctos-article-meta"><span class="ctos-article-time">4 min read</span><span class="ctos-article-read">Read →</span></div>
         </div>
       </a>
+
       <a href="https://ctoscredit.com.my/learn/signs-of-identity-theft-in-malaysia-and-how-credit-monitoring-can-protect-you/" class="ctos-article-card" target="_blank" rel="noopener">
-        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-1-1200x480.png" alt="Identity Theft">
+        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-1-1200x480.png" alt="Identity Theft" loading="lazy" />
         <div class="ctos-article-body">
           <span class="ctos-article-cat">Identity Protection</span>
           <div class="ctos-article-title">Signs of Identity Theft in Malaysia and How to Protect Yourself</div>
+          <div class="ctos-article-meta"><span class="ctos-article-time">4 min read</span><span class="ctos-article-read">Read →</span></div>
         </div>
       </a>
+
       <a href="https://ctoscredit.com.my/learn/what-affects-your-ctos-score-in-malaysia-a-simple-breakdown-of-the-key-factors/" class="ctos-article-card" target="_blank" rel="noopener">
-        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-1200x480.png" alt="CTOS Score Factors">
+        <img class="ctos-article-img" src="https://ctoscredit.com.my/wp-content/uploads/2026/05/Membeli-belah-Musim-Perayaan-%E2%80%93-Berbelanja-dengan-Bijak-untuk-Kesihatan-Kredit-yang-Baik-1200x480.png" alt="CTOS Score Factors" loading="lazy" />
         <div class="ctos-article-body">
           <span class="ctos-article-cat">CTOS Score</span>
           <div class="ctos-article-title">What Affects Your CTOS Score? A Simple Breakdown</div>
+          <div class="ctos-article-meta"><span class="ctos-article-time">5 min read</span><span class="ctos-article-read">Read →</span></div>
         </div>
       </a>
 
     </div>
 
-    <div style="margin-top:2rem;display:flex;justify-content:center">
-      <a href="https://ctoscredit.com.my/learn/" target="_blank" rel="noopener" class="ctos-btn-outline" style="border-color:rgba(0,123,133,0.35);color:#007b85;border-width:1px">View all articles →</a>
-    </div>
-    <!-- /wp:html -->
-  </div>
-</section>
-<!-- /wp:group -->
-
-
-<!-- ═══════════════════════════════════════════════════════════
-     CONTACT / CTA BAND
-     Site Editor: click heading, description, or button to edit
-     ═══════════════════════════════════════════════════════════ -->
-
-<!-- wp:group {"tagName":"section","style":{"color":{"background":"#fff"},"spacing":{"padding":{"top":"5rem","bottom":"5rem"}}},"layout":{"type":"constrained"}} -->
-<section class="wp-block-group" style="background:#fff;padding:5rem 2.5rem">
-  <!-- wp:html -->
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start">
-    <!-- Left: heading + form -->
-    <div>
-      <p style="font-family:Poppins,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2.4px;color:#007b85;margin-bottom:0.75rem">Get in Touch</p>
-      <h2 style="font-family:Poppins,sans-serif;font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;color:#102a2e;letter-spacing:-1px;line-height:1.15;margin-bottom:0.5rem">Have a question? <span style="background:linear-gradient(90deg,#007b85,#f2b530);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">We're here to help.</span></h2>
-      <p style="font-size:15px;color:#6b7280;line-height:1.65;margin-bottom:2.5rem">Send us a message and our team will get back to you within one business day.</p>
-      <!-- Contact form shortcode placeholder -->
-      <div style="background:#f9fafb;border:1px solid #eaecef;border-radius:16px;padding:2rem;font-family:Poppins,sans-serif;font-size:14px;color:#6b7280;text-align:center">
-        💬 Add your contact form here.<br>
-        <small>Use Contact Form 7 or WPForms, then paste the shortcode here via a Shortcode block.</small>
-      </div>
-    </div>
-    <!-- Right: Call Us card -->
-    <div style="display:flex;flex-direction:column;gap:1.5rem">
-      <div style="background:linear-gradient(135deg,#007b85,#0d3438);border-radius:16px;padding:1.75rem;color:#fff">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
-          <div style="font-family:Poppins,sans-serif;font-weight:700;font-size:15px;display:flex;align-items:center;gap:0.5rem">📞 Call Us</div>
-        </div>
-        <div style="font-size:22px;font-family:Poppins,sans-serif;font-weight:800;letter-spacing:-0.5px;margin-bottom:0.5rem">1 300 88 2867</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:1.25rem">Mon – Fri: 9am – 6pm<br>Sat: 9am – 1pm</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.5)">🌐 www.ctoscredit.com.my</div>
-      </div>
-      <div style="background:#f9fafb;border:1px solid #eaecef;border-radius:16px;padding:1.5rem">
-        <div style="font-family:Poppins,sans-serif;font-weight:700;font-size:14px;color:#102a2e;margin-bottom:1rem">Frequently Asked Questions</div>
-        <div style="display:flex;flex-direction:column;gap:0.75rem">
-          <div style="font-size:13.5px;color:#374151;padding-bottom:0.75rem;border-bottom:1px solid #f0f0f0">What is a CTOS score?</div>
-          <div style="font-size:13.5px;color:#374151;padding-bottom:0.75rem;border-bottom:1px solid #f0f0f0">How do I get my credit report?</div>
-          <div style="font-size:13.5px;color:#374151;padding-bottom:0.75rem;border-bottom:1px solid #f0f0f0">How to dispute inaccurate information?</div>
-          <div style="font-size:13.5px;color:#374151">What does CCRIS include?</div>
-        </div>
-      </div>
+    <div style="display:flex;justify-content:center;margin-top:2rem">
+      <a href="https://ctoscredit.com.my/learn/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 2rem;border-radius:100px;border:1px solid rgba(0,123,133,0.3);background:#fff;color:#007b85;font-family:Poppins,sans-serif;font-weight:600;font-size:13.5px;text-decoration:none;transition:background 0.2s,color 0.2s">View all articles →</a>
     </div>
   </div>
-  <!-- /wp:html -->
 </section>
-<!-- /wp:group -->
+<!-- /wp:html -->
 
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer","className":"ctos-footer"} /-->
