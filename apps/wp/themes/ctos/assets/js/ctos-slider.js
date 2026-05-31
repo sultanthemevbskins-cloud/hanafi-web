@@ -144,5 +144,13 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.ctos-hero-slider').forEach(initSlider);
+
+    /* Move footer nav block into the correct column */
+    var navTarget = document.getElementById('ctos-footer-nav-target');
+    var ftNav     = document.querySelector('.ctos-ft-nav-block.wp-block-navigation');
+    if (navTarget && ftNav) {
+      navTarget.appendChild(ftNav);
+      ftNav.style.display = '';
+    }
   });
 }());

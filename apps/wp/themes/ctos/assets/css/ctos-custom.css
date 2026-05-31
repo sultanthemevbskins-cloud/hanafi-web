@@ -715,18 +715,43 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
   font-weight: 600 !important;
 }
 .ctos-store-btn .wp-block-button__link:hover { background: rgba(255,255,255,0.25) !important; }
-/* App QR column */
-.wp-block-column.ctos-app-qr {
+/* App QR block (wp:html) */
+.ctos-app-qr-block {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 1.125rem !important;
   background: rgba(255,255,255,0.12) !important;
   border: 1.5px solid rgba(255,255,255,0.2) !important;
   border-radius: 14px !important;
   padding: 1.25rem !important;
-  display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 1.125rem !important;
 }
-.wp-block-column.ctos-app-qr .wp-block-image { flex-shrink: 0 !important; margin: 0 !important; }
-.wp-block-column.ctos-app-qr .wp-block-image img { width: 78px !important; height: 78px !important; border-radius: 6px !important; background: #fff !important; padding: 4px !important; }
-.wp-block-column.ctos-app-qr .wp-block-heading { color: #fff !important; margin-bottom: 4px !important; }
-.wp-block-column.ctos-app-qr p { color: rgba(255,255,255,0.7) !important; margin: 0 !important; }
+.ctos-app-qr-img { flex-shrink: 0; }
+.ctos-app-qr-img img { width: 78px !important; height: 78px !important; border-radius: 6px !important; background: #fff !important; padding: 4px !important; display: block; }
+.ctos-app-qr-text strong { font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 600; color: #fff; display: block; margin-bottom: 4px; }
+.ctos-app-qr-text p { font-family: 'Poppins',sans-serif; font-size: 13px; color: rgba(255,255,255,0.7); margin: 0; }
+
+/* Footer nav — move into the links column via JS */
+.ctos-ft-nav-block {
+  width: 100% !important;
+}
+.ctos-ft-nav-block.wp-block-navigation {
+  display: none; /* hidden until moved by JS */
+}
+.ctos-ft-nav-wrap .wp-block-navigation { display: block !important; }
+.ctos-ft-nav-wrap .wp-block-navigation__container {
+  flex-wrap: wrap !important;
+  gap: 0.875rem 2rem !important;
+}
+.ctos-ft-nav-wrap .wp-block-navigation-item a,
+.ctos-ft-nav-wrap .wp-block-navigation-item__content {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  color: rgba(255,255,255,0.85) !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+.ctos-ft-nav-wrap .wp-block-navigation-item a:hover { color: #fff !important; }
 
 /* ── Pricing cards (Consumer + Commercial) ────────────────── */
 .ctos-pricing-section {
