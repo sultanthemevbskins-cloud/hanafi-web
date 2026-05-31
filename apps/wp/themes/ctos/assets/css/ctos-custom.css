@@ -596,9 +596,26 @@ header.ctos-header .wp-block-navigation-item.has-child .wp-block-navigation__sub
   box-shadow: 0 0 10px rgba(45,225,234,0.7);
 }
 
-/* ── Welcome segment cards ────────────────────────────────── */
-.ctos-welcome-section { background: #fff; padding: 4rem 0; }
+/* ── Welcome section — exact Vercel values ────────────────── */
+.ctos-welcome-section { background: #fff !important; padding: 4rem 0 6rem; }
 .ctos-welcome-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
+/* Heading: font-poppins bold 54px leading-[56.7px] tracking-[-1.5px] */
+.ctos-welcome-section .wp-block-heading {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: clamp(2rem, 4.5vw, 3.375rem) !important; /* 54px */
+  font-weight: 700 !important;
+  line-height: 1.05 !important; /* 56.7/54 */
+  letter-spacing: -1.5px !important;
+  margin-bottom: 1.25rem !important;
+}
+/* Description: 17px Manrope → Lato */
+.ctos-welcome-section > .wp-block-group > .wp-block-paragraph {
+  font-family: 'Lato', sans-serif !important;
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+  color: #374151 !important;
+  margin-bottom: 4rem !important;
+}
 /* ── Gradient/gray spans — work inside any wp:heading block ── */
 span.grad,
 .wp-block-heading span.grad {
@@ -702,25 +719,59 @@ span.ctos-grad-text,
   margin-top: 2px !important;
   flex-shrink: 0 !important;
 }
-/* Segment cards on wp:column */
+/* Segment cards — exact Vercel values */
 .wp-block-column.ctos-segment-card {
   background: #fff !important;
   border: 1px solid #eaecef !important;
   border-radius: 14px !important;
   overflow: hidden !important;
   transition: box-shadow 0.2s, transform 0.2s !important;
-  cursor: pointer !important;
   display: flex !important;
   flex-direction: column !important;
   padding: 0 !important;
 }
 .wp-block-column.ctos-segment-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; transform: translateY(-4px) !important; }
-.wp-block-column.ctos-segment-card .wp-block-image { margin: 0 !important; }
-.wp-block-column.ctos-segment-card .wp-block-image img { height: 160px !important; width: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; border-radius: 14px 14px 0 0 !important; }
-.wp-block-column.ctos-segment-card .wp-block-group { padding: 1.25rem !important; flex: 1 !important; display: flex !important; flex-direction: column !important; }
-.wp-block-column.ctos-segment-card .wp-block-heading { font-family: 'Poppins',sans-serif !important; font-size: 18px !important; font-weight: 700 !important; color: #102a2e !important; line-height: 1.55 !important; letter-spacing: -0.3px !important; margin-bottom: 0.75rem !important; }
-.wp-block-column.ctos-segment-card p { font-family: 'Lato',sans-serif !important; font-size: 13px !important; color: #374151 !important; line-height: 1.55 !important; }
-.wp-block-column.ctos-segment-card a { font-family: 'Poppins',sans-serif !important; font-size: 13px !important; font-weight: 600 !important; color: #007b85 !important; text-decoration: none !important; }
+/* Image area: h-[160px] */
+.wp-block-column.ctos-segment-card .wp-block-image { margin: 0 !important; flex-shrink: 0 !important; }
+.wp-block-column.ctos-segment-card .wp-block-image img {
+  height: 160px !important; width: 100% !important;
+  object-fit: cover !important; object-position: center !important;
+  display: block !important; border-radius: 14px 14px 0 0 !important;
+}
+/* Body: px-5 py-5 */
+.wp-block-column.ctos-segment-card .wp-block-group { padding: 1.25rem !important; flex: 1 !important; display: flex !important; flex-direction: column !important; gap: 0 !important; }
+/* Title: font-poppins bold 18px #102a2e leading-[28px] tracking-[-0.3px] mb-3 */
+.wp-block-column.ctos-segment-card .wp-block-heading {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #102a2e !important;
+  line-height: 1.556 !important;
+  letter-spacing: -0.3px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.75rem !important;
+}
+/* Description: font-lato 13px #374151 leading-[20px] mb-4 */
+.wp-block-column.ctos-segment-card .wp-block-paragraph {
+  font-family: 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  color: #374151 !important;
+  line-height: 1.538 !important;
+  flex: 1 !important;
+  margin-bottom: 1rem !important;
+}
+/* CTA: font-poppins semibold 13px teal */
+.wp-block-column.ctos-segment-card p:last-child { margin-top: auto !important; margin-bottom: 0 !important; }
+.wp-block-column.ctos-segment-card a {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #007b85 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
 /* Pricing card on wp:column */
 .wp-block-column.ctos-pricing-card { padding: 0 !important; }
 /* Article cards */
@@ -785,6 +836,27 @@ span.ctos-grad-text,
 .ctos-footer .wp-block-paragraph { font-family: 'Poppins',sans-serif; color: rgba(255,255,255,0.85); }
 .ctos-footer .wp-block-image img { background: #fff; padding: 4px; border-radius: 4px; }
 
+/* Section headings inside pricing/product sections — 54px bold */
+.ctos-pricing-section .wp-block-heading,
+.ctos-pricing-section.mirror .wp-block-heading {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: clamp(2rem, 4.5vw, 3.375rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -1.5px !important;
+  margin-bottom: 1.25rem !important;
+}
+/* Section body text */
+.ctos-pricing-section > .wp-block-group > .wp-block-paragraph,
+.ctos-pricing-section > .wp-block-paragraph {
+  font-family: 'Lato', sans-serif !important;
+  font-size: clamp(15px,1.5vw,17px) !important;
+  line-height: 1.55 !important;
+  color: #374151 !important;
+  max-width: 900px !important;
+  margin-bottom: 2.75rem !important;
+}
+
 /* ── Pricing cards (Consumer + Commercial) ────────────────── */
 .ctos-pricing-section {
   padding: 4rem 0;
@@ -795,8 +867,7 @@ span.ctos-grad-text,
 }
 .ctos-pricing-inner { max-width: 1280px; margin: 0 auto; padding: 0 2.5rem; }
 
-/* Card styles applied directly to wp:column (.wp-block-column.ctos-pricing-card) */
-.ctos-pricing-card,
+/* Pricing card — exact Vercel values */
 .wp-block-column.ctos-pricing-card {
   position: relative !important;
   overflow: hidden !important;
@@ -806,11 +877,27 @@ span.ctos-grad-text,
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  padding: 2rem 1.75rem 1.75rem !important;
-  transition: transform 0.2s !important;
+  padding: 2rem 1.75rem 1.75rem !important;  /* pt-8 pb-7 px-7 */
+  transition: transform 0.2s ease !important;
 }
-.ctos-pricing-card:hover,
 .wp-block-column.ctos-pricing-card:hover { transform: translateY(-8px) !important; }
+/* Card title: font-extrabold 22px #102a2e — matches Vercel font-jakarta */
+.wp-block-column.ctos-pricing-card .wp-block-heading {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  color: #102a2e !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin-bottom: 1.25rem !important;
+}
+/* Card description */
+.wp-block-column.ctos-pricing-card .wp-block-paragraph { font-family:'Lato',sans-serif !important; font-size:14.5px !important; line-height:1.55 !important; color:#374151 !important; text-align:center !important; }
+/* Pricing price display */
+.ctos-pricing-price { display:flex; align-items:baseline; gap:4px; justify-content:center; }
+.ctos-pricing-amount { font-family:'Poppins',sans-serif; font-size:22px; font-weight:800; color:#102a2e; line-height:1.55; }
+.ctos-pricing-period { font-family:'Poppins',sans-serif; font-size:14px; font-weight:600; color:#6b7280; }
 /* Animated top bar */
 .ctos-pricing-bar {
   position: absolute; top: 0; left: 0; right: 0; height: 4px;
